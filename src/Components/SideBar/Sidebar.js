@@ -32,7 +32,7 @@ function Sidebar() {
           </div>
         </li>
         <li>
-          <div className="option">
+          <div className="option mt-5">
             <img src={plus} className="btnSizeTwo" />
             <p className="text-white">Create Playlist</p>
           </div>
