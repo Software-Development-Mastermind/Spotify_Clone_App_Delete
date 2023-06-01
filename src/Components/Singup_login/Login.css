@@ -1,3 +1,8 @@
+@font-face {
+  font-family: SpotifyFont;
+  src: url(../../fonts/Gotham-Spotify-Font/Gotham-Light.otf);
+}
+
 .login {
   display: flex;
   justify-content: flex-end;
@@ -5,6 +10,7 @@
   z-index: 2;
   position: absolute;
   width: 100%;
+  font-family: "SpotifyFont";
 }
 .loginBtns {
   display: flex;

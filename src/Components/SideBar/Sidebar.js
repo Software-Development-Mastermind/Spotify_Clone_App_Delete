@@ -11,35 +11,35 @@ function Sidebar() {
     <div className="list">
       <ul className="unorderedList">
         <li>
-          <img src={spotifyImg} className="btnSizeOne"></img>
+          <img src={spotifyImg} className="btnSizeOne" />
         </li>
         <li>
           <div className="option">
-            <img src={houseImg} className="btnSizeTwo"></img>
+            <img src={houseImg} className="btnSizeTwo" />
             <p className="text-white">Home</p>
           </div>
         </li>
         <li>
           <div className="option">
-            <img src={magGlass} className="btnSizeTwo"></img>
+            <img src={magGlass} className="btnSizeTwo" />
             <p className="text-white">Search</p>
           </div>
         </li>
         <li>
           <div className="option">
-            <img src={library} className="btnSizeTwo"></img>
-            <p className="text-white">My Library</p>
+            <img src={library} className="btnSizeTwo" />
+            <p className="text-white ml-2">My Library</p>
           </div>
         </li>
         <li>
           <div className="option">
-            <img src={plus} className="btnSizeTwo"></img>
+            <img src={plus} className="btnSizeTwo" />
             <p className="text-white">Create Playlist</p>
           </div>
         </li>
         <li>
           <div className="option">
-            <img src={heart} className="btnSizeTwo"></img>
+            <img src={heart} className="btnSizeTwo" />
             <p className="text-white">Favorites</p>
           </div>
         </li>
