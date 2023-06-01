@@ -2,6 +2,9 @@
   display: flex;
   justify-content: flex-end;
   background-color: #101010;
+  z-index: 2;
+  position: absolute;
+  width: 100%;
 }
 .loginBtns {
   display: flex;

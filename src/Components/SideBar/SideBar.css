@@ -1,0 +1,19 @@
+.list {
+  width: 15%;
+  z-index: 2;
+  position: relative;
+  background-color: #000;
+  height: 100vh;
+}
+
+.btnSize {
+  width: 30%;
+  position: relative;
+  z-index: 4;
+}
+
+.unorderedList {
+  list-style-type: none;
+  position: relative;
+  z-index: 3;
+}

@@ -1,12 +1,12 @@
 import React from "react";
-import spotifyImg from "../../Icons/spotify.png";
+import spotifyImg from "../../Icons/spotifylogo.png";
 
 function Sidebar() {
   return (
-    <div>
-      <ul>
+    <div className="list">
+      <ul className="unorderedList">
         <li>
-          <img src={spotifyImg} className=""></img>
+          <img src={spotifyImg} className="btnSize"></img>
         </li>
         <li></li>
         <li></li>
