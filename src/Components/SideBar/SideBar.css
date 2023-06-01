@@ -6,10 +6,27 @@
   height: 100vh;
 }
 
-.btnSize {
-  width: 30%;
+.option {
+  align-items: flex-start;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.btnSizeOne {
+  width: 68%;
   position: relative;
   z-index: 4;
+}
+
+.btnSizeTwo {
+  width: 13%;
+  position: relative;
+  z-index: 4;
+  margin-right: 9%;
+  display: flex;
+  justify-content: center;
+  margin-left: 3%;
 }
 
 .unorderedList {
