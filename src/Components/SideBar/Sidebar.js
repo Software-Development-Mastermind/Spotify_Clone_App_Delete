@@ -3,7 +3,8 @@ import spotifyImg from "../../Icons/spotifylogo.png";
 import houseImg from "../../Icons/houseimg.png";
 import magGlass from "../../Icons/magnifyingGlass.png";
 import library from "../../Icons/albumLibrary.png";
-import 
+import plus from "../../Icons/plusNew.png";
+import heart from "../../Icons/heart.png";
 
 function Sidebar() {
   return (
@@ -30,14 +31,18 @@ function Sidebar() {
             <p className="text-white">My Library</p>
           </div>
         </li>
-        <li><div className="option">
-            <img src={} className="btnSizeTwo"></img>
-            <p className="text-white">My Library</p>
-          </div></li>
-        <li><div className="option">
-            <img src={} className="btnSizeTwo"></img>
-            <p className="text-white">My Library</p>
-          </div></li>
+        <li>
+          <div className="option">
+            <img src={plus} className="btnSizeTwo"></img>
+            <p className="text-white">Create Playlist</p>
+          </div>
+        </li>
+        <li>
+          <div className="option">
+            <img src={heart} className="btnSizeTwo"></img>
+            <p className="text-white">Favorites</p>
+          </div>
+        </li>
       </ul>
     </div>
   );
