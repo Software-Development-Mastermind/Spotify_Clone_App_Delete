@@ -8,7 +8,17 @@ function Musicbar() {
         <p className="word_layout_genre">Genres</p>
       </div>
       <div>
-        <Card></Card>
+        <Card style={{ width: "18rem" }}>
+          <Card.Img variant="top" src="your-image-url-here" />
+          <Card.Body>
+            <Card.Title>Card Title</Card.Title>
+            <Card.Text>
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </Card.Text>
+            {/* Add more Card subcomponents as needed */}
+          </Card.Body>
+        </Card>
         <Card></Card>
         <Card></Card>
         <Card></Card>
