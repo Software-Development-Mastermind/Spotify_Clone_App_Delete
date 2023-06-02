@@ -12,7 +12,7 @@ function Musicbar() {
         <p className="word_layout_genre">Genres</p>
       </div>
       <div className="card_layout">
-        <Card style={{ width: "18rem" }}>
+        <Card style={{ width: "18rem", backgroundColor: "dimgray" }}>
           <Card.Img variant="top" src={HipHop} />
           <Card.Body>
             <Card.Title className="justify-content: center">Hip Hop</Card.Title>
