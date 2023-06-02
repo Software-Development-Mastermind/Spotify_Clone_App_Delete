@@ -21,3 +21,10 @@
   font-family: "SpotifyFont";
   color: white;
 }
+
+.card_layout {
+  display: flex;
+  margin-left: 3%;
+  justify-content: space-evenly;
+  height: 45%;
+}
