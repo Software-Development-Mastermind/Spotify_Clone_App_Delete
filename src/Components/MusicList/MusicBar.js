@@ -8,7 +8,44 @@ import Pop from "../../Images/Pop.jpg";
 import playbtn from "../../Icons/play-button.png";
 
 function Musicbar() {
-  const [isHovered, setIsHovered] = useState(false);
+  const [cards, setCards] = useState([
+    {
+      id: 1,
+      isHovered: false,
+      image: HipHop,
+      hoverImage: playbtn,
+      genre: "Hip Hop",
+      description:
+        "Dive into the vibrant beats of Hip Hop, where expressive lyrics and pulsating rhythms weave an unmistakable urban narrative",
+    },
+    {
+      id: 2,
+      isHovered: false,
+      image: Jazz,
+      hoverImage: playbtn,
+      genre: "Jazz",
+      description:
+        "Experience the timeless essence of improvisation and syncopated rhythms that breathe life into the soulful world of Jazz.",
+    },
+    {
+      id: 3,
+      isHovered: false,
+      image: Metal,
+      hoverImage: playbtn,
+      genre: "Metal",
+      description:
+        "Feel the intensity of Metal, a genre that combines powerful vocals and aggressive guitars to create a soundscape that's as relentless as it is passionate.",
+    },
+    {
+      id: 4,
+      isHovered: false,
+      image: Pop,
+      hoverImage: playbtn,
+      genre: "Pop",
+      description:
+        "Immerse yourself in the infectious rhythms of Pop, where catchy melodies and contemporary styles make you move to the beat.",
+    },
+  ]);
 
   return (
     <div className="background_color_gradient">
@@ -16,84 +53,52 @@ function Musicbar() {
         <p className="word_layout_genre">Genres</p>
       </div>
       <div className="card_layout">
-        <Card
-          style={{ width: "18rem" }}
-          className="card_layout_bgcolor"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <div className="image-container">
-            <div className={`base-image ${isHovered ? "dimmed" : ""}`}>
-              <Card.Img
-                variant="bottom"
-                src={HipHop}
-                className="card_img_genre"
-              />
-            </div>
-            {isHovered && (
-              <div className="overlay-image">
-                <Card.Img variant="top" src={playbtn} className="hover-image" />
+        {cards.map((card) => (
+          <Card
+            key={card.id} // Don't forget to provide a unique 'key' for each element in a list
+            style={{ width: "18rem" }}
+            className="card_layout_bgcolor"
+            onMouseEnter={() =>
+              setCards(
+                cards.map((c) =>
+                  c.id === card.id ? { ...c, isHovered: true } : c
+                )
+              )
+            }
+            onMouseLeave={() =>
+              setCards(
+                cards.map((c) =>
+                  c.id === card.id ? { ...c, isHovered: false } : c
+                )
+              )
+            }
+          >
+            <div className="image-container">
+              <div className={`base-image ${card.isHovered ? "dimmed" : ""}`}>
+                <Card.Img
+                  variant="bottom"
+                  src={card.image}
+                  className="card_img_genre"
+                />
               </div>
-            )}
-          </div>
-          <Card.Body>
-            <Card.Title className="justify-content: center; text-white">
-              Hip Hop
-            </Card.Title>
-            <Card.Text className="text_alter">
-              Dive into the vibrant beats of Hip Hop, where expressive lyrics
-              and pulsating rhythms weave an unmistakable urban narrative
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <Card style={{ width: "18rem" }} className="card_layout_bgcolor">
-          <Card.Img
-            variant="top"
-            src={Jazz}
-            className="image_height; card_img_genre"
-          />
-          <Card.Body>
-            <Card.Title className="justify-content: center; text-white">
-              Jazz
-            </Card.Title>
-            <Card.Text className="text_alter">
-              Experience the timeless essence of improvisation and syncopated
-              rhythms that breathe life into the soulful world of Jazz.
-            </Card.Text>
-            {/* Add more Card subcomponents as needed */}
-          </Card.Body>
-        </Card>
-        <Card style={{ width: "18rem" }} className="card_layout_bgcolor">
-          <Card.Img
-            variant="top"
-            src={Metal}
-            className="image_height; card_img_genre"
-          />
-          <Card.Body>
-            <Card.Title className="justify-content: center; text-white">
-              Metal
-            </Card.Title>
-            <Card.Text className="text_alter">
-              Feel the intensity of Metal, a genre that combines powerful vocals
-              and aggressive guitars to create a soundscape that's as relentless
-              as it is passionate.
-            </Card.Text>
-            {/* Add more Card subcomponents as needed */}
-          </Card.Body>
-        </Card>
-        <Card style={{ width: "18rem" }} className="card_layout_bgcolor">
-          <Card.Img variant="top" src={Pop} className="card_img_genre" />
-          <Card.Body>
-            <Card.Title className="justify-content: center; text-white">
-              Pop
-            </Card.Title>
-            <Card.Text className="text_alter">
-              Immerse yourself in the infectious rhythms of Pop, where catchy
-              melodies and contemporary styles make you move to the beat.
-            </Card.Text>
-            {/* Add more Card subcomponents as needed */}
-          </Card.Body>
-        </Card>
+              {card.isHovered && (
+                <div className="overlay-image">
+                  <Card.Img
+                    variant="top"
+                    src={card.hoverImage}
+                    className="hover-image"
+                  />
+                </div>
+              )}
+            </div>
+            <Card.Body>
+              <Card.Title style={{ justifyContent: "center", color: "white" }}>
+                {card.genre}
+              </Card.Title>
+              <Card.Text className="text_alter">{card.description}</Card.Text>
+            </Card.Body>
+          </Card>
+        ))}
       </div>
     </div>
   );
