@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import spotifyImg from "../../Icons/spotifylogo.png";
 import houseImg from "../../Icons/houseimg.png";
 import magGlass from "../../Icons/magnifyingGlass.png";
-import library from "../../Icons/albumLibrary.png";
-import plus from "../../Icons/plusNew.png";
-import heart from "../../Icons/heart.png";
+import shuffle from "../../Icons/shuffle.png";
 
 function Sidebar() {
   return (
@@ -32,20 +30,8 @@ function Sidebar() {
         </li>
         <li>
           <div className="option">
-            <img src={library} className="btnSizeTwo" />
-            <p className="text-white ml-2">My Library</p>
-          </div>
-        </li>
-        <li>
-          <div className="option mt-5">
-            <img src={plus} className="btnSizeTwo" />
-            <p className="text-white">Create Playlist</p>
-          </div>
-        </li>
-        <li>
-          <div className="option">
-            <img src={heart} className="btnSizeTwo" />
-            <p className="text-white">Favorites</p>
+            <img src={shuffle} className="btnSizeTwo" />
+            <p className="text-white ml-2">Randomizer</p>
           </div>
         </li>
       </ul>
