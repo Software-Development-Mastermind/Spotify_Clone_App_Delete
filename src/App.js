@@ -4,6 +4,7 @@ import "./Components/Singup_login/Login.css";
 import "./Components/SideBar/SideBar.css";
 import "./Components/Layout/Layout.css";
 import "./Components/MusicList/MusicBar.css";
+import "./Components/SearchBar/SearchBar.css";
 
 import HomePage from "./Components/HomePage";
 import SearchBar from "./Components/SearchBar/SearchBar";

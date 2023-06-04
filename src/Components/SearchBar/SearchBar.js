@@ -1,23 +1,12 @@
-import React from "react";
-import LogSignIn from "../Singup_login/Signup_login";
+import React, { useState } from "react";
 import Sidebar from "../SideBar/Sidebar";
+import LoginSearchBar from "../Singup_login/SearchLogIn";
 
 function SearchBar() {
   return (
     <div className="background_color_gradient">
-      <LogSignIn />
+      <LoginSearchBar />
       <Sidebar />
-      <form class="d-flex" className="search_bar">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success" type="submit">
-          Search
-        </button>
-      </form>
     </div>
   );
 }

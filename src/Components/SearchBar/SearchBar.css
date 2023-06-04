@@ -10,8 +10,9 @@
 .search_bar {
   width: 20%;
   height: 5%;
-  transform: translate(30px, 15px);
+  transform: translate(17rem, 15px);
   z-index: 4;
   position: relative;
   display: flex;
+  border-radius: 25px;
 }
