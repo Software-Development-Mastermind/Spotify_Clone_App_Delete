@@ -7,7 +7,7 @@ function SearchBar() {
     <div className="background_color_gradient">
       <LogSignIn />
       <Sidebar />
-      <form class="d-flex">
+      <form class="d-flex" className="search_bar">
         <input
           class="form-control me-2"
           type="search"

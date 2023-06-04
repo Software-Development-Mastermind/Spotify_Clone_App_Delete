@@ -6,3 +6,12 @@
   width: 100%;
   flex-grow: 1;
 }
+
+.search_bar {
+  width: 20%;
+  height: 5%;
+  transform: translate(30px, 15px);
+  z-index: 4;
+  position: relative;
+  display: flex;
+}
