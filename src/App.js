@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/Homepage" element={<HomePage />} />
+        <Route exact path="/" element={<HomePage />} />
         <Route path="/searchbar" element={<SearchBar />} />
       </Routes>
     </Router>

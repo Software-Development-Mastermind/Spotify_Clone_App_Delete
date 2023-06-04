@@ -15,7 +15,7 @@ function Sidebar() {
           <img src={spotifyImg} className="btnSizeOne" />
         </li>
         <li>
-          <Link to="/Homepage">
+          <Link to="/">
             <div className="option">
               <img src={houseImg} className="btnSizeTwo" />
               <p className="text-white">Home</p>

@@ -12,7 +12,7 @@
   height: 5%;
   transform: translate(17rem, 15px);
   z-index: 4;
-  position: relative;
+  position: absolute;
   display: flex;
   border-radius: 25px;
 }
