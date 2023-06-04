@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import spotifyImg from "../../Icons/spotifylogo.png";
 import houseImg from "../../Icons/houseimg.png";
 import magGlass from "../../Icons/magnifyingGlass.png";
@@ -14,16 +15,20 @@ function Sidebar() {
           <img src={spotifyImg} className="btnSizeOne" />
         </li>
         <li>
-          <div className="option">
-            <img src={houseImg} className="btnSizeTwo" />
-            <p className="text-white">Home</p>
-          </div>
+          <Link to="/Homepage">
+            <div className="option">
+              <img src={houseImg} className="btnSizeTwo" />
+              <p className="text-white">Home</p>
+            </div>
+          </Link>
         </li>
         <li>
-          <div className="option">
-            <img src={magGlass} className="btnSizeTwo" />
-            <p className="text-white">Search</p>
-          </div>
+          <Link to="/searchbar">
+            <div className="option">
+              <img src={magGlass} className="btnSizeTwo" />
+              <p className="text-white">Search</p>
+            </div>
+          </Link>
         </li>
         <li>
           <div className="option">
