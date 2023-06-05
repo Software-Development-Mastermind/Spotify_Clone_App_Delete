@@ -2,13 +2,12 @@ import React from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Card from "react-bootstrap/Card";
 
 function LogSignIn() {
   const [showModal, setShowModal] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => setShowModal(false);
   const handleShow = (login) => {
     setIsLogin(login);
     setShowModal(true);
@@ -40,7 +39,7 @@ function LogSignIn() {
           </Modal.Header>
           <Modal.Body>Here's the login form.</Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="outline-light" onClick={handleClose}>
               Close
             </Button>
           </Modal.Footer>
@@ -52,7 +51,7 @@ function LogSignIn() {
           </Modal.Header>
           <Modal.Body>Here's the sign-up form.</Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="outline-light" onClick={handleClose}>
               Close
             </Button>
           </Modal.Footer>
