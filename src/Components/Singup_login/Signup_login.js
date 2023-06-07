@@ -10,6 +10,7 @@ function LogSignIn() {
   const [isLogin, setIsLogin] = useState(true);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState();
 
   const handleClose = () => setShowModal(false);
@@ -26,11 +27,30 @@ function LogSignIn() {
     setPassword(e.target.password);
   };
 
+  const getEmail = (e) => {
+    setEmail(e.target.email);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
     axios
-      .post("/login", { userName, password })
+      .post("/login", { email, userName, password })
+      .then((response) => setMessage(response.data.success))
+      .catch((error) => {
+        if (error.response) {
+          setMessage(error.reponse.data.error);
+        } else {
+          setMessage("Error:" + error.message);
+        }
+      });
+  };
+
+  const handleNewUser = (event) => {
+    event.preventDefault();
+
+    axios
+      .post("/register", { email, userName, password })
       .then((response) => setMessage(response.data.success))
       .catch((error) => {
         if (error.response) {
@@ -63,14 +83,19 @@ function LogSignIn() {
       {isLogin ? (
         <Modal show={showModal} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Sign Up</Modal.Title>
+            <Modal.Title>Log In</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {" "}
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  onChange={getEmail}
+                  required
+                />
                 <Form.Text className="text-muted">
                   We'll never share your email with anyone else.
                 </Form.Text>
@@ -111,14 +136,19 @@ function LogSignIn() {
       ) : (
         <Modal show={showModal} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Log In</Modal.Title>
+            <Modal.Title>Sign Up</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {" "}
-            <Form>
+            <Form onSubmit={handleNewUser}>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  onChange={getEmail}
+                  required
+                />
                 <Form.Text className="text-muted">
                   We'll never share your email with anyone else.
                 </Form.Text>
