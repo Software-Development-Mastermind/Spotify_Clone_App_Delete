@@ -1,11 +1,12 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import HipHop from "../../Images/Hip_Hop.jpg";
 import Jazz from "../../Images/Jazz.jpg";
 import Metal from "../../Images/Metal.jpg";
 import Pop from "../../Images/Pop.jpg";
 import playbtn from "../../Icons/play-button.png";
+import axios from "axios";
 
 function Musicbar() {
   const [cards, setCards] = useState([
@@ -47,12 +48,28 @@ function Musicbar() {
     },
   ]);
 
+  const GetGenre = () => {
+    const [genres, setGenres] = useState(null);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        const response = await axios.post("/genre");
+        setGenres(response.data);
+      };
+
+      fetchData();
+    }, []);
+
+    if (!genres) {
+      return "Loading...";
+    }
+  };
   return (
     <div className="background_color_gradient">
       <div className="word_layout">
         <p className="word_layout_genre">Genres</p>
       </div>
-      <div className="card_layout">
+      <div className="card_layout" onClick={GetGenre}>
         {cards.map((card) => (
           <Card
             key={card.id} // Don't forget to provide a unique 'key' for each element in a list
