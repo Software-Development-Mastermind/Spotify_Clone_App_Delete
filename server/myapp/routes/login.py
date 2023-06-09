@@ -1,8 +1,13 @@
 from flask import Blueprint, request, jsonify
+from flask_oauthlib import OAuth2Client
 from werkzeug.security import check_password_hash
-from users import users  # replace with your actual database module
+from importlib import import_module
+
+users = import_module('users')
 
 bp = Blueprint('login', __name__)
+
+oauth = OAuth2Client('google')
 
 @bp.route('/login', methods=['POST'])
 def login():
@@ -10,7 +15,16 @@ def login():
     username = data.get('username')
     password = data.get('password')
     
-    if username in users and check_password_hash(users[username], password):
-        return jsonify({'success': 'Logged in successfully'}), 200
+    # Get the user's Google OAuth 2 token
+    token = oauth.get_access_token(username, password)
+
+    # Check if the user exists in the database
+    if username in users:
+        # Check if the user's Google OAuth 2 token is valid
+        if oauth.check_token(token):
+            # Login the user
+            return jsonify({'success': 'Logged in successfully'}), 200
+        else:
+            return jsonify({'error': 'Invalid Google OAuth 2 token'}), 400
     else:
         return jsonify({'error': 'Invalid username or password'}), 400
