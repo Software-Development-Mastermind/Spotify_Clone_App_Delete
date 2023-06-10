@@ -9,7 +9,11 @@ CLIENT_SECRET = "your_spotify_client_secret"
 
 # This could be a dictionary, a database query, etc.
 SONG_MAP = {
-    
+    1: "Pop",
+    2: "Rock",
+    3: "Country",
+    4: "Hip-Hop",
+    5: "Jazz",
 }
 
 @bp.route('/songs/<int:id>', methods=['POST'])
@@ -31,7 +35,7 @@ def song(id):
         "Authorization": f"Bearer {token}"
     }
     # Use genre in the endpoint, you need to adapt this to match the correct Spotify endpoint
-    endpoint = f"https://api.spotify.com/v1/browse/songs/{song}" 
+    endpoint = f"https://api.spotify.com/v1/browse/genres/{song}" 
     data = requests.get(endpoint, headers=headers).json()
 
     # Get the tracks from the API response

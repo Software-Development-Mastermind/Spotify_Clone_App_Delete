@@ -1,85 +1,71 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card } from "react-bootstrap";
 
-function SongList({ songlists }) {
-  const [cards, setCards] = useState(songlists);
-  const [fetchData, setFetchData] = useState(false);
+function SongList({ songslists }) {
+  const [songs, setSongs] = useState(songslists || []);
 
-  useEffect(
-    (songlists) => {
-      if (!fetchData) return;
-      const setCards = async () => {
-        const response = await axios.post("/songs");
-        setCards(response.data);
-        setFetchData(false);
-      };
+  useEffect(() => {
+    if (songslists) return;
 
-      setCards(songlists);
-    },
-    [fetchData]
-  );
+    const fetchData = async () => {
+      const response = await axios.post("/songs");
+      const songsWithHover = response.data.map((song) => ({
+        ...song,
+        isHovered: false,
+      }));
+      setSongs(songsWithHover);
+    };
 
-  const handleOnClick = () => {
-    setFetchData(true);
-  };
+    fetchData();
+  }, [songslists]);
 
   return (
     <div className="background_color_gradient">
       <div className="word_layout">
-        <p className="word_layout_genre">Artists</p>
+        <p className="word_layout_genre">Songs</p>
       </div>
-      <div className="card_layout" onClick={handleOnClick}>
-        {cards.map((card, index) => (
+      <div className="card_layout">
+        {songs.map((song, index) => (
           <Card
-            key={index} // Don't forget to provide a unique 'key' for each element in a list
+            key={index}
             style={{ width: "18rem" }}
             className="card_layout_bgcolor"
             onMouseEnter={() =>
-              setCards(
-                cards.map((c, i) =>
-                  i === index ? { ...c, isHovered: true } : c
+              setSongs(
+                songs.map((s, i) =>
+                  i === index ? { ...s, isHovered: true } : s
                 )
               )
             }
             onMouseLeave={() =>
-              setCards(
-                cards.map((c, i) =>
-                  i === index ? { ...c, isHovered: false } : c
+              setSongs(
+                songs.map((s, i) =>
+                  i === index ? { ...s, isHovered: false } : s
                 )
               )
             }
           >
-            <div className="image-container">
-              <div className={`base-image ${card.isHovered ? "dimmed" : ""}`}>
-                <Card.Img
-                  variant="bottom"
-                  src={card.image}
-                  className="card_img_genre"
-                />
-              </div>
-              {card.isHovered && (
-                <div className="overlay-image">
-                  <Card.Img
-                    variant="top"
-                    src={card.hoverImage} // make sure to provide hover image from your api response if it exists
-                    className="hover-image"
-                  />
-                </div>
-              )}
+            <div
+              className={`image-container ${song.isHovered ? "dimmed" : ""}`}
+            >
+              <Card.Img
+                variant="top"
+                src={song.image}
+                className="card_img_genre"
+              />
             </div>
             <Card.Body>
               <Card.Title style={{ justifyContent: "center", color: "white" }}>
-                {card.name}
+                {song.name}
               </Card.Title>
               <Card.Text className="text_alter">
-                Popularity: {card.popularity}, Followers: {card.followers}
+                Artist: {song.artist}
               </Card.Text>
             </Card.Body>
           </Card>
         ))}
       </div>
-      {cards && <SongList songlists={cards} />}
     </div>
   );
 }
