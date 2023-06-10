@@ -63,6 +63,11 @@ function Musicbar() {
     if (!genres) {
       return "Loading...";
     }
+    return (
+      <div>
+        <ArtistList genreslists={genres} />
+      </div>
+    );
   };
   return (
     <div className="background_color_gradient">
