@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import SongList from "../SongList/SongList";
 import { Card } from "react-bootstrap";
 
 function ArtistList({ genrelists }) {
@@ -79,6 +80,7 @@ function ArtistList({ genrelists }) {
           </Card>
         ))}
       </div>
+      {cards && <SongList songlists={cards} />}
     </div>
   );
 }
