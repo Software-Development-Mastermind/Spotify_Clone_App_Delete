@@ -10,7 +10,7 @@ function ArtistList({ genrelists }) {
     (genrelists) => {
       if (!fetchData) return;
       const setCards = async () => {
-        const response = await axios.post("/genre");
+        const response = await axios.post("/songs");
         setCards(response.data);
         setFetchData(false);
       };
@@ -27,7 +27,7 @@ function ArtistList({ genrelists }) {
   return (
     <div className="background_color_gradient">
       <div className="word_layout">
-        <p className="word_layout_genre">Genres</p>
+        <p className="word_layout_genre">Artists</p>
       </div>
       <div className="card_layout" onClick={handleOnClick}>
         {cards.map((card, index) => (
