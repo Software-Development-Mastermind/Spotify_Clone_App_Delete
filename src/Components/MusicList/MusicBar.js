@@ -1,6 +1,7 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card } from "react-bootstrap";
+import ArtistList from "../ArtistList/ArtistList";
 import HipHop from "../../Images/Hip_Hop.jpg";
 import Jazz from "../../Images/Jazz.jpg";
 import Metal from "../../Images/Metal.jpg";
@@ -48,33 +49,30 @@ function Musicbar() {
     },
   ]);
 
-  const GetGenre = () => {
-    const [genres, setGenres] = useState(null);
+  const [genres, setGenres] = useState(null);
+  const [fetchData, setFetchData] = useState(false);
 
-    useEffect(() => {
-      const fetchData = async () => {
-        const response = await axios.post("/genre");
-        setGenres(response.data);
-      };
+  useEffect(() => {
+    if (!fetchData) return;
+    const getData = async () => {
+      const response = await axios.post("/genre");
+      setGenres(response.data);
+      setFetchData(false);
+    };
 
-      fetchData();
-    }, []);
+    getData();
+  }, [fetchData]);
 
-    if (!genres) {
-      return "Loading...";
-    }
-    return (
-      <div>
-        <ArtistList genreslists={genres} />
-      </div>
-    );
+  const handleOnClick = () => {
+    setFetchData(true);
   };
+
   return (
     <div className="background_color_gradient">
       <div className="word_layout">
         <p className="word_layout_genre">Genres</p>
       </div>
-      <div className="card_layout" onClick={GetGenre}>
+      <div className="card_layout" onClick={handleOnClick}>
         {cards.map((card) => (
           <Card
             key={card.id} // Don't forget to provide a unique 'key' for each element in a list
@@ -122,6 +120,7 @@ function Musicbar() {
           </Card>
         ))}
       </div>
+      {genres && <ArtistList genreslists={genres} />}
     </div>
   );
 }
