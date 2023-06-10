@@ -37,4 +37,8 @@ def genre(id):
     endpoint = f"https://api.spotify.com/v1/browse/genres/{genre}" 
     data = requests.get(endpoint, headers=headers).json()
 
-    return jsonify(data)
+    # Get the top 5 artists
+    top_artists = data['artists']['items'][:5]
+
+    # Return the top 5 artists
+    return jsonify(top_artists)
