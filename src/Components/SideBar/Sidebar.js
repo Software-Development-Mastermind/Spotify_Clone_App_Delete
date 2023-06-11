@@ -29,10 +29,12 @@ function Sidebar() {
           </Link>
         </li>
         <li>
-          <div className="option">
-            <img src={shuffle} className="btnSizeTwo" />
-            <p className="text-white ml-2">Randomizer</p>
-          </div>
+          <Link to="/randomizer">
+            <div className="option">
+              <img src={shuffle} className="btnSizeTwo" />
+              <p className="text-white ml-2">Randomizer</p>
+            </div>
+          </Link>
         </li>
       </ul>
     </div>

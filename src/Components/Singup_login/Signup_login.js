@@ -83,7 +83,7 @@ function LogSignIn() {
       {isLogin ? (
         <Modal show={showModal} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Log In</Modal.Title>
+            <Modal.Title>Sign up</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {" "}
@@ -136,7 +136,7 @@ function LogSignIn() {
       ) : (
         <Modal show={showModal} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Sign Up</Modal.Title>
+            <Modal.Title>Log In</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {" "}

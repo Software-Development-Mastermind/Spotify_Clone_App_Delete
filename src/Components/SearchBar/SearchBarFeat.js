@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { Card } from "react-bootstrap";
 
 function SearchBarFeat() {
   const [selectedOption, setSelectedOption] = useState("Artist");
-  const [fetchSongs, setFetchSongs] = useState(selectedOption);
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
-  useEffect(() => {
-    const 
-  })
+  const handleSearchClick = async () => {
+    const response = await axios.get(`/${selectedOption}`);
+    setSearchResults(response.data);
+  };
 
   return (
     <div className="containerStyle">
@@ -29,9 +32,20 @@ function SearchBarFeat() {
         placeholder="Search"
         aria-label="Search"
       />
-      <button className="buttonStyle" type="button" onClick={}>
+      <button className="buttonStyle" type="button" onClick={handleSearchClick}>
         Search
       </button>
+      <div className="searchResults">
+        {searchResults.map((result, index) => (
+          <Card key={index}>
+            <Card.Img variant="top" src={result.imageUrl} />
+            <Card.Body>
+              <Card.Title>{result.name}</Card.Title>
+              <Card.Link href={result.spotifyUrl}>Go to Spotify</Card.Link>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
