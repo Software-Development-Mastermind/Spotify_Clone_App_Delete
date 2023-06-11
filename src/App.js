@@ -4,7 +4,7 @@ import "./Components/SideBar/SideBar.css";
 import "./Components/Layout/Layout.css";
 import "./Components/MusicList/MusicBar.css";
 import "./Components/SearchBar/SearchBar.css";
-import "./Components/Randomizer/RandomizerLayout.css";
+import "./Components/Randomizer/Randomizer.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./Components/HomePage";
 import SearchBar from "./Components/SearchBar/SearchBar";
@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route path="/searchbar" element={<SearchBar />} />
-        <Route path="/RandomizerLayout" element={<RandomizerLayout />} />
+        <Route path="/randomizer" element={<RandomizerLayout />} />
       </Routes>
     </Router>
   );

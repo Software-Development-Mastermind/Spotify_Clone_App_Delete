@@ -5,10 +5,10 @@ import LogSignIn from "../Singup_login/Signup_login";
 
 function RandomizerLayout() {
   return (
-    <div>
-      <Sidebar />
-      <Randomizer />
+    <div className="d-flex">
       <LogSignIn />
+      <Randomizer />
+      <Sidebar />
     </div>
   );
 }
