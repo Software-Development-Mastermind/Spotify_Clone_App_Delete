@@ -1,18 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function SearchBarFeat() {
+  const [selectedOption, setSelectedOption] = useState("Artist");
+  const [fetchSongs, setFetchSongs] = useState(selectedOption);
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  useEffect(() => {
+    const 
+  })
+
   return (
-    <form className="d-flex search_bar">
+    <div className="containerStyle">
+      <select
+        className="selectStyle"
+        value={selectedOption}
+        onChange={handleOptionChange}
+      >
+        <option value="Artist">Artist</option>
+        <option value="Album">Album</option>
+        <option value="Song">Song</option>
+      </select>
       <input
-        className="form-control me-2"
-        type="search"
+        className="inputStyle"
+        type="text"
         placeholder="Search"
         aria-label="Search"
       />
-      <button className="btn btn-outline-success" type="submit">
+      <button className="buttonStyle" type="button" onClick={}>
         Search
       </button>
-    </form>
+    </div>
   );
 }
 

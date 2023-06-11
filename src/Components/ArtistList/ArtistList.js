@@ -5,22 +5,28 @@ import { Card, Button } from "react-bootstrap";
 
 function ArtistList({ genrelists }) {
   const [cards, setCards] = useState(genrelists);
-  const [fetchData, setFetchData] = useState(false);
 
   useEffect(() => {
-    const fetchCards = async () => {
-      const response = await axios.post("/songs");
-      setCards(response.data);
+    const fetchSongs = async () => {
+      try {
+        const response = await axios.get("/songs");
+        setCards(response.data);
+      } catch (error) {
+        console.error("Failed to fetch songs:", error);
+      }
     };
 
-    if (fetchData) {
-      fetchCards();
-      setFetchData(false);
-    }
-  }, [fetchData]);
+    fetchSongs();
+  }, []);
 
-  const handleOnClick = () => {
-    setFetchData(true);
+  const handleSongClick = async (songId) => {
+    try {
+      const response = await axios.get(`/songs/${songId}`);
+      const spotifyLink = response.data.spotifyLink;
+      window.open(spotifyLink, "_blank");
+    } catch (error) {
+      console.error("Failed to fetch Spotify link:", error);
+    }
   };
 
   return (
@@ -28,7 +34,10 @@ function ArtistList({ genrelists }) {
       <div className="word_layout">
         <p className="word_layout_genre">Artists</p>
       </div>
-      <div className="table_layout" onClick={handleOnClick}>
+      <div
+        className="table_layout"
+        onClick={() => handleSongClick(cards.songId)}
+      >
         {cards.map((card, index) => (
           <Card
             key={index}
