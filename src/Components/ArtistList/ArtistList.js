@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SongList from "../SongList/SongList";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 
 function ArtistList({ genrelists }) {
   const [cards, setCards] = useState(genrelists);
   const [fetchData, setFetchData] = useState(false);
 
-  useEffect(
-    (genrelists) => {
-      if (!fetchData) return;
-      const setCards = async () => {
-        const response = await axios.post("/songs");
-        setCards(response.data);
-        setFetchData(false);
-      };
+  useEffect(() => {
+    const fetchCards = async () => {
+      const response = await axios.post("/songs");
+      setCards(response.data);
+    };
 
-      setCards(genrelists);
-    },
-    [fetchData]
-  );
+    if (fetchData) {
+      fetchCards();
+      setFetchData(false);
+    }
+  }, [fetchData]);
 
   const handleOnClick = () => {
     setFetchData(true);
@@ -30,12 +28,14 @@ function ArtistList({ genrelists }) {
       <div className="word_layout">
         <p className="word_layout_genre">Artists</p>
       </div>
-      <div className="card_layout" onClick={handleOnClick}>
+      <div className="table_layout" onClick={handleOnClick}>
         {cards.map((card, index) => (
           <Card
-            key={index} // Don't forget to provide a unique 'key' for each element in a list
-            style={{ width: "18rem" }}
-            className="card_layout_bgcolor"
+            key={index}
+            style={{ display: "flex", flexDirection: "row", width: "100%" }}
+            className={`card_layout_bgcolor ${
+              card.isHovered ? "lightened" : ""
+            }`}
             onMouseEnter={() =>
               setCards(
                 cards.map((c, i) =>
@@ -51,32 +51,20 @@ function ArtistList({ genrelists }) {
               )
             }
           >
-            <div className="image-container">
-              <div className={`base-image ${card.isHovered ? "dimmed" : ""}`}>
-                <Card.Img
-                  variant="bottom"
-                  src={card.image}
-                  className="card_img_genre"
-                />
-              </div>
-              {card.isHovered && (
-                <div className="overlay-image">
-                  <Card.Img
-                    variant="top"
-                    src={card.hoverImage} // make sure to provide hover image from your api response if it exists
-                    className="hover-image"
-                  />
-                </div>
-              )}
-            </div>
-            <Card.Body>
-              <Card.Title style={{ justifyContent: "center", color: "white" }}>
-                {card.name}
-              </Card.Title>
-              <Card.Text className="text_alter">
+            <Card.Img
+              variant="left"
+              src={card.image}
+              style={{ width: "150px", objectFit: "cover" }}
+            />
+            <Card.Body style={{ flex: 1 }}>
+              <Card.Title>{card.name}</Card.Title>
+              <Card.Text>
                 Popularity: {card.popularity}, Followers: {card.followers}
               </Card.Text>
             </Card.Body>
+            <Button style={{ alignSelf: "center", marginRight: "10px" }}>
+              Song Name
+            </Button>
           </Card>
         ))}
       </div>
