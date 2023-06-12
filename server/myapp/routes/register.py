@@ -8,7 +8,6 @@ sys.path.append('/path/to/server/myapp/models')
 
 from users import add_user
 
-
 bp = Blueprint('register', __name__)
 
 oauth = OAuth2Client('google')
