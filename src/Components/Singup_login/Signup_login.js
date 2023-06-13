@@ -36,21 +36,24 @@ function LogSignIn() {
 
     axios
       .post("/login", { email, userName, password })
-      .then((response) => setMessage(response.data.success))
+      .then((response) => //setMessage(response.data.success))
+      console.log(response)
       .catch((error) => {
+        console.log(error);
         if (error.response) {
-          setMessage(error.reponse.data.error);
+          setMessage(error.response.data.error);
         } else {
           setMessage("Error:" + error.message);
         }
-      });
+      })
+      
   };
 
   const handleNewUser = (event) => {
     event.preventDefault();
 
     axios
-      .post("/register", { email, userName, password })
+      .post("http://localhost:5000/register", { email, userName, password })
       .then((response) => setMessage(response.data.success))
       .catch((error) => {
         if (error.response) {

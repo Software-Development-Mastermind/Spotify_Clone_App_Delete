@@ -1,31 +1,15 @@
-from flask import Blueprint, request, jsonify
+from flask import Flask, request, jsonify
 from flask_oauthlib import OAuth2Client
 from werkzeug.security import generate_password_hash
 from importlib import import_module
+from flask_cors import CORS
 import sys
 
-sys.path.append('/path/to/server/myapp/models')
+register = Flask(__name__)
+CORS(register)
 
-from users import add_user
-
-bp = Blueprint('register', __name__)
-
-oauth = OAuth2Client('google')
-
-@bp.route('/register', methods=['POST'])
-def register():
+@register.route('/register', methods=['POST'])
+def register_user():
     data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-    
-    if username in users:
-        return jsonify({'error': 'User already exists'}), 400
-
-    # Create a new user in the database
-    add_user(username, password)
-
-    # Create a new Google OAuth 2 token for the user
-    token = oauth.create_token(username, password)
-
-    # Return the user's token
-    return jsonify({'token': token}), 201
+    print(data)  # Print data to console for testing
+    return {"User added succesfully"}
