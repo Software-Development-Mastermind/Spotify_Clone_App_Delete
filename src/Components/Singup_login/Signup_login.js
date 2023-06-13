@@ -54,7 +54,7 @@ function LogSignIn() {
       .then((response) => setMessage(response.data.success))
       .catch((error) => {
         if (error.response) {
-          setMessage(error.reponse.data.error);
+          console.log(error.reponse.data.error);
         } else {
           setMessage("Error:" + error.message);
         }
