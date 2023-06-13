@@ -36,17 +36,14 @@ function LogSignIn() {
 
     axios
       .post("/login", { email, userName, password })
-      .then((response) => //setMessage(response.data.success))
-      console.log(response)
+      .then((response) => setMessage(response.data.success))
       .catch((error) => {
-        console.log(error);
         if (error.response) {
-          setMessage(error.response.data.error);
+          setMessage(error.reponse.data.error);
         } else {
           setMessage("Error:" + error.message);
         }
-      })
-      
+      });
   };
 
   const handleNewUser = (event) => {
@@ -72,13 +69,13 @@ function LogSignIn() {
             className="btn btn-black rounded-pill my-button"
             onClick={() => handleShow(true)}
           >
-            Sign up
+            Log In
           </button>
           <button
             className="btn btn-white rounded-pill my-button"
             onClick={() => handleShow(false)}
           >
-            Log in
+            Sign Up
           </button>
         </div>
       </header>
@@ -86,7 +83,7 @@ function LogSignIn() {
       {isLogin ? (
         <Modal show={showModal} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Sign up</Modal.Title>
+            <Modal.Title>Log In</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {" "}
@@ -139,7 +136,7 @@ function LogSignIn() {
       ) : (
         <Modal show={showModal} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Log In</Modal.Title>
+            <Modal.Title>Sign Up</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {" "}
@@ -156,13 +153,12 @@ function LogSignIn() {
                   We'll never share your email with anyone else.
                 </Form.Text>
               </Form.Group>
-
               <Form.Group controlId="formBasicUsername">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Username"
-                  value={getUserName}
+                  onChange={getUserName}
                   required
                 />
               </Form.Group>
@@ -172,11 +168,10 @@ function LogSignIn() {
                 <Form.Control
                   type="password"
                   placeholder="Password"
-                  value={getPassWord}
+                  onChange={getPassWord}
                   required
                 />
               </Form.Group>
-
               <Button variant="primary" type="submit" className="mt-3">
                 Submit
               </Button>
