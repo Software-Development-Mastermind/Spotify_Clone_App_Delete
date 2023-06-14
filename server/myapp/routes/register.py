@@ -1,10 +1,25 @@
-from flask import Flask, request, jsonify
-from werkzeug.security import generate_password_hash
-from flask_cors import CORS
+from flask import Flask
 
-register = Flask(__name__)
-CORS(register)
+app = Flask(__name__)
 
-@register.route('/register', methods=['POST'])
-def register_user():
-    return {"message": "Hello from the server!"}, 200
+
+@app.route('/login')
+def login():
+    return {'status': 'Login Successful'}
+
+@app.route('/register')
+def register():
+    return {'status': 'Registration Successful'}
+
+@app.route('/songs')
+def songs():
+    return {
+        "data": [
+            {"name": "song1",
+             "artist": "artist1"},
+            {"name": "song2"}
+        ]
+    }
+
+if "__name__" == "__main__":
+    app.run(debug=True)
