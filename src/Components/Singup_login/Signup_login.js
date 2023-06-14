@@ -48,16 +48,13 @@ function LogSignIn() {
 
   const handleNewUser = (event) => {
     event.preventDefault();
-
     axios
       .post("http://localhost:5000/register", { email, userName, password })
-      .then((response) => setMessage(response.data.success))
+      .then((response) => {
+        console.log(response.data.message); // log the message here
+      })
       .catch((error) => {
-        if (error.response) {
-          console.log(error.reponse.data.error);
-        } else {
-          setMessage("Error:" + error.message);
-        }
+        console.log(error); // also log the error
       });
   };
 

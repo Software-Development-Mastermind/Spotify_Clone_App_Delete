@@ -7,9 +7,4 @@ CORS(register)
 
 @register.route('/register', methods=['POST'])
 def register_user():
-    data = request.get_json()
-    print(data)  # Print data to console for testing
-    return {"User added succesfully"}
-
-if __name__ == "__main__":
-    register.run(host='127.0.0.1', port=5000, debug=True)
+    return {"message": "Hello from the server!"}, 200
