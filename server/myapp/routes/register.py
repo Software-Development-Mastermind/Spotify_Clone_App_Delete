@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Blueprint, request, jsonify
 
-app = Flask(__name__)
+bp = Blueprint('register', __name__)  # define a Flask Blueprint named 'register'
 
-@app.route('/register', methods=['POST'])
+@bp.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
 
@@ -10,7 +10,7 @@ def register():
     userName = data.get('userName')
     password = data.get('password')
 
-    # Instead of storing the data in a database, print it to console
+    # Print out the received data
     print(f"Email: {email}, Username: {userName}, Password: {password}")
 
     return jsonify(message="Data received successfully"), 201
