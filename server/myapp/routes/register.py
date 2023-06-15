@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, requests
 
 app = Flask(__name__)
 
@@ -13,13 +13,11 @@ def register():
 
 @app.route('/songs')
 def songs():
-    return {
-        "data": [
-            {"name": "song1",
-             "artist": "artist1"},
-            {"name": "song2"}
-        ]
-    }
+
+    url = "spotify.com/songs"
+    response = requests.get(url)
+
+    return response.data
 
 if "__name__" == "__main__":
     app.run(debug=True)
