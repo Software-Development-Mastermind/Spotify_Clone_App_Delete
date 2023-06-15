@@ -1,23 +1,16 @@
-from flask import Flask, requests
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-
-@app.route('/login')
-def login():
-    return {'status': 'Login Successful'}
-
-@app.route('/register')
+@app.route('/register', methods=['POST'])
 def register():
-    return {'status': 'Registration Successful'}
+    data = request.get_json()
 
-@app.route('/songs')
-def songs():
+    email = data.get('email')
+    userName = data.get('userName')
+    password = data.get('password')
 
-    url = "spotify.com/songs"
-    response = requests.get(url)
+    # Instead of storing the data in a database, print it to console
+    print(f"Email: {email}, Username: {userName}, Password: {password}")
 
-    return response.data
-
-if "__name__" == "__main__":
-    app.run(debug=True)
+    return jsonify(message="Data received successfully"), 201

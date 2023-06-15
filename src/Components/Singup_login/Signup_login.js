@@ -39,7 +39,7 @@ function LogSignIn() {
       .then((response) => setMessage(response.data.success))
       .catch((error) => {
         if (error.response) {
-          setMessage(error.reponse.data.error);
+          setMessage(error.response.data.error);
         } else {
           setMessage("Error:" + error.message);
         }
