@@ -31,20 +31,17 @@ function LogSignIn() {
     setEmail(e.target.email);
   };
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
+    console.log(userName);
+    const response = await axios.post("/login", {
+      username: "test",
+      password: "password",
+      email: "my email",
+    });
 
-    axios
-      .post("/login", { email, userName, password })
-      .then((response) => setMessage(response.data.success))
-      .catch((error) => {
-        if (error.response) {
-          setMessage(error.response.data.error);
-        } else {
-          setMessage("Error:" + error.message);
-        }
-      });
-  };
+    console.log(response.data);
+  }
 
   const handleNewUser = (event) => {
     event.preventDefault();

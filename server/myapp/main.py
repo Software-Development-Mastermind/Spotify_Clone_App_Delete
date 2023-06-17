@@ -2,13 +2,14 @@
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-
+     
 @app.route('/login', methods=['POST'])
 def login():
     username = request.json['username']
     password = request.json['password']
+    email = request.json['email']
     print(username)
-    return jsonify({'username': username, "password": password}), 200
+    return jsonify({'username': username, "password": password, 'email': email}), 200
 
 
 
