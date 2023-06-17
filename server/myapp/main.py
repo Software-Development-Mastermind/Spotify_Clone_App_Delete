@@ -3,18 +3,22 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.json['username']
+    password = request.json['password']
+    print(username)
+    return jsonify({'username': username, "password": password}), 200
+
+
+
 @app.route('/register')
 def register():
     data = request.args.get("username")
 
-    # email = data.get('email')
-    # userName = data.get('userName')
-    # password = data.get('password')
 
-    # Print out the received data
-    # print(f"Email: {email}, Username: {userName}, Password: {password}")
 
-    return {"username": data}
+
 
 if __name__ == "__main__":
     app.run(debug=True)
