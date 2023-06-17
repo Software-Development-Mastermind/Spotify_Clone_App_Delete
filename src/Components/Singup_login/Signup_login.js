@@ -33,27 +33,29 @@ function LogSignIn() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(userName);
-    const response = await axios.post("/login", {
-      username: "test",
-      password: "password",
-      email: "my email",
-    });
+    const response = await axios
+      .post("/login", { email, userName, password })
+      .then((response) => {
+        console.log(response.data.message);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-    console.log(response.data);
+    return response.data;
   }
 
   const handleNewUser = (event) => {
     event.preventDefault();
 
-    // axios
-    //   .post("/register", { email, userName, password })
-    //   // .then((response) => {
-    //   //   console.log(response.data.message); // log the message here
-    //   // })
-    //   // .catch((error) => {
-    //   //   console.log(error); // also log the error
-    //   // });
+    axios
+      .post("/register", { email, userName, password })
+      .then((response) => {
+        console.log(response.data.message); // log the message here
+      })
+      .catch((error) => {
+        console.log(error); // also log the error
+      });
   };
 
   return (

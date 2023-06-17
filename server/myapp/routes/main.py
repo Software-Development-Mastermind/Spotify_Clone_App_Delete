@@ -1,4 +1,3 @@
-# __init__.py
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -13,9 +12,9 @@ def login():
 
 
 
-@app.route('/register')
-def register():
-    data = request.args.get("username")
+# @app.route('/register')
+# def register():
+#     data = request.args.get("username")
 
 
 
