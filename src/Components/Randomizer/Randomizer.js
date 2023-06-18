@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 
 function Randomizer() {
+  const [cards, setCards] = useState();
   const [pictures, getPictures] = useState();
   const [names, getNames] = useEffect();
   const dataLists = { pictures, names };
@@ -35,7 +36,7 @@ function Randomizer() {
               <div className={`base-image ${data.isHovered ? "dimmed" : ""}`}>
                 <Card.Img
                   variant="bottom"
-                  src={data.image}
+                  src={data.pictures}
                   className="card_img_genre"
                 />
               </div>
@@ -51,7 +52,7 @@ function Randomizer() {
             </div>
             <Card.Body>
               <Card.Title style={{ justifyContent: "center", color: "white" }}>
-                Hello
+                {data.names}
               </Card.Title>
             </Card.Body>
           </Card>

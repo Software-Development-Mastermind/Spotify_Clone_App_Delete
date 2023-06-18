@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, spotipy
 
 app = Flask(__name__)
      
@@ -16,6 +16,18 @@ def login():
     response = jsonify(message="Data received successfully")
     print('Sending response:', response) # Log the response
     return response, 201
+
+@app.route('/artist_info', methods=['GET'])
+def get_artist_info(artist_id):
+    artist = spotipy.artist(artist_id)
+    return {
+        "name": artist["name"],
+        "image": artist["images"][0]["url"],
+    }
+
+artist_info = get_artist_info("36g923P69tXd5X8c41tE8r")
+
+print(artist_info)
 
 
 if __name__ == "__main__":
