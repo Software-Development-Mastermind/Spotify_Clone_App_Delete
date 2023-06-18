@@ -1,4 +1,6 @@
-from flask import Flask, request, jsonify, spotipy
+from flask import Flask, request, jsonify
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 
 app = Flask(__name__)
      
@@ -17,17 +19,21 @@ def login():
     print('Sending response:', response) # Log the response
     return response, 201
 
+sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
+
 @app.route('/artist_info', methods=['GET'])
-def get_artist_info(artist_id):
-    artist = spotipy.artist(artist_id)
-    return {
+def get_artist_info():
+    artist_id = request.args.get('artist_id', default = '', type = str) 
+    artist = sp.artist(artist_id)
+    
+    # Error handling in case the artist has no images
+    if not artist["images"]:
+        return {"error": "No images found for this artist."}, 404
+
+    return jsonify({
         "name": artist["name"],
         "image": artist["images"][0]["url"],
-    }
-
-artist_info = get_artist_info("36g923P69tXd5X8c41tE8r")
-
-print(artist_info)
+    })
 
 
 if __name__ == "__main__":
