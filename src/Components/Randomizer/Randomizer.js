@@ -1,32 +1,74 @@
 import { React, useState, useEffect } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Alert, Spinner } from "react-bootstrap";
+import axios from "axios";
 
 function Randomizer() {
-  const [cards, setCards] = useState();
-  const [pictures, getPictures] = useState();
-  const [names, getNames] = useEffect();
-  const dataLists = { pictures, names };
+  const [cards, setCards] = useState([]);
+  const [selectedSong, setSelectedSong] = useState(null);
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get("/api-endpoint")
+      .then((response) => {
+        const data = response.data.map((item, index) => {
+          return {
+            id: item.id || index, // Use ID from data or fallback to index
+            name: item.name,
+            picture: item.picture,
+            hoverImage: item.hoverImage, // assuming you have hoverImage in data
+            isHovered: false,
+          };
+        });
+        setCards(data);
+      })
+      .catch((error) => {
+        setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  const handleCardClick = (id) => {
+    // Here you can make another axios call to get the song related to the clicked artist
+    // and then set that song to the selectedSong state
+    // For now, I'll just set the id as the selected song
+    setSelectedSong(id);
+  };
+
+  if (isLoading) {
+    return <Spinner animation="border" />;
+  }
+
+  if (error) {
+    return <Alert variant="danger">{error}</Alert>;
+  }
+
   return (
     <div className="background_color_gradient">
       <div className="word_layout">
         <p className="word_layout_genre"></p>
       </div>
       <div className="card_layout">
-        {dataLists.map((data) => (
+        {cards.map((data) => (
           <Card
-            key={data.id} // Don't forget to provide a unique 'key' for each element in a list
+            key={data.id}
+            onClick={() => handleCardClick(data.id)} // a function that handles card click
             style={{ width: "18rem" }}
             className="card_layout_bgcolor"
             onMouseEnter={() =>
               setCards(
-                dataLists.map((c) =>
+                cards.map((c) =>
                   c.id === data.id ? { ...c, isHovered: true } : c
                 )
               )
             }
             onMouseLeave={() =>
               setCards(
-                data.map((c) =>
+                cards.map((c) =>
                   c.id === data.id ? { ...c, isHovered: false } : c
                 )
               )
@@ -58,6 +100,7 @@ function Randomizer() {
           </Card>
         ))}
       </div>
+      {selectedSong && <div>Selected song ID: {selectedSong}</div>}
     </div>
   );
 }
