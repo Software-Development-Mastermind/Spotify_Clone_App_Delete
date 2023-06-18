@@ -7,8 +7,8 @@ function RandomizerLayout() {
   return (
     <div className="d-flex">
       <LogSignIn />
-      <Randomizer />
       <Sidebar />
+      <Randomizer />
     </div>
   );
 }
