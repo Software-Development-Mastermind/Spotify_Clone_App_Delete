@@ -11,7 +11,7 @@ function Randomizer() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("/api-endpoint")
+      .get("/artist_info")
       .then((response) => {
         const data = response.data.map((item, index) => {
           return {
