@@ -19,30 +19,33 @@ function LogSignIn() {
     setShowModal(true);
   };
 
+  const getEmail = (e) => {
+    console.log("Email changed", e.target.value);
+    setEmail(e.target.value);
+  };
+
   const getUserName = (e) => {
-    setUserName(e.target.userName);
+    console.log("Username changed", e.target.value);
+    setUserName(e.target.value);
   };
 
   const getPassWord = (e) => {
-    setPassword(e.target.password);
+    console.log("Password changed", e.target.value);
+    setPassword(e.target.value);
   };
 
-  const getEmail = (e) => {
-    setEmail(e.target.email);
-  };
-
-  async function handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
-    const response = await axios
+    console.log(email, userName, password);
+    return axios
       .post("/login", { email, userName, password })
       .then((response) => {
         console.log(response.data.message);
+        return response.data;
       })
       .catch((error) => {
         console.log(error);
       });
-
-    return response.data;
   }
 
   const handleNewUser = (event) => {
