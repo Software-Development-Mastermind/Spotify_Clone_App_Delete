@@ -49,9 +49,6 @@ function Randomizer() {
 
   return (
     <div className="background_color_gradient">
-      <div className="word_layout">
-        <p className="word_layout_genre"></p>
-      </div>
       <div className="card_layout">
         {cards.map((data) => (
           <Card
