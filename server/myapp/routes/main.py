@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, requests
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
@@ -19,10 +19,16 @@ def login():
     print('Sending response:', response) # Log the response
     return response, 201
 
-sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id='ede4392a5dfa4b2a96e1a2333ae406ef', client_secret='30880e79886848928681f17d1ac21f9e'))
+def get_artist_id(artist_name):
+    sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id='ede4392a5dfa4b2a96e1a2333ae406ef', client_secret='30880e79886848928681f17d1ac21f9e'))
+    results = sp.search(q=artist_name, type='artist')
+    artist = results['artists']['items'][0]
+    return artist['id']
+
+artist_id = get_artist_id('The Beatles')
 
 @app.route('/artist', methods=['GET'])
-def get_artist_info():
+def get_artist_info(sp):
     artist_id = request.args.get('artist_id', default = '', type = str) 
     artist = sp.artist(artist_id)
     
