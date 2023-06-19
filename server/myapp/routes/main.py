@@ -24,14 +24,20 @@ def get_spotify_client():
 
 def get_artist_id(sp, artist_name):
     results = sp.search(q=artist_name, type='artist')
-    artist = results['artists']['items'][0]
-    return artist['id']
+    if results['artists']['items']:
+        return results['artists']['items'][0]['id']
+    else:
+        return None
 
 @app.route('/artist', methods=['GET'])
 def get_artist_info():
     artist_name = request.args.get('artist_name', default = '', type = str)
     sp = get_spotify_client()
     artist_id = get_artist_id(sp, artist_name)
+
+    if not artist_id:
+        return {"error": f"No artist found for name '{artist_name}'."}, 404
+
     artist = sp.artist(artist_id)
 
     # Error handling in case the artist has no images
