@@ -1,4 +1,6 @@
 from flask import Flask, request, jsonify
+import base64
+import requests
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
