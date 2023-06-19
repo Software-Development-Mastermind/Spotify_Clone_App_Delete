@@ -19,7 +19,7 @@ def login():
     print('Sending response:', response) # Log the response
     return response, 201
 
-sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
+sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id='ede4392a5dfa4b2a96e1a2333ae406ef', client_secret='30880e79886848928681f17d1ac21f9e'))
 
 @app.route('/artist_info', methods=['GET'])
 def get_artist_info():
