@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
 import base64
 import requests
-from spotipy.oauth2 import Spotify
+from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
+import pdb
 
 app = Flask(__name__)
      
@@ -44,7 +45,7 @@ def get_auth_token():
 
 def get_spotify_client():
     token = get_auth_token()
-    return Spotify(auth=token)
+    return token
 
 
 def get_artist_id(sp, artist_name):
@@ -57,6 +58,8 @@ def get_artist_id(sp, artist_name):
 
 @app.route('/artist', methods=['GET'])
 def get_artist_info():
+    print('/artist')
+    pdb.set_trace() 
     artist_name = request.args.get('artist_name', default='', type=str)
     sp = get_spotify_client()
     artist_id = get_artist_id(sp, artist_name)
