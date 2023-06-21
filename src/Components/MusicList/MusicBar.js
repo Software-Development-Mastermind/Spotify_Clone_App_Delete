@@ -55,7 +55,7 @@ function Musicbar() {
   useEffect(() => {
     if (!fetchData) return;
     const getData = async () => {
-      const response = await axios.post("/genre");
+      const response = await axios.get("/artist");
       setGenres(response.data);
       setFetchData(false);
     };

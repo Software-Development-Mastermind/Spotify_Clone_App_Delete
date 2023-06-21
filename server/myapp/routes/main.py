@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import base64
 import requests
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
+from pdb import p, var, factorial
 import pdb
 
 app = Flask(__name__)
@@ -22,15 +23,15 @@ def login():
     return response, 201
 
 def get_auth_token():
-    client_id = 'CLIENT_ID'
-    client_secret = 'CLIENT_SECRET'
+    client_id = 'ede4392a5dfa4b2a96e1a2333ae406ef'
+    client_secret = '30880e79886848928681f17d1ac21f9e'
 
     auth_header = base64.b64encode(f'{client_id}:{client_secret}'.encode('ascii')).decode('ascii')
 
     auth_options = {
         'url': 'https://accounts.spotify.com/api/token',
         'headers': {
-            'Authorization': f'Basic {auth_header}',
+            'Authorization': 'Basic ' + auth_header,
         },
         'data': {
             'grant_type': 'client_credentials',
@@ -48,18 +49,29 @@ def get_spotify_client():
     return token
 
 
-def get_artist_id(sp, artist_name):
-    results = sp.search(q=artist_name, type='artist')
+def get_artist_id(auth_token, artist_name):
+    headers = {
+        'Authorization': f'Bearer {auth_token}',
+    }
+    params = {
+        'q': artist_name,
+        'type': 'artist',
+    }
+
+    response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
+    results = response.json()
+    
     artist_items = results['artists']['items']
     if not artist_items:
         return None
     return artist_items[0]['id']
 
+auth_token = get_auth_token()
+artist_id = get_artist_id(auth_token, "P!nk")
+
 
 @app.route('/artist', methods=['GET'])
 def get_artist_info():
-    print('/artist')
-    pdb.set_trace() 
     artist_name = request.args.get('artist_name', default='', type=str)
     sp = get_spotify_client()
     artist_id = get_artist_id(sp, artist_name)
