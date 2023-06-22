@@ -60,6 +60,8 @@ function Musicbar() {
       setFetchData(false);
     };
 
+    console.log(genres);
+
     getData();
   }, [fetchData]);
 
