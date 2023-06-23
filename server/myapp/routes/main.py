@@ -58,18 +58,31 @@ def get_artist_id(auth_token, artist_name):
     }
 
     response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
-    print("Status Code:", response.status_code)
-    print("Response Body:", response.json())
+
+    # import json
+    # with open("emmak.json", "w") as outfile:
+    #     json.dump(response.json(), outfile)
+
+    # print("Status Code:", response.status_code)
+    # print("Response Body:", response.json())
     results = response.json()
+    name_to_image = {}
     
-    artist_items = results['artists']['items']
-    if not artist_items:
-        return None
-    return artist_items[0]['id']
+    for artist in results.get('artists').get('items'):
+        print(artist['name'])
+        if len(artist.get('images')) >= 1:
+            name_to_image[artist['name']] = artist['images'][0]['url']
+    
+    import json
+    with open("artists.json", "w") as outfile:
+        json.dump(name_to_image, outfile)
+    
+    return name_to_image
 
 auth_token = get_auth_token()
-artist_id = get_artist_id(auth_token, "P!nk")
-print("Status Code:", artist_id.status_code)
+artist_name_to_image = get_artist_id(auth_token, "P!nk")
+image_link = artist_name_to_image.get('P!nk')
+print("Status Code:", artist_id)
 print("artist_id:", artist_id)
 
 @app.route('/artist', methods=['GET'])
