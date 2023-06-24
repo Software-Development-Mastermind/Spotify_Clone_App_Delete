@@ -82,8 +82,7 @@ def get_artist_id(auth_token, artist_name):
 auth_token = get_auth_token()
 artist_name_to_image = get_artist_id(auth_token, "P!nk")
 image_link = artist_name_to_image.get('P!nk')
-print("Status Code:", artist_id)
-print("artist_id:", artist_id)
+
 
 @app.route('/artist', methods=['GET'])
 def get_artist_info():
@@ -108,3 +107,4 @@ def get_artist_info():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
