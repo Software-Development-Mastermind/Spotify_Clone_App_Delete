@@ -60,7 +60,7 @@ def get_artist_id(auth_token, artist_name):
     response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
 
     # import json
-    # with open("emmak.json", "w") as outfile:
+    # with open("artistDetails.json", "w") as outfile:
     #     json.dump(response.json(), outfile)
 
     # print("Status Code:", response.status_code)
