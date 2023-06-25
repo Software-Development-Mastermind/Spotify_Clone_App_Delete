@@ -68,10 +68,16 @@ def get_artist_id(auth_token, artist_name):
     results = response.json()
     name_to_image = {}
     
+    def clean_string(s):
+        return s.replace('\u2215', '/').encode('utf-8', 'replace').decode('utf-8')
+
     for artist in results.get('artists').get('items'):
         if len(artist.get('images')) >= 1:
-            name_to_image[artist['name']] = artist['images'][0]['url']
-            print(name_to_image)
+            name = clean_string(artist['name'])
+        image_url = clean_string(artist['images'][0]['url'])
+        name_to_image[name] = image_url
+        print(name_to_image)
+
 
     
     import json
@@ -89,6 +95,7 @@ def get_artist_info():
     artist_name = request.args.get('artist_name', default='', type=str)
     sp = get_spotify_client()
     artist_id = get_artist_id(sp, artist_name)
+    pdb.set_trace()
 
     if not artist_id:
         return {"error": f"No artist found for name '{artist_name}'."}, 404
