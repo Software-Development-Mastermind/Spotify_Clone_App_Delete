@@ -72,9 +72,10 @@ def get_artist_id(auth_token, artist_name):
         return s.replace('\u2215', '/').encode('utf-8', 'replace').decode('utf-8')
 
     for artist in results.get('artists').get('items'):
-        if len(artist.get('images')) >= 1:
-            name = clean_string(artist['name'])
-        image_url = clean_string(artist['images'][0]['url'])
+        images = artist.get('images')
+    if images is not None and len(images) > 0:
+        name = clean_string(artist['name'])
+        image_url = clean_string(images[0]['url'])
         name_to_image[name] = image_url
         print(name_to_image)
 
