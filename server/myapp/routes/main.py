@@ -69,14 +69,14 @@ def get_artist_id(auth_token, artist_name):
     name_to_image = {}
     
     for artist in results.get('artists').get('items'):
-        print(artist['name'])
         if len(artist.get('images')) >= 1:
             name_to_image[artist['name']] = artist['images'][0]['url']
+            print(name_to_image)
+
     
     import json
     with open("artists.json", "w") as outfile:
         json.dump(name_to_image, outfile)
-    
     return name_to_image
 
 auth_token = get_auth_token()
@@ -107,4 +107,3 @@ def get_artist_info():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
