@@ -69,22 +69,28 @@ def get_artist_id(auth_token, artist_name):
     name_to_image = {}
     
     def clean_string(s):
-        return s.replace('\u2215', '/').encode('utf-8', 'replace').decode('utf-8')
+        try:
+            return s.encode('utf-8').decode('utf-8')
+        except UnicodeEncodeError:
+            return None
 
     for artist in results.get('artists').get('items'):
         images = artist.get('images')
-    if images is not None and len(images) > 0:
-        name = clean_string(artist['name'])
-        image_url = clean_string(images[0]['url'])
-        name_to_image[name] = image_url
-        print(name_to_image)
+        if images is not None and len(images) > 0:
+            name = clean_string(artist['name'])
+            image_url = clean_string(images[0]['url'])
+            if name is not None and image_url is not None:
+                name_to_image[name] = image_url
 
-
-    
     import json
     with open("artists.json", "w") as outfile:
         json.dump(name_to_image, outfile)
-    return name_to_image
+    
+    if results.get('artists').get('items'):
+        return results.get('artists').get('items')[0].get('id')
+    else:
+        return None
+    
 
 auth_token = get_auth_token()
 artist_name_to_image = get_artist_id(auth_token, "P!nk")
@@ -93,10 +99,9 @@ image_link = artist_name_to_image.get('P!nk')
 
 @app.route('/artist', methods=['GET'])
 def get_artist_info():
-    artist_name = request.args.get('artist_name', default='', type=str)
+    artist_name = request.args.get('', default='', type=str)
     sp = get_spotify_client()
     artist_id = get_artist_id(sp, artist_name)
-    pdb.set_trace()
 
     if not artist_id:
         return {"error": f"No artist found for name '{artist_name}'."}, 404
