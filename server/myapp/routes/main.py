@@ -59,12 +59,25 @@ def get_artist_id(auth_token, artist_name):
 
     response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
 
-    # import json
-    # with open("artistDetails.json", "w") as outfile:
-    #     json.dump(response.json(), outfile)
+    
+    results = response.json()
 
-    # print("Status Code:", response.status_code)
-    # print("Response Body:", response.json())
+    if results.get('artists').get('items'):
+        finalResults = results.get('artists').get('items')[0].get('id')
+        return finalResults
+    else:
+        return None
+
+def get_artist_image(auth_token, artist_name):
+    headers = {
+        'Authorization': f'Bearer {auth_token}',
+    }
+    params = {
+        'q': artist_name,
+        'type': 'artist',
+    }
+
+    response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
     results = response.json()
     name_to_image = {}
     
@@ -86,35 +99,25 @@ def get_artist_id(auth_token, artist_name):
     with open("artists.json", "w") as outfile:
         json.dump(name_to_image, outfile)
     
-    if results.get('artists').get('items'):
-        return results.get('artists').get('items')[0].get('id')
-    else:
-        return None
+    return name_to_image
     
-
-auth_token = get_auth_token()
-artist_name_to_image = get_artist_id(auth_token, "P!nk")
-image_link = artist_name_to_image.get('P!nk')
-
 
 @app.route('/artist', methods=['GET'])
 def get_artist_info():
-    artist_name = request.args.get('', default='', type=str)
-    sp = get_spotify_client()
-    artist_id = get_artist_id(sp, artist_name)
+    auth_token = get_auth_token()
+    artist_name = request.args.get('artist_name', default='', type=str)
 
-    if not artist_id:
+    artist_id = get_artist_id(auth_token, artist_name)
+    artist_name_to_image = get_artist_image(auth_token, artist_name)
+    
+    image_link = artist_name_to_image.get(artist_name)
+
+    if not artist_id or not image_link:
         return {"error": f"No artist found for name '{artist_name}'."}, 404
 
-    artist = sp.artist(artist_id)
-
-    # Error handling in case the artist has no images
-    if not artist["images"]:
-        return {"error": "No images found for this artist."}, 404
-
     return jsonify({
-        "name": artist["name"],
-        "image": artist["images"][0]["url"],
+        "name": artist_name,
+        "image": image_link,
     })
 
 
