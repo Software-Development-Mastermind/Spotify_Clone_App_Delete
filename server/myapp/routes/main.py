@@ -61,6 +61,7 @@ def get_artist_id(auth_token, artist_name):
 
     
     results = response.json()
+    print(results)
 
     if results.get('artists').get('items'):
         finalResults = results.get('artists').get('items')[0].get('id')
@@ -78,6 +79,7 @@ def get_artist_image(auth_token, artist_name):
     }
 
     response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
+    print("Status Code:", response.status_code)
     results = response.json()
     name_to_image = {}
     
@@ -98,7 +100,8 @@ def get_artist_image(auth_token, artist_name):
     import json
     with open("artists.json", "w") as outfile:
         json.dump(name_to_image, outfile)
-    
+        
+
     return name_to_image
     
 
@@ -122,4 +125,4 @@ def get_artist_info():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
