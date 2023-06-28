@@ -47,18 +47,21 @@ def get_spotify_client():
     token = get_auth_token()
     return token
 
+artist_name = "tupac"
 
 def get_artist_id(auth_token, artist_name):
     headers = {
         'Authorization': f'Bearer {auth_token}',
     }
+    print("ARTIST")
+    print("ARIST_NAME: " + artist_name)
     params = {
         'q': artist_name,
         'type': 'artist',
     }
 
     response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
-
+    
     
     results = response.json()
     print(results)
@@ -109,7 +112,6 @@ def get_artist_image(auth_token, artist_name):
 def get_artist_info():
     auth_token = get_auth_token()
     artist_name = request.args.get('artist_name', default='', type=str)
-
     artist_id = get_artist_id(auth_token, artist_name)
     artist_name_to_image = get_artist_image(auth_token, artist_name)
     
@@ -125,4 +127,4 @@ def get_artist_info():
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
