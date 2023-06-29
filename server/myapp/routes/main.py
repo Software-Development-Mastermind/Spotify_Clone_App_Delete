@@ -47,14 +47,14 @@ def get_spotify_client():
     token = get_auth_token()
     return token
 
-artist_name = "tupac"
+artist_name = "Drake"
 
 def get_artist_id(auth_token, artist_name):
     headers = {
         'Authorization': f'Bearer {auth_token}',
     }
-    print("ARTIST")
-    print("ARIST_NAME: " + artist_name)
+    #print("ARTIST")
+    #print("ARIST_NAME: " + artist_name)
     params = {
         'q': artist_name,
         'type': 'artist',
@@ -64,7 +64,9 @@ def get_artist_id(auth_token, artist_name):
     
     
     results = response.json()
-    print(results)
+    import json
+    print(json.dumps(results, indent=4))
+
 
     if results.get('artists').get('items'):
         finalResults = results.get('artists').get('items')[0].get('id')
