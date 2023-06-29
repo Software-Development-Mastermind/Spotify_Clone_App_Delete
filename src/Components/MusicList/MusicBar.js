@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import ArtistList from "../ArtistList/ArtistList";
 import HipHop from "../../Images/Hip_Hop.jpg";
