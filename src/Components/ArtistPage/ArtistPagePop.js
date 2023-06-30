@@ -7,7 +7,7 @@ import MichaelJackson from "../../Images/Michael_Jackson.jpeg";
 import ColdPlay from "../../Images/Coldplay.jpg";
 import Rhianna from "../../Images/Rhianna.jpg";
 
-function ArtistPageMetal() {
+function ArtistPagePop() {
   const [singers, setSingers] = useState([
     {
       id: 1,
@@ -92,9 +92,8 @@ function ArtistPageMetal() {
           </Card>
         ))}
       </div>
-      {genres && <ArtistList genreslists={genres} />}
     </div>
   );
 }
 
-export default ArtistPageMetal;
+export default ArtistPagePop;

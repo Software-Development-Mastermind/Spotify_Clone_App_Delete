@@ -92,7 +92,6 @@ function ArtistPageHipHop() {
           </Card>
         ))}
       </div>
-      {genres && <ArtistList genreslists={genres} />}
     </div>
   );
 }

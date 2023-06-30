@@ -39,6 +39,7 @@ function ArtistPageJazz() {
     },
   ]);
 
+  const [fetchData, setFetchData] = useState(false);
   const handleOnClick = () => {
     setFetchData(true);
   };
@@ -92,7 +93,6 @@ function ArtistPageJazz() {
           </Card>
         ))}
       </div>
-      {genres && <ArtistList genreslists={genres} />}
     </div>
   );
 }
