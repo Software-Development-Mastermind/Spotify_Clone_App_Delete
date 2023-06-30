@@ -2,39 +2,39 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import playbtn from "../../Icons/play-button.png";
-import jayz from "../../Images/jayz.jpg";
-import iceCube from "../../Images/ice_cube.jpg";
-import travisScott from "../../Images/travis_scott.jpg";
-import kdot from "../../Images/kdot.jpg";
+import Metallica from "../../Images/Metallica.jpg";
+import Gojira from "../../Images/Gojira.jpg";
+import Korn from "../../Images/Korn.jpg";
+import Vildhjarta from "../../Images/Vildhjarta.jpg";
 
-function ArtistPageHipHop() {
+function ArtistPageMetal() {
   const [singers, setSingers] = useState([
     {
       id: 1,
       isHovered: false,
-      image: jayz,
-      name: "JayZ",
+      image: Metallica,
+      name: "Metallica",
       hoverImage: playbtn,
     },
     {
       id: 2,
       isHovered: false,
-      image: iceCube,
-      name: "Ice Cube",
+      image: Gojira,
+      name: "Gojira",
       hoverImage: playbtn,
     },
     {
       id: 3,
       isHovered: false,
-      image: travisScott,
-      name: "Travis Scott",
+      image: Korn,
+      name: "Korn",
       hoverImage: playbtn,
     },
     {
       id: 4,
       isHovered: false,
-      image: kdot,
-      name: "Kendrick Lamar",
+      image: Vildhjarta,
+      name: "Vildhjarta",
       hoverImage: playbtn,
     },
   ]);
@@ -97,4 +97,4 @@ function ArtistPageHipHop() {
   );
 }
 
-export default ArtistPageHipHop;
+export default ArtistPageMetal;

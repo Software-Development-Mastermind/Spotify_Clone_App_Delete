@@ -2,39 +2,39 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import playbtn from "../../Icons/play-button.png";
-import jayz from "../../Images/jayz.jpg";
-import iceCube from "../../Images/ice_cube.jpg";
-import travisScott from "../../Images/travis_scott.jpg";
-import kdot from "../../Images/kdot.jpg";
+import CharlieParker from "../../Images/Charlie_Parker.jpg";
+import FrankSinatra from "../../Images/Frank_Sintara.jpg";
+import BillieHoliday from "../../Images/Billie_Holiday.jpg";
+import LouisArmstrong from "../../Images/Louis_Armstrong.jpg";
 
-function ArtistPageHipHop() {
+function ArtistPageJazz() {
   const [singers, setSingers] = useState([
     {
       id: 1,
       isHovered: false,
-      image: jayz,
-      name: "JayZ",
+      image: CharlieParker,
+      name: "CharlieParker",
       hoverImage: playbtn,
     },
     {
       id: 2,
       isHovered: false,
-      image: iceCube,
-      name: "Ice Cube",
+      image: FrankSinatra,
+      name: "FrankSinatra",
       hoverImage: playbtn,
     },
     {
       id: 3,
       isHovered: false,
-      image: travisScott,
-      name: "Travis Scott",
+      image: BillieHoliday,
+      name: "BillieHoliday",
       hoverImage: playbtn,
     },
     {
       id: 4,
       isHovered: false,
-      image: kdot,
-      name: "Kendrick Lamar",
+      image: LouisArmstrong,
+      name: "LouisArmstrong",
       hoverImage: playbtn,
     },
   ]);
@@ -97,4 +97,4 @@ function ArtistPageHipHop() {
   );
 }
 
-export default ArtistPageHipHop;
+export default ArtistPageJazz;
