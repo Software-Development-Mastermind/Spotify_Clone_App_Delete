@@ -14,3 +14,5 @@ function ArtistPageLayout() {
     </div>
   );
 }
+
+export default ArtistPageLayout;
