@@ -18,13 +18,13 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} index />
         <Route path="/searchbar" element={<SearchBar />} />
         <Route path="/randomizer" element={<RandomizerLayout />} />
-        <Route path="/genre/Hip Hop" component={<ArtistPageHipHop />} />
-        <Route path="/genre/Jazz" component={<ArtistPageJazz />} />
-        <Route path="/genre/Metal" component={<ArtistPageMetal />} />
-        <Route path="/genre/Pop" component={<ArtistPagePop />} />
+        <Route path="/genre/HipHop" element={<ArtistPageHipHop />} />
+        <Route path="/genre/Jazz" element={<ArtistPageJazz />} />
+        <Route path="/genre/Metal" element={<ArtistPageMetal />} />
+        <Route path="/genre/Pop" element={<ArtistPagePop />} />
       </Routes>
     </Router>
   );

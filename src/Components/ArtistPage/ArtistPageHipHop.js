@@ -39,6 +39,8 @@ function ArtistPageHipHop() {
     },
   ]);
 
+  const [fetchData, setFetchData] = useState(false);
+
   const handleOnClick = () => {
     setFetchData(true);
   };

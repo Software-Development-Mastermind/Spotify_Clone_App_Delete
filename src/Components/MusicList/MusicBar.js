@@ -17,7 +17,7 @@ function Musicbar() {
       isHovered: false,
       image: HipHop,
       hoverImage: playbtn,
-      genre: "Hip Hop",
+      genre: "HipHop",
       description:
         "Dive into the vibrant beats of Hip Hop, where expressive lyrics and pulsating rhythms weave an unmistakable urban narrative",
     },
