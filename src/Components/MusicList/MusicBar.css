@@ -93,6 +93,11 @@
   height: 50%;
 }
 
+.card_body {
+  margin-top: 61%;
+  
+}
+
 .card_layout_bgcolor:hover .overlay-image {
   opacity: 1;
   transform: translate(12rem, 8rem) translateY(-10px);

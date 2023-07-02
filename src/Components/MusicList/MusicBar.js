@@ -75,7 +75,11 @@ function Musicbar() {
       </div>
       <div className="card_layout" onClick={handleOnClick}>
         {cards.map((card) => (
-          <Link to={`/genre/${card.genre}`} key={card.id}>
+          <Link
+            to={`/genre/${card.genre}`}
+            key={card.id}
+            className="text-decoration-none"
+          >
             <Card
               key={card.id} // Don't forget to provide a unique 'key' for each element in a list
               style={{ width: "18rem" }}
@@ -113,7 +117,7 @@ function Musicbar() {
                   </div>
                 )}
               </div>
-              <Card.Body>
+              <Card.Body className="card_body">
                 <Card.Title
                   style={{ justifyContent: "center", color: "white" }}
                 >
