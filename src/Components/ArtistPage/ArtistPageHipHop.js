@@ -55,14 +55,14 @@ function ArtistPageHipHop() {
             className="card_layout_bgcolor"
             onMouseEnter={() =>
               setSingers(
-                singer.map((c) =>
+                singers.map((c) =>
                   c.id === singer.id ? { ...c, isHovered: true } : c
                 )
               )
             }
             onMouseLeave={() =>
               setSingers(
-                singer.map((c) =>
+                singers.map((c) =>
                   c.id === singer.id ? { ...c, isHovered: false } : c
                 )
               )
