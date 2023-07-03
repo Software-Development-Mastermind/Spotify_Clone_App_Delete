@@ -5,7 +5,7 @@ import ArtistPageHipHop from "../HipHopLayout/ArtistPageHipHop";
 
 function HipHopLayout() {
   return (
-    <div>
+    <div className="main-layout">
       <LogSignIn />
       <Sidebar />
       <ArtistPageHipHop />

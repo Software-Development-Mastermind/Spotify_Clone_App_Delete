@@ -47,6 +47,9 @@ function ArtistPageHipHop() {
 
   return (
     <div className="background_color_gradient">
+      <div className="word_layout">
+        <p className="word_layout_genre">Hip Hop</p>
+      </div>
       <div className="card_layout" onClick={handleOnClick}>
         {singers.map((singer) => (
           <Card
