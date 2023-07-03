@@ -6,7 +6,6 @@
 .list {
   width: 15%;
   z-index: 2;
-  position: relative;
   background-color: #000;
   height: 100vh;
   font-family: "SpotifyFont";

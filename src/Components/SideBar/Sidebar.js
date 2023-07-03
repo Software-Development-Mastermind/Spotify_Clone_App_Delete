@@ -1,13 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import spotifyImg from "../../Icons/spotifylogo.png";
 import houseImg from "../../Icons/houseimg.png";
 import magGlass from "../../Icons/magnifyingGlass.png";
 import shuffle from "../../Icons/shuffle.png";
 
 function Sidebar() {
+  const changeCSS = useLocation();
+
+  const CssChange = changeCSS.pathname === "/ArtistPageHipHop";
+
   return (
-    <div className="list">
+    <div className={`Sidebar ${CssChange ? "HomePage" : ""} list`}>
       <ul className="unorderedList">
         <li>
           <img src={spotifyImg} className="btnSizeOne" />

@@ -76,7 +76,7 @@ function Musicbar() {
       <div className="card_layout" onClick={handleOnClick}>
         {cards.map((card) => (
           <Link
-            to={`/genre/${card.genre}`}
+            to={`${card.genre}Layout`}
             key={card.id}
             className="text-decoration-none"
           >
