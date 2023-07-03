@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
-import playbtn from "../../Icons/play-button.png";
-import CharlieParker from "../../Images/Charlie_Parker.jpg";
-import FrankSinatra from "../../Images/Frank_Sintara.jpg";
-import BillieHoliday from "../../Images/Billie_Holiday.jpg";
-import LouisArmstrong from "../../Images/Louis_Armstrong.jpg";
+import playbtn from "../../../Icons/play-button.png";
+import CharlieParker from "../../../Images/Charlie_Parker.jpg";
+import FrankSinatra from "../../../Images/Frank_Sintara.jpg";
+import BillieHoliday from "../../../Images/Billie_Holiday.jpg";
+import LouisArmstrong from "../../../Images/Louis_Armstrong.jpg";
 
 function ArtistPageJazz() {
   const [singers, setSingers] = useState([
@@ -13,28 +13,28 @@ function ArtistPageJazz() {
       id: 1,
       isHovered: false,
       image: CharlieParker,
-      name: "CharlieParker",
+      name: "Charlie Parker",
       hoverImage: playbtn,
     },
     {
       id: 2,
       isHovered: false,
       image: FrankSinatra,
-      name: "FrankSinatra",
+      name: "Frank Sinatra",
       hoverImage: playbtn,
     },
     {
       id: 3,
       isHovered: false,
       image: BillieHoliday,
-      name: "BillieHoliday",
+      name: "Billie Holiday",
       hoverImage: playbtn,
     },
     {
       id: 4,
       isHovered: false,
       image: LouisArmstrong,
-      name: "LouisArmstrong",
+      name: "Louis Armstrong",
       hoverImage: playbtn,
     },
   ]);
@@ -46,6 +46,9 @@ function ArtistPageJazz() {
 
   return (
     <div className="background_color_gradient">
+      <div className="word_layout">
+        <p className="word_layout_genre">Jazz</p>
+      </div>
       <div className="card_layout" onClick={handleOnClick}>
         {singers.map((singer) => (
           <Card
