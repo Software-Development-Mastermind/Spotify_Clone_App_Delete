@@ -8,10 +8,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./Components/HomePage";
 import SearchBar from "./Components/SearchBar/SearchBar";
 import RandomizerLayout from "./Components/Randomizer/RandomizerLayout";
-import ArtistPageMetal from "./Components/ArtistPage/ArtistPageMetal";
 import ArtistPagePop from "./Components/ArtistPage/ArtistPagePop";
 import HipHopLayout from "./Components/ArtistPage/HipHopLayout/HipHopLayout";
 import JazzLayout from "./Components/ArtistPage/JazzLayout/JazzLayout";
+import MetalLayout from "./Components/ArtistPage/MetalLayout/MetalLayout";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         <Route path="/randomizer" element={<RandomizerLayout />} />
         <Route path="HipHopLayout" element={<HipHopLayout />} />
         <Route path="JazzLayout" element={<JazzLayout />} />
-        <Route path="/genre/Metal" element={<ArtistPageMetal />} />
+        <Route path="MetalLayout" element={<MetalLayout />} />
         <Route path="/genre/Pop" element={<ArtistPagePop />} />
       </Routes>
     </Router>

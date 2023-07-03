@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
-import playbtn from "../../Icons/play-button.png";
-import Metallica from "../../Images/Metallica.jpg";
-import Gojira from "../../Images/Gojira.jpg";
-import Korn from "../../Images/Korn.jpg";
-import Vildhjarta from "../../Images/Vildhjarta.jpg";
+import playbtn from "../../../Icons/play-button.png";
+import Metallica from "../../../Images/Metallica.jpg";
+import Gojira from "../../../Images/Gojira.jpg";
+import Korn from "../../../Images/Korn.jpg";
+import Vildhjarta from "../../../Images/Vildhjarta.jpg";
 
 function ArtistPageMetal() {
   const [singers, setSingers] = useState([
@@ -47,6 +47,9 @@ function ArtistPageMetal() {
 
   return (
     <div className="background_color_gradient">
+      <div className="word_layout">
+        <p className="word_layout_genre">Metal</p>
+      </div>
       <div className="card_layout" onClick={handleOnClick}>
         {singers.map((singer) => (
           <Card
