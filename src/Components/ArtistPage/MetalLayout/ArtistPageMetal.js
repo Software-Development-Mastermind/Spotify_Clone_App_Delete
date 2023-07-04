@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
+import axios from "axios";
 import playbtn from "../../../Icons/play-button.png";
 import Metallica from "../../../Images/Metallica.jpg";
 import Gojira from "../../../Images/Gojira.jpg";
@@ -40,9 +41,20 @@ function ArtistPageMetal() {
   ]);
 
   const [fetchData, setFetchData] = useState(false);
+  const [genres, setGenres] = useState(null);
+  useEffect(() => {
+    if (!fetchData) return;
+    const getData = async () => {
+      const response = await axios.get(`/artist?artist_name=${fetchData}`);
+      setGenres(response.data);
+      setFetchData(false);
+    };
 
-  const handleOnClick = () => {
-    setFetchData(true);
+    getData();
+  }, [fetchData]);
+
+  const handleOnClick = (artist_name) => {
+    setFetchData(artist_name);
   };
 
   return (
@@ -50,7 +62,7 @@ function ArtistPageMetal() {
       <div className="word_layout">
         <p className="word_layout_genre">Metal</p>
       </div>
-      <div className="card_layout" onClick={handleOnClick}>
+      <div className="card_layout">
         {singers.map((singer) => (
           <Card
             key={singer.id} // Don't forget to provide a unique 'key' for each element in a list
@@ -70,6 +82,7 @@ function ArtistPageMetal() {
                 )
               )
             }
+            onClick={() => handleOnClick(singer.name)}
           >
             <div className="image-container">
               <div className={`base-image ${singer.isHovered ? "dimmed" : ""}`}>

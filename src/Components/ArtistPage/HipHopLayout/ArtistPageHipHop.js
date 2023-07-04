@@ -41,13 +41,10 @@ function ArtistPageHipHop() {
   ]);
 
   const [fetchData, setFetchData] = useState(false);
-
   const [genres, setGenres] = useState(null);
-
   useEffect(() => {
     if (!fetchData) return;
     const getData = async () => {
-      console.log(fetchData);
       const response = await axios.get(`/artist?artist_name=${fetchData}`);
       setGenres(response.data);
       setFetchData(false);
@@ -65,13 +62,12 @@ function ArtistPageHipHop() {
       <div className="word_layout">
         <p className="word_layout_genre">Hip Hop</p>
       </div>
-      <div className="card_layout" onClick={handleOnClick}>
+      <div className="card_layout">
         {singers.map((singer) => (
           <Card
             key={singer.id} // Don't forget to provide a unique 'key' for each element in a list
             style={{ width: "18rem" }}
             className="card_layout_bgcolor"
-            onClick={() => handleOnClick(singer.name)}
             onMouseEnter={() =>
               setSingers(
                 singers.map((c) =>
@@ -86,6 +82,7 @@ function ArtistPageHipHop() {
                 )
               )
             }
+            onClick={() => handleOnClick(singer.name)}
           >
             <div className="image-container">
               <div className={`base-image ${singer.isHovered ? "dimmed" : ""}`}>
@@ -112,6 +109,12 @@ function ArtistPageHipHop() {
             </Card.Body>
           </Card>
         ))}
+      </div>
+      <div>
+        <li>
+          <ul>{song.image}</ul>
+          <ul>{song.name}</ul>
+        </li>
       </div>
     </div>
   );
