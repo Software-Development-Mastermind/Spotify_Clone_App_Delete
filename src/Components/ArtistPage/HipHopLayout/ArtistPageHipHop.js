@@ -40,21 +40,21 @@ function ArtistPageHipHop() {
     },
   ]);
 
-  const [fetchData, setFetchData] = useState(false);
+  const [fetchArtist, setFetchArtist] = useState(false);
   const [genres, setGenres] = useState(null);
   useEffect(() => {
-    if (!fetchData) return;
+    if (!fetchArtist) return;
     const getData = async () => {
-      const response = await axios.get(`/artist?artist_name=${fetchData}`);
+      const response = await axios.get(`/artist?artist_name=${fetchArtist}`);
       setGenres(response.data);
-      setFetchData(false);
+      setFetchArtist(false);
     };
 
     getData();
-  }, [fetchData]);
+  }, [fetchArtist]);
 
   const handleOnClick = (artist_name) => {
-    setFetchData(artist_name);
+    setFetchArtist(artist_name);
   };
 
   return (

@@ -106,6 +106,33 @@ def get_artist_image(auth_token, artist_name):
         
 
     return name_to_image
+
+def get_top_track(auth_token, artist_id):
+    headers = {
+        'Authorization': f'Bearer {auth_token}',
+    }
+    params = {
+        'market': 'US', 
+    }
+
+    response = requests.get(f'https://api.spotify.com/v1/artists/{artist_id}/top-tracks', headers=headers, params=params)
+    response.raise_for_status()  
+    results = response.json()
+
+    if results.get('tracks'):
+        # Get the first top track of the artist
+        first_track = results.get('tracks')[0]
+
+        track_name = first_track.get('name')
+        track_image = first_track['album']['images'][0]['url'] if first_track['album']['images'] else None
+
+        return {
+            "track_name": track_name,
+            "track_image": track_image,
+        }
+    else:
+        return None
+
     
 
 @app.route('/artist', methods=['GET'])
@@ -114,6 +141,7 @@ def get_artist_info():
     artist_name = request.args.get('artist_name', default='', type=str)
     artist_id = get_artist_id(auth_token, artist_name)
     artist_name_to_image = get_artist_image(auth_token, artist_name)
+    top_track = get_top_track(auth_token, artist_id)
     
     image_link = artist_name_to_image.get(artist_name)
 
