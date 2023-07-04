@@ -6,6 +6,7 @@ import jayz from "../../../Images/jayz.jpg";
 import iceCube from "../../../Images/ice_cube.jpg";
 import travisScott from "../../../Images/travis_scott.jpg";
 import kdot from "../../../Images/kdot.jpg";
+import axios from "axios";
 
 function ArtistPageHipHop() {
   const [singers, setSingers] = useState([
@@ -13,7 +14,7 @@ function ArtistPageHipHop() {
       id: 1,
       isHovered: false,
       image: jayz,
-      name: "JayZ",
+      name: "JAY-Z",
       hoverImage: playbtn,
     },
     {
@@ -46,7 +47,7 @@ function ArtistPageHipHop() {
   useEffect(() => {
     if (!fetchData) return;
     const getData = async () => {
-      const response = await axios.get("/artist");
+      const response = await axios.get(`/artist?artist_name=${fetchData}`);
       setGenres(response.data);
       setFetchData(false);
     };
@@ -54,8 +55,8 @@ function ArtistPageHipHop() {
     getData();
   }, [fetchData]);
 
-  const handleOnClick = () => {
-    setFetchData(true);
+  const handleOnClick = (artist_name) => {
+    setFetchData(artist_name);
   };
 
   return (
@@ -69,6 +70,7 @@ function ArtistPageHipHop() {
             key={singer.id} // Don't forget to provide a unique 'key' for each element in a list
             style={{ width: "18rem" }}
             className="card_layout_bgcolor"
+            onClick={() => handleOnClick(singer.name)}
             onMouseEnter={() =>
               setSingers(
                 singers.map((c) =>
