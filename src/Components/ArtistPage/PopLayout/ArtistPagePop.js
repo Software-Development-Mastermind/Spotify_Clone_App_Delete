@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
-import playbtn from "../../Icons/play-button.png";
-import LadyGaga from "../../Images/Lady_Gaga.jpg";
-import MichaelJackson from "../../Images/Michael_Jackson.jpeg";
-import ColdPlay from "../../Images/Coldplay.jpg";
-import Rhianna from "../../Images/Rhianna.jpg";
+import playbtn from "../../../Icons/play-button.png";
+import LadyGaga from "../../../Images/Lady_Gaga.jpg";
+import MichaelJackson from "../../../Images/Michael_Jackson.jpeg";
+import ColdPlay from "../../../Images/Coldplay.jpg";
+import Rhianna from "../../../Images/Rhianna.jpg";
 
 function ArtistPagePop() {
   const [singers, setSingers] = useState([
@@ -47,6 +47,9 @@ function ArtistPagePop() {
 
   return (
     <div className="background_color_gradient">
+      <div className="word_layout">
+        <p className="word_layout_genre">Pop</p>
+      </div>
       <div className="card_layout" onClick={handleOnClick}>
         {singers.map((singer) => (
           <Card
