@@ -47,6 +47,7 @@ function ArtistPageHipHop() {
   useEffect(() => {
     if (!fetchData) return;
     const getData = async () => {
+      console.log(fetchData);
       const response = await axios.get(`/artist?artist_name=${fetchData}`);
       setGenres(response.data);
       setFetchData(false);
