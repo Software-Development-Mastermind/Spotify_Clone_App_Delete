@@ -151,6 +151,7 @@ def get_artist_info():
     return jsonify({
         "name": artist_name,
         "image": image_link,
+        "top_track": top_track,
     })
 
 

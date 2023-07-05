@@ -44,8 +44,15 @@ function ArtistPageHipHop() {
   const [genres, setGenres] = useState(null);
   useEffect(() => {
     if (!fetchArtist) return;
-    const getData = async () => {
-      const response = await axios.get(`/artist?artist_name=${fetchArtist}`);
+    const getData = async (name, img, track_name, track_img) => {
+      const response = await axios.get("/artist", {
+        params: {
+          artist_name: name,
+          image_link: img,
+          top_track: track_name,
+          top_track: track_img,
+        },
+      });
       setGenres(response.data);
       setFetchArtist(false);
     };
@@ -110,12 +117,12 @@ function ArtistPageHipHop() {
           </Card>
         ))}
       </div>
-      <div>
+      {/* <div>
         <li>
           <ul>{song.image}</ul>
           <ul>{song.name}</ul>
         </li>
-      </div>
+      </div> */}
     </div>
   );
 }
