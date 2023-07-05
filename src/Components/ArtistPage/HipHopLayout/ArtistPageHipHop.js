@@ -40,28 +40,21 @@ function ArtistPageHipHop() {
     },
   ]);
 
-  const [fetchArtist, setFetchArtist] = useState(false);
-  const [genres, setGenres] = useState(null);
+  const [artistDetails, setArtistDetails] = useState(false);
+  const [selectedArtist, setSelectedArtist] = useState(null);
   useEffect(() => {
-    if (!fetchArtist) return;
-    const getData = async (name, img, track_name, track_img) => {
-      const response = await axios.get("/artist", {
-        params: {
-          artist_name: name,
-          image_link: img,
-          top_track: track_name,
-          top_track: track_img,
-        },
-      });
-      setGenres(response.data);
-      setFetchArtist(false);
+    if (!selectedArtist) return;
+    const getData = async () => {
+      const response = await axios.get(`/artist?artist_name=${selectedArtist}`);
+      setArtistDetails(response.data);
+      setSelectedArtist(false);
     };
 
     getData();
-  }, [fetchArtist]);
+  }, [selectedArtist]);
 
   const handleOnClick = (artist_name) => {
-    setFetchArtist(artist_name);
+    setSelectedArtist(artist_name);
   };
 
   return (
@@ -117,12 +110,14 @@ function ArtistPageHipHop() {
           </Card>
         ))}
       </div>
-      {/* <div>
+      <div>
         <li>
-          <ul>{song.image}</ul>
-          <ul>{song.name}</ul>
+          <ul>
+            <img src={artistDetails.topTrack.image} />
+          </ul>
+          <ul>{artistDetails.topTrack.name}</ul>
         </li>
-      </div> */}
+      </div>
     </div>
   );
 }
