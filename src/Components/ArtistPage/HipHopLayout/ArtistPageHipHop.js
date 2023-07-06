@@ -112,10 +112,16 @@ function ArtistPageHipHop() {
       </div>
       <div>
         <li>
-          <ul>
-            <img src={artistDetails.top_track?.track_image} />
+          <ul className="d-flex flex-row">
+            <img
+              className="top_track_image_size"
+              style={{ marginRight: "2%" }}
+              src={artistDetails.top_track?.track_image}
+            />
+            <p className="d-flex align-items-center mt-1, text-white">
+              {artistDetails.top_track?.track_name}
+            </p>
           </ul>
-          <ul>{artistDetails.top_track?.track_name}</ul>
         </li>
       </div>
     </div>
