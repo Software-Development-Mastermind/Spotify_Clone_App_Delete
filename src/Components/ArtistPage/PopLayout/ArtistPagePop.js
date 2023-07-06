@@ -40,22 +40,23 @@ function ArtistPagePop() {
     },
   ]);
 
-  const [fetchData, setFetchData] = useState(false);
-  const [genres, setGenres] = useState(null);
+  const [artistDetails, setArtistDetails] = useState(false);
+  const [selectedArtist, setSelectedArtist] = useState(null);
   useEffect(() => {
-    if (!fetchData) return;
+    if (!selectedArtist) return;
     const getData = async () => {
-      const response = await axios.get(`/artist?artist_name=${fetchData}`);
-      setGenres(response.data);
-      setFetchData(false);
+      const response = await axios.get(`/artist?artist_name=${selectedArtist}`);
+      setArtistDetails(response.data);
+      setSelectedArtist(false);
     };
 
     getData();
-  }, [fetchData]);
+  }, [selectedArtist]);
 
   const handleOnClick = (artist_name) => {
-    setFetchData(artist_name);
+    setSelectedArtist(artist_name);
   };
+  console.log(artistDetails);
 
   return (
     <div className="background_color_gradient">
@@ -109,6 +110,14 @@ function ArtistPagePop() {
             </Card.Body>
           </Card>
         ))}
+      </div>
+      <div>
+        <li>
+          <ul>
+            <img src={artistDetails.top_track?.track_image} />
+          </ul>
+          <ul>{artistDetails.top_track?.track_name}</ul>
+        </li>
       </div>
     </div>
   );

@@ -113,9 +113,9 @@ function ArtistPageHipHop() {
       <div>
         <li>
           <ul>
-            <img src={artistDetails.topTrack.image} />
+            <img src={artistDetails.top_track?.track_image} />
           </ul>
-          <ul>{artistDetails.topTrack.name}</ul>
+          <ul>{artistDetails.top_track?.track_name}</ul>
         </li>
       </div>
     </div>
