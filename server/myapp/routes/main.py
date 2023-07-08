@@ -138,23 +138,17 @@ def get_artist_page(auth_token, artist_id):
     headers = {
         'Authorization': f'Bearer {auth_token}',
     }
-    params = {
-        'market': 'US', 
-    }
 
-    response = requests.get(f'https://api.spotify.com/v1/artists/{artist_id}/items/external_urls/spotify', headers=headers, params=params)
+    response = requests.get(f'https://api.spotify.com/v1/artists/{artist_id}', headers=headers)
     response.raise_for_status()  
     results = response.json()
 
-    if results.get('spotify'):
-        artist_page = results.get('spotify')
+    artist_page = results.get('items', []).get('external_urls', {}).get('spotify', '') 
 
-        return {
+    return {
             "artist_page": artist_page
         }
 
-    else:
-        return None
     
 
 @app.route('/artist', methods=['GET'])

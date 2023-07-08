@@ -112,10 +112,22 @@ function ArtistPageJazz() {
       </div>
       <div>
         <li>
-          <ul>
-            <img src={artistDetails.top_track.track_image} />
-          </ul>
-          <ul>{artistDetails.top_track.track_name}</ul>
+          <a
+            href={artistDetails.artist_page?.artist_page}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <ul className="d-flex flex-row">
+              <img
+                className="top_track_image_size"
+                style={{ marginRight: "2%", marginLeft: "2%" }}
+                src={artistDetails.top_track?.track_image}
+              />
+              <p className="d-flex align-items-center mt-1, text-white">
+                {artistDetails.top_track?.track_name}
+              </p>
+            </ul>
+          </a>
         </li>
       </div>
     </div>

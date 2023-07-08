@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import playbtn from "../../../Icons/play-button.png";
 import jayz from "../../../Images/jayz.jpg";
@@ -57,7 +56,7 @@ function ArtistPageHipHop() {
   const handleOnClick = (artist_name) => {
     setSelectedArtist(artist_name);
   };
-
+  console.log(artistDetails.artist_page);
   return (
     <div className="background_color_gradient">
       <div className="word_layout">
@@ -113,7 +112,11 @@ function ArtistPageHipHop() {
       </div>
       <div>
         <li>
-          <Link src={artist_page}>
+          <a
+            href={artistDetails.artist_page?.artist_page}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <ul className="d-flex flex-row">
               <img
                 className="top_track_image_size"
@@ -124,7 +127,7 @@ function ArtistPageHipHop() {
                 {artistDetails.top_track?.track_name}
               </p>
             </ul>
-          </Link>
+          </a>
         </li>
       </div>
     </div>
