@@ -56,7 +56,6 @@ function ArtistPageHipHop() {
   const handleOnClick = (artist_name) => {
     setSelectedArtist(artist_name);
   };
-  console.log(artistDetails.artist_page);
   return (
     <div className="background_color_gradient">
       <div className="word_layout">
