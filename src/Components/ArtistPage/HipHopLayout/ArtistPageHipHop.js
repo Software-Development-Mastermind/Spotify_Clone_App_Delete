@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import playbtn from "../../../Icons/play-button.png";
 import jayz from "../../../Images/jayz.jpg";
@@ -112,16 +113,18 @@ function ArtistPageHipHop() {
       </div>
       <div>
         <li>
-          <ul className="d-flex flex-row">
-            <img
-              className="top_track_image_size"
-              style={{ marginRight: "2%" }}
-              src={artistDetails.top_track?.track_image}
-            />
-            <p className="d-flex align-items-center mt-1, text-white">
-              {artistDetails.top_track?.track_name}
-            </p>
-          </ul>
+          <Link src={artist_page}>
+            <ul className="d-flex flex-row">
+              <img
+                className="top_track_image_size"
+                style={{ marginRight: "2%", marginLeft: "2%" }}
+                src={artistDetails.top_track?.track_image}
+              />
+              <p className="d-flex align-items-center mt-1, text-white">
+                {artistDetails.top_track?.track_name}
+              </p>
+            </ul>
+          </Link>
         </li>
       </div>
     </div>

@@ -133,6 +133,28 @@ def get_top_track(auth_token, artist_id):
     else:
         return None
 
+
+def get_artist_page(auth_token, artist_id):
+    headers = {
+        'Authorization': f'Bearer {auth_token}',
+    }
+    params = {
+        'market': 'US', 
+    }
+
+    response = requests.get(f'https://api.spotify.com/v1/artists/{artist_id}/items/external_urls/spotify', headers=headers, params=params)
+    response.raise_for_status()  
+    results = response.json()
+
+    if results.get('spotify'):
+        artist_page = results.get('spotify')
+
+        return {
+            "artist_page": artist_page
+        }
+
+    else:
+        return None
     
 
 @app.route('/artist', methods=['GET'])
@@ -145,6 +167,8 @@ def get_artist_info():
     
     image_link = artist_name_to_image.get(artist_name)
 
+    artist_page = get_artist_page(auth_token, artist_id)
+
     if not artist_id or not image_link:
         return {"error": f"No artist found for name '{artist_name}'."}, 404
 
@@ -152,6 +176,7 @@ def get_artist_info():
         "name": artist_name,
         "image": image_link,
         "top_track": top_track,
+        "artist_page": artist_page
     })
 
 
