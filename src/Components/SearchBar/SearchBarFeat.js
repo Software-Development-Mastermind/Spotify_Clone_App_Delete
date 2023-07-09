@@ -3,16 +3,26 @@ import axios from "axios";
 import { Card } from "react-bootstrap";
 
 function SearchBarFeat() {
-  const [selectedOption, setSelectedOption] = useState("Artist");
-  const [searchResults, setSearchResults] = useState([]);
+  const [selectedOption, setSelectedOption] = useState();
+  const [searchResults, setSearchResults] = useState(false);
+
+  useEffect(() => {
+    if (!searchResults) return;
+    const getData = async () => {
+      const response = await axios.get(`/artist?artist_name=${searchResults}`);
+      setSelectedOption(response.data);
+      setSearchResults(false);
+    };
+
+    getData();
+  }, [searchResults]);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
-  const handleSearchClick = async () => {
-    const response = await axios.get(`/${selectedOption}`);
-    setSearchResults(response.data);
+  const handleSearchClick = (artist_info) => {
+    setSearchResults(artist_info);
   };
 
   return (
@@ -31,6 +41,7 @@ function SearchBarFeat() {
         type="text"
         placeholder="Search"
         aria-label="Search"
+        onChange={handleOptionChange}
       />
       <button className="buttonStyle" type="button" onClick={handleSearchClick}>
         Search
