@@ -52,6 +52,7 @@ function ArtistPageHipHop() {
 
     getData();
   }, [selectedArtist]);
+  console.log(artistDetails);
 
   const handleOnClick = (artist_name) => {
     setSelectedArtist(artist_name);

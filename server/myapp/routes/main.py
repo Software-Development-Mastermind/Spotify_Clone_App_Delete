@@ -143,7 +143,7 @@ def get_artist_page(auth_token, artist_id):
     response.raise_for_status()  
     results = response.json()
 
-    artist_page = results.get('items', []).get('external_urls', {}).get('spotify', '') 
+    artist_page = results.get('external_urls', {}).get('spotify', '') 
 
     return {
             "artist_page": artist_page
