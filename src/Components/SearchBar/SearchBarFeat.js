@@ -1,28 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card } from "react-bootstrap";
 
 function SearchBarFeat() {
-  const [selectedOption, setSelectedOption] = useState();
-  const [searchResults, setSearchResults] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("Artist"); // default to 'Artist'
+  const [searchQuery, setSearchQuery] = useState(""); // store the search query
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    if (!searchResults) return;
+    if (searchQuery === "") return;
+
     const getData = async () => {
-      const response = await axios.get(`/artist?artist_name=${searchResults}`);
-      setSelectedOption(response.data);
-      setSearchResults(false);
+      const response = await axios.get(
+        `/${selectedOption.toLowerCase()}?name=${searchQuery}`
+      );
+      setSearchResults(response.data);
     };
 
     getData();
-  }, [searchResults]);
+  }, [searchQuery, selectedOption]);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
-  const handleSearchClick = (artist_info) => {
-    setSearchResults(artist_info);
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearchClick = () => {
+    setSearchQuery(""); // this will trigger the useEffect
   };
 
   return (
@@ -41,21 +48,26 @@ function SearchBarFeat() {
         type="text"
         placeholder="Search"
         aria-label="Search"
-        onChange={handleOptionChange}
+        onChange={handleSearchChange}
       />
       <button className="buttonStyle" type="button" onClick={handleSearchClick}>
         Search
       </button>
       <div className="searchResults">
-        {searchResults.map((result, index) => (
-          <Card key={index}>
-            <Card.Img variant="top" src={result.imageUrl} />
-            <Card.Body>
-              <Card.Title>{result.name}</Card.Title>
-              <Card.Link href={result.spotifyUrl}>Go to Spotify</Card.Link>
-            </Card.Body>
-          </Card>
-        ))}
+        {searchResults && (
+          <a
+            href={searchResults.spotifyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Card>
+              <Card.Img variant="top" src={searchResults.imageUrl} />
+              <Card.Body>
+                <Card.Title>{searchResults.name}</Card.Title>
+              </Card.Body>
+            </Card>
+          </a>
+        )}
       </div>
     </div>
   );
