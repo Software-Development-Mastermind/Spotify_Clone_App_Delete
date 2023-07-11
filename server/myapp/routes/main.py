@@ -174,5 +174,33 @@ def get_artist_info():
     })
 
 
+@app.route('/album', methods=['GET'])
+def get_album_info():
+
+
+
+@app.route('/song', methods=['GET'])
+def get_song_info():
+    auth_token = get_auth_token()
+    artist_name = request.args.get('artist_name', default='', type=str)
+    artist_id = get_artist_id(auth_token, artist_name)
+    artist_name_to_image = get_artist_image(auth_token, artist_name)
+    top_track = get_top_track(auth_token, artist_id)
+    
+    image_link = artist_name_to_image.get(artist_name)
+
+    artist_page = get_artist_page(auth_token, artist_id)
+
+    if not artist_id or not image_link:
+        return {"error": f"No artist found for name '{artist_name}'."}, 404
+
+    return jsonify({
+        "name": artist_name,
+        "image": image_link,
+        "top_track": top_track,
+        "artist_page": artist_page
+    })
+
+
 if __name__ == "__main__":
     app.run(debug=True)
