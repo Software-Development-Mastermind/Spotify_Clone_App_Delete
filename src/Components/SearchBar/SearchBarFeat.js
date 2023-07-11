@@ -32,6 +32,10 @@ function SearchBarFeat() {
     setSearchQuery(""); // this will trigger the useEffect
   };
 
+  const artOption = (searchResults) = {
+    if (searchResults = " ") 
+  }
+
   return (
     <div className="containerStyle">
       <select
@@ -54,20 +58,16 @@ function SearchBarFeat() {
         Search
       </button>
       <div className="searchResults">
-        {searchResults && (
-          <a
-            href={searchResults.spotifyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Card>
-              <Card.Img variant="top" src={searchResults.imageUrl} />
+        {searchResults.map((result, index) => (
+          <a href={result.artist_page}>
+            <Card key={index}>
+              <Card.Img variant="top" src={result.image_link} />
               <Card.Body>
-                <Card.Title>{searchResults.name}</Card.Title>
+                <Card.Title>{result.artist_name}</Card.Title>
               </Card.Body>
             </Card>
           </a>
-        )}
+        ))}
       </div>
     </div>
   );
