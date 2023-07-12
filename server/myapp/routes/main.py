@@ -174,8 +174,8 @@ def get_artist_info():
     })
 
 
-@app.route('/album', methods=['GET'])
-def get_album_info():
+# @app.route('/album', methods=['GET'])
+# def get_album_info():
 
 
 
