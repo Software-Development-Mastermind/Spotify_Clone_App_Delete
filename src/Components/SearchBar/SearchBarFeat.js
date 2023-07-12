@@ -5,6 +5,7 @@ import { Card } from "react-bootstrap";
 function SearchBarFeat() {
   const [selectedOption, setSelectedOption] = useState("Artist"); // default to 'Artist'
   const [searchQuery, setSearchQuery] = useState(""); // store the search query
+
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
@@ -38,9 +39,12 @@ function SearchBarFeat() {
       imageField: "image",
       linkField: "artist_page",
     },
-    song: { titleField: "track_name", imageField: "track_image" },
+    song: {
+      titleField: "track_name",
+      imageField: "track_image",
+      linkField: "song_page",
+    },
   };
-
   const config = OPTION_CONFIG[selectedOption];
 
   return (
@@ -65,14 +69,14 @@ function SearchBarFeat() {
         Search
       </button>
       <div className="searchResults">
-        <a href={searchResults[config.linkField]}>
-          <>
-            <Card.Img variant="top" src={searchResults[config.imageField]} />
+        {searchResults.map((result, index) => (
+          <a href={result[config.linkField]} key={index}>
+            <Card.Img variant="top" src={result[config.imageField]} />
             <Card.Body>
-              <Card.Title>{searchResults[config.titleField]}</Card.Title>
+              <Card.Title>{result[config.titleField]}</Card.Title>
             </Card.Body>
-          </>
-        </a>
+          </a>
+        ))}
       </div>
     </div>
   );
