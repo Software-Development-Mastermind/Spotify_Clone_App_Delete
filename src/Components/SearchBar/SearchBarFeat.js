@@ -46,7 +46,8 @@ function SearchBarFeat() {
     },
   };
   const config = OPTION_CONFIG[selectedOption];
-
+  console.log(searchResults);
+  const arrayResults = searchResults.data;
   return (
     <div className="containerStyle">
       <select
@@ -68,8 +69,8 @@ function SearchBarFeat() {
       <button className="buttonStyle" type="button" onClick={handleSearchClick}>
         Search
       </button>
-      <div className="searchResults">
-        {searchResults.map((result, index) => (
+      <div>
+        {arrayResults.map((result, index) => (
           <a href={result[config.linkField]} key={index}>
             <Card.Img variant="top" src={result[config.imageField]} />
             <Card.Body>
