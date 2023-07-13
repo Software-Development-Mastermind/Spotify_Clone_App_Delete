@@ -5,21 +5,21 @@ import { Card } from "react-bootstrap";
 function SearchBarFeat() {
   const [selectedOption, setSelectedOption] = useState("Artist"); // default to 'Artist'
   const [searchQuery, setSearchQuery] = useState(""); // store the search query
-
+  const [startQuery, setStartQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    if (searchQuery === "") return;
+    if (startQuery === "") return;
 
     const getData = async () => {
       const response = await axios.get(
-        `/${selectedOption.toLowerCase()}?name=${searchQuery}`
+        `/${selectedOption.toLowerCase()}?artist_name=${startQuery}`
       );
       setSearchResults(response.data);
     };
 
     getData();
-  }, [searchQuery, selectedOption]);
+  }, [startQuery, selectedOption]);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -30,9 +30,9 @@ function SearchBarFeat() {
   };
 
   const handleSearchClick = () => {
-    setSearchQuery(""); // this will trigger the useEffect
+    setStartQuery(searchQuery); // this will trigger the useEffect
   };
-
+  console.log(startQuery);
   const OPTION_CONFIG = {
     artist: {
       titleField: "name",
