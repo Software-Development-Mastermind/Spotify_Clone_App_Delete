@@ -44,10 +44,19 @@ function SearchBarFeat() {
       imageField: "track_image",
       linkField: "song_page",
     },
+    album: {
+      titleField: "album_name",
+      imageField: "album_image",
+      linkField: "album_page",
+    },
   };
   const config = OPTION_CONFIG[selectedOption];
-  console.log(searchResults);
-  const arrayResults = searchResults.data;
+  //const arrayResults = Object.entries(searchResults);
+  console.log(OPTION_CONFIG.artist?.linkField);
+  console.log("selectedOption:", selectedOption);
+  console.log("searchResults:", searchResults);
+  console.log("config:", config);
+
   return (
     <div className="containerStyle">
       <select
@@ -70,14 +79,14 @@ function SearchBarFeat() {
         Search
       </button>
       <div>
-        {arrayResults.map((result, index) => (
-          <a href={result[config.linkField]} key={index}>
-            <Card.Img variant="top" src={result[config.imageField]} />
+        {searchResults && (
+          <a href={searchResults[config.linkField]}>
+            <Card.Img variant="top" src={searchResults[config.imageField]} />
             <Card.Body>
-              <Card.Title>{result[config.titleField]}</Card.Title>
+              <Card.Title>{searchResults[config.titleField]}</Card.Title>
             </Card.Body>
           </a>
-        ))}
+        )}
       </div>
     </div>
   );
