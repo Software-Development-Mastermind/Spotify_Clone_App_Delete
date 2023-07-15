@@ -79,14 +79,16 @@ function SearchBarFeat() {
         Search
       </button>
       <div>
-        {searchResults && (
-          <a href={searchResults[config.linkField]}>
-            <Card.Img variant="top" src={searchResults[config.imageField]} />
-            <Card.Body>
-              <Card.Title>{searchResults[config.titleField]}</Card.Title>
-            </Card.Body>
-          </a>
-        )}
+        {searchResults[config?.linkField] &&
+          searchResults[config?.imageField] &&
+          searchResults[config?.titleField] && (
+            <a href={searchResults[config?.linkField]}>
+              <Card.Img variant="top" src={searchResults[config?.imageField]} />
+              <Card.Body>
+                <Card.Title>{searchResults[config?.titleField]}</Card.Title>
+              </Card.Body>
+            </a>
+          )}
       </div>
     </div>
   );
