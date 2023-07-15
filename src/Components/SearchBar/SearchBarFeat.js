@@ -3,7 +3,7 @@ import axios from "axios";
 import { Card } from "react-bootstrap";
 
 function SearchBarFeat() {
-  const [selectedOption, setSelectedOption] = useState("Artist"); // default to 'Artist'
+  const [selectedOption, setSelectedOption] = useState("artist"); // default to 'Artist'
   const [searchQuery, setSearchQuery] = useState(""); // store the search query
   const [startQuery, setStartQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -64,9 +64,9 @@ function SearchBarFeat() {
         value={selectedOption}
         onChange={handleOptionChange}
       >
-        <option value="Artist">Artist</option>
-        <option value="Album">Album</option>
-        <option value="Song">Song</option>
+        <option value="artist">Artist</option>
+        <option value="album">Album</option>
+        <option value="song">Song</option>
       </select>
       <input
         className="inputStyle"
