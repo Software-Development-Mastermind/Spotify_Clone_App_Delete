@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card } from "react-bootstrap";
+import SearchBarResults from "./SearchBarResults";
 
 function SearchBarFeat() {
   const [selectedOption, setSelectedOption] = useState("artist"); // default to 'Artist'
@@ -51,7 +52,6 @@ function SearchBarFeat() {
     },
   };
   const config = OPTION_CONFIG[selectedOption];
-  //const arrayResults = Object.entries(searchResults);
   console.log(OPTION_CONFIG.artist?.linkField);
   console.log("selectedOption:", selectedOption);
   console.log("searchResults:", searchResults);
@@ -89,6 +89,9 @@ function SearchBarFeat() {
               </Card.Body>
             </a>
           )}
+      </div>
+      <div>
+        <SearchBarResults searchResults={searchResults} config={config} />
       </div>
     </div>
   );
