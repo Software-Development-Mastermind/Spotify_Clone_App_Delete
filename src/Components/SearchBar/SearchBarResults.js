@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card } from "react-bootstrap";
 import playbtn from "../../Icons/play-button.png";
 
-function SearchBarResults(searchResults, config) {
+function SearchBarResults({ searchResults, config }) {
   const [singers, setSingers] = useState([
     {
       id: 1,
@@ -13,6 +13,8 @@ function SearchBarResults(searchResults, config) {
       hoverImage: playbtn,
     },
   ]);
+  console.log(searchResults);
+  console.log(singers);
   return (
     <div className="background_color_gradient">
       <div className="card_layout">
@@ -68,7 +70,7 @@ function SearchBarResults(searchResults, config) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <ul className="d-flex flex-row">
+            <ul className="d-flex flex-row" style={{ marginRight: "11%" }}>
               <img
                 className="top_track_image_size"
                 style={{ marginRight: "2%", marginLeft: "2%" }}

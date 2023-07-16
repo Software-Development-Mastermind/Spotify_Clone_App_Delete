@@ -78,7 +78,7 @@ function SearchBarFeat() {
       <button className="buttonStyle" type="button" onClick={handleSearchClick}>
         Search
       </button>
-      <div>
+      {/* <div>
         {searchResults[config?.linkField] &&
           searchResults[config?.imageField] &&
           searchResults[config?.titleField] && (
@@ -89,7 +89,7 @@ function SearchBarFeat() {
               </Card.Body>
             </a>
           )}
-      </div>
+      </div> */}
       <div>
         <SearchBarResults searchResults={searchResults} config={config} />
       </div>
