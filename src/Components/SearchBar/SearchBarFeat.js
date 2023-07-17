@@ -3,7 +3,7 @@ import axios from "axios";
 import { Card } from "react-bootstrap";
 import SearchBarResults from "./SearchBarResults";
 
-function SearchBarFeat() {
+function SearchBarFeat({ setSearchResults, setConfig }) {
   const [selectedOption, setSelectedOption] = useState("artist"); // default to 'Artist'
   const [searchQuery, setSearchQuery] = useState(""); // store the search query
   const [startQuery, setStartQuery] = useState("");

@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import Sidebar from "../SideBar/Sidebar";
-import LoginSearchBar from "../Singup_login/SearchLogIn";
+import LogSignIn from "../Singup_login/Signup_login";
+import SearchBarFeat from "../SearchBar/SearchBarFeat";
 import SearchBarResults from "./SearchBarResults";
 
 function SearchBar() {
+  const [searchResults, setSearchResults] = useState(null);
+  const [config, setConfig] = useState(null);
+
   return (
     <div className="background_color_gradient">
-      <LoginSearchBar />
+      <LogSignIn />
       <Sidebar />
-      <SearchBarResults />
+      <SearchBarFeat
+        setSearchResults={setSearchResults}
+        setConfig={setConfig}
+      />
+      <SearchBarResults searchResults={searchResults} config={config} />
     </div>
   );
 }
