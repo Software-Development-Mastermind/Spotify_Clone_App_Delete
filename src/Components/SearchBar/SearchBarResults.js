@@ -13,7 +13,6 @@ function SearchBarResults({ searchResults, config }) {
       hoverImage: playbtn,
     },
   ]);
-  console.log(searchResults);
   console.log(singers);
   return (
     <div className="background_color_gradient">

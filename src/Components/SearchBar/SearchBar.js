@@ -7,13 +7,12 @@ import SearchBarResults from "./SearchBarResults";
 function SearchBar() {
   const [searchResults, setSearchResults] = useState(null);
   const [config, setConfig] = useState(null);
-
   return (
     <div className="background_color_gradient">
       <LogSignIn />
       <Sidebar />
       <SearchBarFeat
-        setSearchResults={setSearchResults}
+        searchResultsSet={setSearchResults}
         setConfig={setConfig}
       />
       <SearchBarResults searchResults={searchResults} config={config} />

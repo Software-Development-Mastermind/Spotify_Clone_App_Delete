@@ -3,11 +3,10 @@ import axios from "axios";
 import { Card } from "react-bootstrap";
 import SearchBarResults from "./SearchBarResults";
 
-function SearchBarFeat({ setConfig }) {
+function SearchBarFeat({ setSearchResults, setConfig }) {
   const [selectedOption, setSelectedOption] = useState("artist"); // default to 'Artist'
   const [searchQuery, setSearchQuery] = useState(""); // store the search query
   const [startQuery, setStartQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     if (startQuery === "") return;
@@ -17,6 +16,7 @@ function SearchBarFeat({ setConfig }) {
         `/${selectedOption.toLowerCase()}?artist_name=${startQuery}`
       );
       setSearchResults(response.data);
+      setConfig(config);
     };
 
     getData();
@@ -54,7 +54,7 @@ function SearchBarFeat({ setConfig }) {
   const config = OPTION_CONFIG[selectedOption];
   console.log(OPTION_CONFIG.artist?.linkField);
   console.log("selectedOption:", selectedOption);
-  console.log("searchResults:", searchResults);
+  //console.log("searchResults:", searchResults);
   console.log("config:", config);
 
   return (
@@ -90,9 +90,6 @@ function SearchBarFeat({ setConfig }) {
             </a>
           )}
       </div> */}
-      <div>
-        <SearchBarResults searchResults={searchResults} config={config} />
-      </div>
     </div>
   );
 }
