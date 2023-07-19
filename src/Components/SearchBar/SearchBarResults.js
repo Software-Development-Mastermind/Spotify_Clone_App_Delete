@@ -4,18 +4,19 @@ import { Card } from "react-bootstrap";
 import playbtn from "../../Icons/play-button.png";
 
 function SearchBarResults({ searchResults, config }) {
+  console.log("searchResults:", searchResults);
+  console.log("Config", config);
   const [singers, setSingers] = useState([
     {
       id: 1,
       isHovered: false,
-      image: searchResults[config?.imageField],
-      name: searchResults[config?.titleField],
+      image: searchResults ? searchResults[config?.imageField] : null,
+      name: searchResults ? searchResults[config?.titleField] : null,
       hoverImage: playbtn,
     },
   ]);
-  console.log(singers);
-  return (
-    <div className="background_color_gradient">
+  if (searchResults || config) {
+    return (
       <div className="card_layout">
         {singers.map((singer) => (
           <Card
@@ -40,7 +41,7 @@ function SearchBarResults({ searchResults, config }) {
               <div className={`base-image ${singer.isHovered ? "dimmed" : ""}`}>
                 <Card.Img
                   variant="bottom"
-                  src={singer.image}
+                  src={searchResults[config?.imageField]}
                   className="card_img_genre"
                 />
               </div>
@@ -55,6 +56,24 @@ function SearchBarResults({ searchResults, config }) {
               )}
             </div>
             <Card.Body>
+              <div>
+                <li>
+                  <a
+                    href={searchResults[config?.linkField]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ul
+                      className="d-flex flex-row justify-content-center fs-1"
+                      style={{ marginRight: "11%" }}
+                    >
+                      <p className="d-flex align-items-center mt-1, text-white">
+                        {searchResults[config?.titleField]}
+                      </p>
+                    </ul>
+                  </a>
+                </li>
+              </div>
               <Card.Title style={{ justifyContent: "center", color: "white" }}>
                 {singer.name}
               </Card.Title>
@@ -62,28 +81,8 @@ function SearchBarResults({ searchResults, config }) {
           </Card>
         ))}
       </div>
-      <div>
-        <li>
-          <a
-            href={searchResults[config?.linkField]}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <ul className="d-flex flex-row" style={{ marginRight: "11%" }}>
-              <img
-                className="top_track_image_size"
-                style={{ marginRight: "2%", marginLeft: "2%" }}
-                src={searchResults[config?.imageField]}
-              />
-              <p className="d-flex align-items-center mt-1, text-white">
-                {searchResults[config?.titleField]}
-              </p>
-            </ul>
-          </a>
-        </li>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default SearchBarResults;
