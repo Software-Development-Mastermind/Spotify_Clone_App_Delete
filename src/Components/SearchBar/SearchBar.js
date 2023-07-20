@@ -10,7 +10,6 @@ function SearchBar() {
   return (
     <div className="background_color_gradient">
       <LogSignIn />
-      <Sidebar />
       <SearchBarFeat
         setSearchResults={setSearchResults}
         setConfig={setConfig}
