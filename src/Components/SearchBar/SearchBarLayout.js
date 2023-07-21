@@ -7,7 +7,7 @@ import SearchBarResults from "./SearchBarResults";
 
 function SearchBarLayout() {
   return (
-    <div>
+    <div className="background_color_gradient">
       <Sidebar />
       <SearchBarResults />
     </div>

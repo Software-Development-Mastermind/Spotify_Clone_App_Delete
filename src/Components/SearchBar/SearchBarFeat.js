@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Card } from "react-bootstrap";
-import SearchBarResults from "./SearchBarResults";
 
 function SearchBarFeat({ setSearchResults, setConfig }) {
   const [selectedOption, setSelectedOption] = useState("artist"); // default to 'Artist'
