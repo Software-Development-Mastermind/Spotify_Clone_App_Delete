@@ -3,19 +3,13 @@ import LogSignIn from "../Singup_login/Signup_login";
 import Sidebar from "../SideBar/Sidebar";
 import SearchBarFeat from "./SearchBarFeat";
 import SearchBar from "./SearchBar";
+import SearchBarResults from "./SearchBarResults";
 
 function SearchBarLayout() {
-  const [searchResults, setSearchResults] = useState();
-  const [config, setConfig] = useState();
   return (
     <div>
-      <SearchBarFeat
-        setSearchResults={setSearchResults}
-        setConfig={setConfig}
-      />
-      <LogSignIn />
       <Sidebar />
-      <SearchBar />
+      <SearchBarResults />
     </div>
   );
 }

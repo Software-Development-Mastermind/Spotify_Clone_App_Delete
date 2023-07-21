@@ -6,7 +6,10 @@ function LoginSearchBar() {
   return (
     <div>
       <LogSignIn />
-      <SearchBarFeat />
+      <SearchBarFeat
+        setSearchResults={setSearchResults}
+        setConfig={setConfig}
+      />
     </div>
   );
 }
