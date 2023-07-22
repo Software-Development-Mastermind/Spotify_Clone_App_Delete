@@ -5,11 +5,11 @@ import SearchBarFeat from "./SearchBarFeat";
 import SearchBar from "./SearchBar";
 import SearchBarResults from "./SearchBarResults";
 
-function SearchBarLayout() {
+function SearchBarLayout({ searchResults, config }) {
   return (
-    <div className="background_color_gradient">
+    <div className="main-layout">
       <Sidebar />
-      <SearchBarResults />
+      <SearchBarResults searchResults={searchResults} config={config} />
     </div>
   );
 }
