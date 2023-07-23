@@ -29,7 +29,7 @@ function SearchBarFeat({ setSearchResults, setConfig }) {
   };
 
   const handleSearchClick = () => {
-    setStartQuery(searchQuery); // this will trigger the useEffect
+    setStartQuery(searchQuery);
   };
   console.log(startQuery);
   const OPTION_CONFIG = {
@@ -50,6 +50,7 @@ function SearchBarFeat({ setSearchResults, setConfig }) {
     },
   };
   const config = OPTION_CONFIG[selectedOption];
+  console.log(config?.linkField);
   console.log(OPTION_CONFIG.artist?.linkField);
   console.log("selectedOption:", selectedOption);
   //console.log("searchResults:", searchResults);
@@ -76,18 +77,6 @@ function SearchBarFeat({ setSearchResults, setConfig }) {
       <button className="buttonStyle" type="button" onClick={handleSearchClick}>
         Search
       </button>
-      {/* <div>
-        {searchResults[config?.linkField] &&
-          searchResults[config?.imageField] &&
-          searchResults[config?.titleField] && (
-            <a href={searchResults[config?.linkField]}>
-              <Card.Img variant="top" src={searchResults[config?.imageField]} />
-              <Card.Body>
-                <Card.Title>{searchResults[config?.titleField]}</Card.Title>
-              </Card.Body>
-            </a>
-          )}
-      </div> */}
     </div>
   );
 }

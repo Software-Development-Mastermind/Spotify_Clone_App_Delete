@@ -4,13 +4,13 @@ import SearchBarFeat from "../SearchBar/SearchBarFeat";
 
 function LoginSearchBar({ setSearchResults, setConfig }) {
   return (
-    <div>
-      <LogSignIn />
+    <>
       <SearchBarFeat
         setSearchResults={setSearchResults}
         setConfig={setConfig}
       />
-    </div>
+      <LogSignIn />
+    </>
   );
 }
 
