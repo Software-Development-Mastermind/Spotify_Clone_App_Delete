@@ -27,9 +27,6 @@ function SearchBarResults({ searchResults, config }) {
   } else {
     console.log("The key does not exist!");
   }
-  //console.log(typeof searchResults[config?.linkField]);
-  // console.log(searchResults[config?.linkField] === undefined);
-  // console.log(searchResults[config?.linkField] === null);
 
   if (searchResults || config) {
     return (
@@ -80,7 +77,7 @@ function SearchBarResults({ searchResults, config }) {
               <div>
                 <li>
                   <a
-                    href={JSON.stringify(searchResults[config?.linkField])}
+                    href={searchResults[config?.linkField]?.artist_page}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ textDecoration: "none" }}

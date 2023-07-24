@@ -53,7 +53,6 @@ function SearchBarFeat({ setSearchResults, setConfig }) {
   console.log(config?.linkField);
   console.log(OPTION_CONFIG.artist?.linkField);
   console.log("selectedOption:", selectedOption);
-  //console.log("searchResults:", searchResults);
   console.log("config:", config);
 
   return (

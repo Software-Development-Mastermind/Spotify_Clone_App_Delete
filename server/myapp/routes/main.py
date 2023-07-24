@@ -106,7 +106,6 @@ def get_artist_image(auth_token, artist_name):
         
 
     return name_to_image
-
 def get_top_track(auth_token, artist_id):
     headers = {
         'Authorization': f'Bearer {auth_token}',
@@ -120,7 +119,6 @@ def get_top_track(auth_token, artist_id):
     results = response.json()
 
     if results.get('tracks'):
-        # Get the first top track of the artist
         first_track = results.get('tracks')[0]
 
         track_name = first_track.get('name')
@@ -149,7 +147,22 @@ def get_artist_page(auth_token, artist_id):
             "artist_page": artist_page
         }
 
+def get_top_song(auth_token):
+    headers = {
+        'Authorization': f'Bearer {auth_token}',
+    }
+
+    response = requests.get("https://api.spotify.com/v1/top-tracks/US", headers=headers)
+    response.raise_for_status()  
+    results = response.json()
     
+    if results.get('tracks'):
+        track_name = results.get("tracks")[0].get("name")
+        track_image = results.get("tracks")[0].get("album").get(
+        "images", [])[0].get("url")
+        song_page = results.get("tracks")[0].get("external_urls").get("spotify")
+    return {"track_name": track_name, "track_image": track_image, "song_page": song_page}
+
 
 @app.route('/artist', methods=['GET'])
 def get_artist_info():
@@ -172,11 +185,6 @@ def get_artist_info():
         "top_track": top_track,
         "artist_page": artist_page
     })
-
-
-# @app.route('/album', methods=['GET'])
-# def get_album_info():
-
 
 
 @app.route('/song', methods=['GET'])
