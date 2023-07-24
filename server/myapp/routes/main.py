@@ -152,16 +152,21 @@ def get_top_song(auth_token):
         'Authorization': f'Bearer {auth_token}',
     }
 
-    response = requests.get("https://api.spotify.com/v1/top-tracks/US", headers=headers)
+    response = requests.get("https://api.spotify.com/v1/tracks/US", headers=headers)
     response.raise_for_status()  
     results = response.json()
     
     if results.get('tracks'):
+        popularity = results.get("popularity")
         track_name = results.get("tracks")[0].get("name")
         track_image = results.get("tracks")[0].get("album").get(
         "images", [])[0].get("url")
         song_page = results.get("tracks")[0].get("external_urls").get("spotify")
-    return {"track_name": track_name, "track_image": track_image, "song_page": song_page}
+        if popularity == max(results.get("popularity")):
+            return {"track_name": track_name, "track_image": track_image, "song_page": song_page}
+
+
+
 
 
 @app.route('/artist', methods=['GET'])
