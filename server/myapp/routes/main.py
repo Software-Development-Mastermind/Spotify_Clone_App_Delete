@@ -127,6 +127,10 @@ def get_artist_image(auth_token, artist_name):
         
 
     return name_to_image
+
+def get_song_image(auth_token, song_name):
+    
+
 def get_top_track(auth_token, artist_id):
     headers = {
         'Authorization': f'Bearer {auth_token}',
@@ -226,8 +230,8 @@ def get_song_info():
 
     artist_page = get_artist_page(auth_token, artist_id)
 
-    if not artist_id or not image_link:
-        return {"error": f"No artist found for name '{artist_name}'."}, 404
+    if not song_id or not image_link:
+        return {"error": f"No artist found for name '{song_name}'."}, 404
 
     return jsonify({
         "image": image_link,

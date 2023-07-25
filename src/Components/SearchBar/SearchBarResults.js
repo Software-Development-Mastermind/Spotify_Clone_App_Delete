@@ -4,10 +4,10 @@ import { Card } from "react-bootstrap";
 import playbtn from "../../Icons/play-button.png";
 
 function SearchBarResults({ searchResults, config, select_option }) {
-  //console.log("searchResults:", searchResults);
-  // console.log("Config", config);
-  // console.log("Config link", config?.linkField);
-  //console.log("select_option", select_option);
+  console.log("searchResults:", searchResults);
+  console.log("Config", config);
+  console.log("Config link", config?.linkField);
+  console.log("select_option", select_option);
   console.log(
     "aritst_link",
     searchResults?.[select_option?.["linkField"]][select_option?.["linkField"]]
@@ -17,12 +17,15 @@ function SearchBarResults({ searchResults, config, select_option }) {
     {
       id: 1,
       isHovered: false,
-      image: searchResults ? searchResults[config?.imageField] : null,
-      name: searchResults ? searchResults[config?.titleField] : null,
-      link: searchResults ? searchResults[config?.linkField] : null,
+      image: searchResults?.[select_option?.["imageField"]],
+      name: searchResults?.[select_option?.["titleField"]],
+      link: searchResults?.[select_option?.["linkField"]][
+        select_option?.["linkField"]
+      ],
       hoverImage: playbtn,
     },
   ]);
+  console.log("singsers", singers);
 
   if (searchResults || config) {
     return (
@@ -55,7 +58,7 @@ function SearchBarResults({ searchResults, config, select_option }) {
               <div className={`base-image ${singer.isHovered ? "dimmed" : ""}`}>
                 <Card.Img
                   variant="bottom"
-                  src={searchResults[select_option.imageField]}
+                  src={searchResults?.[select_option?.["imageField"]]}
                   className="card_img_genre"
                 />
               </div>
@@ -91,7 +94,7 @@ function SearchBarResults({ searchResults, config, select_option }) {
                       }}
                     >
                       <p className="d-flex align-items-center mt-1, text-white">
-                        {searchResults[select_option.titleField]}
+                        {searchResults?.[select_option?.["titleField"]]}
                       </p>
                     </ul>
                   </a>
