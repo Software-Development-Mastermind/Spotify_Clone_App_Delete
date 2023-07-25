@@ -71,6 +71,27 @@ def get_artist_id(auth_token, artist_name):
         return finalResults
     else:
         return None
+    
+def get_song_id(auth_token, song_name):
+    headers = {
+        'Authorization': f'Bearer {auth_token}',
+    }
+
+    params = {
+        'q': song_name,
+        'type': 'track',
+    }
+
+    response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
+
+    results = response.json()
+
+    if results.get('tracks').get('items'):
+        finalResults = results.get('tracks').get('items')[0].get('id')
+        return finalResults
+    else:
+        return None
+
 
 def get_artist_image(auth_token, artist_name):
     headers = {
@@ -147,12 +168,12 @@ def get_artist_page(auth_token, artist_id):
             "artist_page": artist_page
         }
 
-def get_top_song(auth_token):
+def get_top_song(auth_token, song_id):
     headers = {
         'Authorization': f'Bearer {auth_token}',
     }
 
-    response = requests.get("https://api.spotify.com/v1/tracks/US", headers=headers)
+    response = requests.get(f'https://api.spotify.com/v1/tracks/{song_id}', headers=headers)
     response.raise_for_status()  
     results = response.json()
     
@@ -166,8 +187,10 @@ def get_top_song(auth_token):
             return {"track_name": track_name, "track_image": track_image, "song_page": song_page}
 
 
-
-
+def get_album(auth_token):
+    headers = {
+        'Authorization': f'Bearer {auth_token}',
+    }
 
 @app.route('/artist', methods=['GET'])
 def get_artist_info():
@@ -195,10 +218,9 @@ def get_artist_info():
 @app.route('/song', methods=['GET'])
 def get_song_info():
     auth_token = get_auth_token()
-    artist_name = request.args.get('artist_name', default='', type=str)
-    artist_id = get_artist_id(auth_token, artist_name)
-    artist_name_to_image = get_artist_image(auth_token, artist_name)
-    top_track = get_top_track(auth_token, artist_id)
+    song_name = request.args.get('song_name', default='', type=str)
+    song_id = get_song_id(auth_token, song_name)
+    song_name_to_image = get_song_image(auth_token, song_name)
     
     image_link = artist_name_to_image.get(artist_name)
 
@@ -208,7 +230,6 @@ def get_song_info():
         return {"error": f"No artist found for name '{artist_name}'."}, 404
 
     return jsonify({
-        "name": artist_name,
         "image": image_link,
         "top_track": top_track,
         "artist_page": artist_page

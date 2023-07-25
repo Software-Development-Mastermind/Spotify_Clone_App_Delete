@@ -14,7 +14,7 @@ function SearchBarFeat({ setSearchResults, setConfig }) {
         `/${selectedOption.toLowerCase()}?artist_name=${startQuery}`
       );
       setSearchResults(response.data);
-      setConfig(config);
+      setConfig(selectedOption);
     };
 
     getData();
@@ -32,28 +32,6 @@ function SearchBarFeat({ setSearchResults, setConfig }) {
     setStartQuery(searchQuery);
   };
   console.log(startQuery);
-  const OPTION_CONFIG = {
-    artist: {
-      titleField: "name",
-      imageField: "image",
-      linkField: "artist_page",
-    },
-    song: {
-      titleField: "track_name",
-      imageField: "track_image",
-      linkField: "song_page",
-    },
-    album: {
-      titleField: "album_name",
-      imageField: "album_image",
-      linkField: "album_page",
-    },
-  };
-  const config = OPTION_CONFIG[selectedOption];
-  console.log(config?.linkField);
-  console.log(OPTION_CONFIG.artist?.linkField);
-  console.log("selectedOption:", selectedOption);
-  console.log("config:", config);
 
   return (
     <div className="containerStyle">

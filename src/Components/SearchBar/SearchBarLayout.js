@@ -5,11 +5,15 @@ import SearchBarFeat from "./SearchBarFeat";
 import SearchBar from "./SearchBar";
 import SearchBarResults from "./SearchBarResults";
 
-function SearchBarLayout({ searchResults, config }) {
+function SearchBarLayout({ searchResults, config, select_option }) {
   return (
     <div className="main-layout">
       <Sidebar />
-      <SearchBarResults searchResults={searchResults} config={config} />
+      <SearchBarResults
+        searchResults={searchResults}
+        config={config}
+        select_option={select_option}
+      />
     </div>
   );
 }
