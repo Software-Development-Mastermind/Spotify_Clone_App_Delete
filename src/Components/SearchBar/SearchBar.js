@@ -12,13 +12,13 @@ function SearchBar() {
       linkField: "artist_page",
     },
     song: {
-      titleField: "track_name",
-      imageField: "track_image",
+      titleField: "name",
+      imageField: "image",
       linkField: "song_page",
     },
     album: {
-      titleField: "album_name",
-      imageField: "album_image",
+      titleField: "name",
+      imageField: "image",
       linkField: "album_page",
     },
   };

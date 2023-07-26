@@ -31,60 +31,62 @@ function SearchBarResults({ searchResults, config, select_option }) {
     return (
       <div className="card_layout">
         {singers.map((singer) => (
-          <Card
-            style={{
-              width: "18rem",
-              height: "23rem",
-              display: "flex",
-              transform: "translate(6rem, 9rem)",
-            }}
-            className="card_layout_bgcolor"
-            onMouseEnter={() =>
-              setSingers(
-                singers.map((c) =>
-                  c.id === singer.id ? { ...c, isHovered: true } : c
-                )
-              )
+          <a
+            href={
+              searchResults?.[select_option?.["linkField"]][
+                select_option?.["linkField"]
+              ]
             }
-            onMouseLeave={() =>
-              setSingers(
-                singers.map((c) =>
-                  c.id === singer.id ? { ...c, isHovered: false } : c
-                )
-              )
-            }
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "none" }}
           >
-            <div className="image-container">
-              <div className={`base-image ${singer.isHovered ? "dimmed" : ""}`}>
-                <Card.Img
-                  variant="bottom"
-                  src={searchResults?.[select_option?.["imageField"]]}
-                  className="card_img_genre"
-                />
-              </div>
-              {singer.isHovered && (
-                <div className="overlay-image">
+            <Card
+              style={{
+                width: "18rem",
+                height: "23rem",
+                display: "flex",
+                transform: "translate(6rem, 9rem)",
+              }}
+              className="card_layout_bgcolor"
+              onMouseEnter={() =>
+                setSingers(
+                  singers.map((c) =>
+                    c.id === singer.id ? { ...c, isHovered: true } : c
+                  )
+                )
+              }
+              onMouseLeave={() =>
+                setSingers(
+                  singers.map((c) =>
+                    c.id === singer.id ? { ...c, isHovered: false } : c
+                  )
+                )
+              }
+            >
+              <div className="image-container">
+                <div
+                  className={`base-image ${singer.isHovered ? "dimmed" : ""}`}
+                >
                   <Card.Img
-                    variant="top"
-                    src={singer.hoverImage}
-                    className="hover-image"
+                    variant="bottom"
+                    src={searchResults?.[select_option?.["imageField"]]}
+                    className="card_img_genre"
                   />
                 </div>
-              )}
-            </div>
-            <Card.Body>
-              <div>
-                <li>
-                  <a
-                    href={
-                      searchResults?.[select_option?.["linkField"]][
-                        select_option?.["linkField"]
-                      ]
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ textDecoration: "none" }}
-                  >
+                {singer.isHovered && (
+                  <div className="overlay-image">
+                    <Card.Img
+                      variant="top"
+                      src={singer.hoverImage}
+                      className="hover-image"
+                    />
+                  </div>
+                )}
+              </div>
+              <Card.Body>
+                <div>
+                  <li>
                     <ul
                       className="d-flex flex-row justify-content-center fs-1"
                       style={{
@@ -97,11 +99,11 @@ function SearchBarResults({ searchResults, config, select_option }) {
                         {searchResults?.[select_option?.["titleField"]]}
                       </p>
                     </ul>
-                  </a>
-                </li>
-              </div>
-            </Card.Body>
-          </Card>
+                  </li>
+                </div>
+              </Card.Body>
+            </Card>
+          </a>
         ))}
       </div>
     );
