@@ -38,6 +38,8 @@ def get_auth_token():
     }
 
     response = requests.post(**auth_options)
+    print("Response: ", response)
+    print("Response JSON: ", response.json())
     response.raise_for_status()  # Raises a HTTPError if the status is 4xx, 5xx
 
     return response.json()['access_token']
@@ -64,7 +66,6 @@ def get_artist_id(auth_token, artist_name):
     results = response.json()
     import json
     print(json.dumps(results, indent=4))
-    print(results)
 
     if results.get('artists').get('items'):
         finalResults = results.get('artists').get('items')[0].get('id')
@@ -149,13 +150,18 @@ def get_song_image(auth_token, song_name):
         except UnicodeEncodeError:
             return None
 
-    for track in results.get('tracks').get('items'):
-        images = track.get('images')
-        if images is not None and len(images) > 0:
-            name = clean_string(track['name'])
-            image_url = clean_string(images[0]['url'])
-            if name is not None and image_url is not None:
-                name_to_image[name] = image_url
+    tracks = results.get('tracks')
+    if tracks is not None:
+        items = tracks.get('items')
+        if items is not None:
+            for track in items:
+                images = track.get('images')
+                if images is not None and len(images) > 0:
+                    name = clean_string(track['name'])
+                    image_url = clean_string(images[0]['url'])
+                    if name is not None and image_url is not None:
+                        name_to_image[name] = image_url
+
     
 
 def get_top_track(auth_token, artist_id):
@@ -308,11 +314,12 @@ def get_artist_info():
 @app.route('/song', methods=['GET'])
 def get_song_info():
     auth_token = get_auth_token()
+    print("auth_token", auth_token)
     song_name = request.args.get('song_name', default='', type=str)
     song_id = get_song_id(auth_token, song_name)
     song_name_to_image = get_song_image(auth_token, song_name)
     
-    image_link = song_name_to_image.get(song_name)
+    image_link = song_name_to_image(song_name)
 
     song_page = get_song_page(auth_token, song_id)
 

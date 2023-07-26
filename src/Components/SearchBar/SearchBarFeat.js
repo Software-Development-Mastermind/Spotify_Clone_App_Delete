@@ -11,7 +11,7 @@ function SearchBarFeat({ setSearchResults, setConfig }) {
 
     const getData = async () => {
       const response = await axios.get(
-        `/${selectedOption.toLowerCase()}?artist_name=${startQuery}`
+        `/${selectedOption.toLowerCase()}?${selectedOption}_name=${startQuery}`
       );
       setSearchResults(response.data);
       setConfig(selectedOption);
