@@ -162,7 +162,7 @@ def get_song_image(auth_token, song_name):
                     if name is not None and image_url is not None:
                         name_to_image[name] = image_url
 
-    
+    return name_to_image
 
 def get_top_track(auth_token, artist_id):
     headers = {
@@ -319,7 +319,7 @@ def get_song_info():
     song_id = get_song_id(auth_token, song_name)
     song_name_to_image = get_song_image(auth_token, song_name)
     
-    image_link = song_name_to_image(song_name)
+    image_link = song_name_to_image.get(song_name)
 
     song_page = get_song_page(auth_token, song_id)
 
