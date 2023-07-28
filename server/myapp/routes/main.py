@@ -5,7 +5,7 @@ from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 import pdb
 
 app = Flask(__name__)
-     
+
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -72,26 +72,8 @@ def get_artist_id(auth_token, artist_name):
         return finalResults
     else:
         return None
-    
-def get_song_id(auth_token, song_name):
-    headers = {
-        'Authorization': f'Bearer {auth_token}',
-    }
 
-    params = {
-        'q': song_name,
-        'type': 'track',
-    }
 
-    response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
-
-    results = response.json()
-
-    if results['tracks'] and results['tracks']['items']:
-        finalResults = results['tracks']['items'][0]['id']
-        return finalResults
-    else:
-        return None
     
 
 
@@ -127,40 +109,6 @@ def get_artist_image(auth_token, artist_name):
     with open("artists.json", "w") as outfile:
         json.dump(name_to_image, outfile)
         
-
-    return name_to_image
-
-def get_song_image(auth_token, song_name):
-    headers = {
-        'Authorization': f'Bearer {auth_token}',
-    }
-    params = {
-        'q': song_name,
-        'type': 'track',
-    }
-
-    response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
-    print("Status Code:", response.status_code)
-    results = response.json()
-    name_to_image = {}
-    
-    def clean_string(s):
-        try:
-            return s.encode('utf-8').decode('utf-8')
-        except UnicodeEncodeError:
-            return None
-
-    tracks = results.get('tracks')
-    if tracks is not None:
-        items = tracks.get('items')
-        if items is not None:
-            for track in items:
-                images = track.get('images')
-                if images is not None and len(images) > 0:
-                    name = clean_string(track['name'])
-                    image_url = clean_string(images[0]['url'])
-                    if name is not None and image_url is not None:
-                        name_to_image[name] = image_url
 
     return name_to_image
 
@@ -223,6 +171,58 @@ def get_top_song(auth_token, song_id):
         if popularity == max(results.get("popularity")):
             return {"track_name": track_name, "track_image": track_image, "song_page": song_page}
         
+
+def get_song_id(auth_token, song_name):
+    headers = {
+        'Authorization': f'Bearer {auth_token}',
+    }
+
+    params = {
+        'q': song_name,
+        'type': 'track',
+    }
+
+    response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
+    print(response)
+    results = response.json()
+    print("result", results)
+    
+    if results['tracks'] and results['tracks']['items']:
+        finalResults = results['tracks']['items'][0]['id']
+        print("finalResults", finalResults)
+        return finalResults
+    
+    else:
+        return None
+
+def get_song_image(auth_token, song_id):
+    headers = {
+        'Authorization': f'Bearer {auth_token}',
+    }
+
+    response = requests.get(f'https://api.spotify.com/v1/tracks/{song_id}', headers=headers)
+    print("Status Code:", response.status_code)
+    track = response.json()
+    print(track)
+    
+    def clean_string(s):
+        try:
+            return s.encode('utf-8').decode('utf-8')
+        except UnicodeEncodeError:
+            return None
+
+    name_to_image = {}
+    images = track.get('album', {}).get('images')
+    print(images)
+    if images is not None and len(images) > 0:
+        name = clean_string(track['name'])
+        image_url = clean_string(images[0]['url'])
+        if name is not None and image_url is not None:
+            name_to_image[name] = image_url
+    print(name_to_image)
+    return name_to_image
+    
+
 def get_song_page(auth_token, song_id):
     headers = {
         'Authorization': f'Bearer {auth_token}',
@@ -357,3 +357,5 @@ def get_album_info():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
