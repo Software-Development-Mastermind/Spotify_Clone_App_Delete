@@ -237,33 +237,40 @@ def get_song_page(auth_token, song_id):
         }
 
 
-def get_album(auth_token, album_id):
-    headers = {
-        'Authorization': f'Bearer {auth_token}',
-    }
+# def get_album(auth_token, album_id):
+#     headers = {
+#         'Authorization': f'Bearer {auth_token}',
+#     }
 
-    response = requests.get(f"https://api.spotify.com/v1/albums/{album_id}", headers=headers)
-    response.raise_for_status()  
-    results = response.json()
+#     response = requests.get(f"https://api.spotify.com/v1/albums/{album_id}", headers=headers)
+#     response.raise_for_status()  
+#     results = response.json()
 
-    album_name = results.get("name")
-    album_image = results.get("images", [])[0].get("url")
+#     album_name = results.get("name")
+#     album_image = results.get("images", [])[0].get("url")
 
-    return {"album_name": album_name, "album_image": album_image}
+#     return {"album_name": album_name, "album_image": album_image}
 
 def get_album_id(auth_token, album_name):
     headers = {
         'Authorization': f'Bearer {auth_token}',
     }
-    params = (
-        ('q', album_name),
-        ('type', 'album'),
-    )
+    params = {
+        'q': album_name,
+        'type': 'album',
+    }
     response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
     response.raise_for_status()
     results = response.json()
-    album_id = results['albums']['items'][0]['id']
-    return album_id
+    
+    if len(results['albums']['items']) > 0:
+        album_id = results['albums']['items'][0]['id']
+        print(album_id)
+        return album_id
+    else:
+        print("No album found for the search term.")
+        return None
+
 
 def get_album_image(auth_token, album_id):
     headers = {
@@ -272,8 +279,14 @@ def get_album_image(auth_token, album_id):
     response = requests.get(f'https://api.spotify.com/v1/albums/{album_id}', headers=headers)
     response.raise_for_status()
     results = response.json()
-    image_link = results['images'][0]['url']
-    return image_link
+    
+    if len(results.get('images', [])) > 0:
+        image_link = results['images'][0]['url']
+        print(image_link)
+        return image_link
+    else:
+        print("No images found for this album.")
+        return None
 
 def get_album_page(auth_token, album_id):
     headers = {
@@ -282,8 +295,15 @@ def get_album_page(auth_token, album_id):
     response = requests.get(f'https://api.spotify.com/v1/albums/{album_id}', headers=headers)
     response.raise_for_status()
     results = response.json()
-    album_page = results['external_urls']['spotify']
-    return album_page
+    
+    album_page = results.get('external_urls', {}).get('spotify')
+    if album_page:
+        print("album_page", album_page)
+        return album_page
+    else:
+        print("No external Spotify page found for this album.")
+        return None
+
 
 
 @app.route('/artist', methods=['GET'])
@@ -315,7 +335,7 @@ def get_song_info():
     print("auth_token", auth_token)
     song_name = request.args.get('song_name', default='', type=str)
     song_id = get_song_id(auth_token, song_name)
-    song_name_to_image = get_song_image(auth_token, song_name)
+    song_name_to_image = get_song_image(auth_token, song_id)
     
     image_link = song_name_to_image.get(song_name)
 
@@ -325,8 +345,8 @@ def get_song_info():
         return {"error": f"No artist found for name '{song_name}'."}, 404
 
     return jsonify({
-        "name": image_link,
-        "image": song_name,
+        "name": song_name,
+        "image": image_link,
         "song_page": song_page
     })
 
@@ -336,7 +356,7 @@ def get_album_info():
     auth_token = get_auth_token()
     album_name = request.args.get('album_name', default='', type=str)
     album_id = get_album_id(auth_token, album_name)
-    album_name_to_image = get_album_image(auth_token, album_name)
+    album_name_to_image = get_album_image(auth_token, album_id)
     
     image_link = album_name_to_image.get(album_name)
 
@@ -346,11 +366,10 @@ def get_album_info():
         return {"error": f"No album found for name '{album_name}'."}, 404
 
     return jsonify({
-        "name": image_link,
-        "image": album_name,
+        "name": album_name ,
+        "image": image_link,
         "album_page": album_page
     })
-
 
 
 if __name__ == "__main__":

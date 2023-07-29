@@ -15,6 +15,7 @@ function SearchBarFeat({ setSearchResults, setConfig }) {
       );
       setSearchResults(response.data);
       setConfig(selectedOption);
+      console.log(response);
     };
 
     getData();
@@ -26,6 +27,7 @@ function SearchBarFeat({ setSearchResults, setConfig }) {
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
+    console.log(setSearchQuery);
   };
 
   const handleSearchClick = () => {
