@@ -277,16 +277,24 @@ def get_album_image(auth_token, album_id):
         'Authorization': f'Bearer {auth_token}',
     }
     response = requests.get(f'https://api.spotify.com/v1/albums/{album_id}', headers=headers)
-    response.raise_for_status()
-    results = response.json()
+    print("Status Code:", response.status_code)
+    album = response.json()
+
+    def clean_string(s):
+        try:
+            return s.encode('utf-8').decode('utf-8')
+        except UnicodeEncodeError:
+            return None
+
+    images = album.get('images', [])
+    if images:
+        image_url = images[0].get('url', '')
+        print("image_url", image_url)
+
+        image_url = clean_string(image_url)
+        if image_url:
+            return image_url
     
-    if len(results.get('images', [])) > 0:
-        image_link = results['images'][0]['url']
-        print(image_link)
-        return image_link
-    else:
-        print("No images found for this album.")
-        return None
 
 def get_album_page(auth_token, album_id):
     headers = {
@@ -303,7 +311,6 @@ def get_album_page(auth_token, album_id):
     else:
         print("No external Spotify page found for this album.")
         return None
-
 
 
 @app.route('/artist', methods=['GET'])
@@ -357,9 +364,9 @@ def get_album_info():
     album_name = request.args.get('album_name', default='', type=str)
     album_id = get_album_id(auth_token, album_name)
     album_name_to_image = get_album_image(auth_token, album_id)
-    
+    print("album_name_to_image", album_name_to_image)
     image_link = album_name_to_image.get(album_name)
-
+    print("image_link", image_link)
     album_page = get_album_page(auth_token, album_id)
 
     if not album_id or not image_link:
@@ -374,5 +381,3 @@ def get_album_info():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
