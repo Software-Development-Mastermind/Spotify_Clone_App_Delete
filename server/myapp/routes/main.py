@@ -74,9 +74,6 @@ def get_artist_id(auth_token, artist_name):
         return None
 
 
-    
-
-
 def get_artist_image(auth_token, artist_name):
     headers = {
         'Authorization': f'Bearer {auth_token}',
@@ -203,24 +200,25 @@ def get_song_image(auth_token, song_id):
     response = requests.get(f'https://api.spotify.com/v1/tracks/{song_id}', headers=headers)
     print("Status Code:", response.status_code)
     track = response.json()
-    print(track)
-    
+
     def clean_string(s):
         try:
             return s.encode('utf-8').decode('utf-8')
         except UnicodeEncodeError:
             return None
 
-    name_to_image = {}
-    images = track.get('album', {}).get('images')
-    print(images)
-    if images is not None and len(images) > 0:
-        name = clean_string(track['name'])
-        image_url = clean_string(images[0]['url'])
-        if name is not None and image_url is not None:
-            name_to_image[name] = image_url
-    print(name_to_image)
-    return name_to_image
+    album = track.get('album', {})
+    images = album.get('images', [])
+    if images:
+        image_url = images[0].get('url', '')
+        print("image_url", image_url)
+
+        name = clean_string(track.get('name', None))
+        image_url = clean_string(image_url)
+        if name and image_url:
+            return {name: image_url}
+    return {}
+
     
 
 def get_song_page(auth_token, song_id):
@@ -228,7 +226,7 @@ def get_song_page(auth_token, song_id):
         'Authorization': f'Bearer {auth_token}',
     }
 
-    response = requests.get(f'https://api.spotify.com/v1/artists/{song_id}', headers=headers)
+    response = requests.get(f'https://api.spotify.com/v1/tracks/{song_id}', headers=headers)
     response.raise_for_status()  
     results = response.json()
 
