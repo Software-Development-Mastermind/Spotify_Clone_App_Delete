@@ -2,24 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function SearchBarFeat({ setSearchResults, setConfig }) {
-  const [selectedOption, setSelectedOption] = useState("artist"); // default to 'Artist'
-  const [searchQuery, setSearchQuery] = useState(""); // store the search query
-  const [startQuery, setStartQuery] = useState("");
-
-  useEffect(() => {
-    if (startQuery === "") return;
-
-    const getData = async () => {
-      const response = await axios.get(
-        `/${selectedOption.toLowerCase()}?${selectedOption}_name=${startQuery}`
-      );
-      setSearchResults(response.data);
-      setConfig(selectedOption);
-      console.log(response);
-    };
-
-    getData();
-  }, [startQuery, selectedOption]);
+  const [selectedOption, setSelectedOption] = useState("artist");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -27,13 +11,15 @@ function SearchBarFeat({ setSearchResults, setConfig }) {
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
-    console.log(setSearchQuery);
   };
 
-  const handleSearchClick = () => {
-    setStartQuery(searchQuery);
+  const handleSearchClick = async () => {
+    const response = await axios.get(
+      `/${selectedOption.toLowerCase()}?${selectedOption}_name=${searchQuery}`
+    );
+    setSearchResults(response.data);
+    setConfig(selectedOption);
   };
-  console.log(startQuery);
 
   return (
     <div className="containerStyle">
