@@ -219,7 +219,7 @@ def get_song_image(auth_token, song_id):
             return {name: image_url}
     return {}
 
-    
+
 
 def get_song_page(auth_token, song_id):
     headers = {
@@ -291,10 +291,12 @@ def get_album_image(auth_token, album_id):
         image_url = images[0].get('url', '')
         print("image_url", image_url)
 
+        name = clean_string(album.get('name', None))
         image_url = clean_string(image_url)
-        if image_url:
-            return image_url
-    
+        if name and image_url:
+            return {name: image_url}
+    return {}
+
 
 def get_album_page(auth_token, album_id):
     headers = {
@@ -307,7 +309,9 @@ def get_album_page(auth_token, album_id):
     album_page = results.get('external_urls', {}).get('spotify')
     if album_page:
         print("album_page", album_page)
-        return album_page
+        return { 
+            "album_page": album_page 
+            }
     else:
         print("No external Spotify page found for this album.")
         return None
@@ -343,11 +347,12 @@ def get_song_info():
     song_name = request.args.get('song_name', default='', type=str)
     song_id = get_song_id(auth_token, song_name)
     song_name_to_image = get_song_image(auth_token, song_id)
-    
+    print("song_name_to_image", song_name_to_image)
     image_link = song_name_to_image.get(song_name)
-
+    print("image_link", image_link)
     song_page = get_song_page(auth_token, song_id)
-
+    print("song_page", song_page)
+    
     if not song_id or not image_link:
         return {"error": f"No artist found for name '{song_name}'."}, 404
 
@@ -364,10 +369,13 @@ def get_album_info():
     album_name = request.args.get('album_name', default='', type=str)
     album_id = get_album_id(auth_token, album_name)
     album_name_to_image = get_album_image(auth_token, album_id)
+
     print("album_name_to_image", album_name_to_image)
     image_link = album_name_to_image.get(album_name)
     print("image_link", image_link)
+
     album_page = get_album_page(auth_token, album_id)
+
 
     if not album_id or not image_link:
         return {"error": f"No album found for name '{album_name}'."}, 404
