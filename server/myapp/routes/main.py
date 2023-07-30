@@ -86,29 +86,24 @@ def get_artist_image(auth_token, artist_id):
     response = requests.get(f'https://api.spotify.com/v1/artists/{artist_id}', headers=headers, params=params)
     print("Status Code:", response.status_code)
     results = response.json()
-    name_to_image = {}
-    print("name_to_image", name_to_image)
+    # name_to_image = {}
+
     def clean_string(s):
         try:
             return s.encode('utf-8').decode('utf-8')
         except UnicodeEncodeError:
             return None
 
-    for artist in results.get('artists').get('items'):
-        images = artist.get('images')
-        print("images", images)
-        if images is not None and len(images) > 0:
+    artist = results.get('artists', {})
+    images = artist.get('images', [])
+    if images:
+            image_url = images[0].get('url', '')
+
             name = clean_string(artist['name'])
             image_url = clean_string(images[0]['url'])
-            if name is not None and image_url is not None:
-                name_to_image[name] = image_url
-    print("name_to_image[name]", name_to_image[name] )
-    import json
-    with open("artists.json", "w") as outfile:
-        json.dump(name_to_image, outfile)
-        
-
-    return name_to_image
+            if name and image_url:
+                return {name: image_url}
+    return {}
 
 def get_top_track(auth_token, artist_id):
     headers = {
@@ -323,7 +318,7 @@ def get_artist_info():
     auth_token = get_auth_token()
     artist_name = request.args.get('artist_name', default='', type=str)
     artist_id = get_artist_id(auth_token, artist_name)
-    artist_name_to_image = get_artist_image(auth_token, artist_name)
+    artist_name_to_image = get_artist_image(auth_token, artist_id)
     top_track = get_top_track(auth_token, artist_id)
     
     image_link = artist_name_to_image.get(artist_name)
