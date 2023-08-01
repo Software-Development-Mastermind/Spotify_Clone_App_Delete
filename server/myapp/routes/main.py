@@ -293,6 +293,11 @@ def get_album_page(auth_token, album_id):
         print("No external Spotify page found for this album.")
         return None
 
+my_favorite_artists = {
+    
+}
+
+
 
 @app.route('/artist', methods=['GET'])
 def get_artist_info():
@@ -362,6 +367,11 @@ def get_album_info():
         "image": image_link,
         "album_page": album_page
     })
+
+@app.route('/randomArtists', methods=['GET'])
+def get_random_artists_info():
+    auth_token = get_auth_token()
+
 
 
 if __name__ == "__main__":

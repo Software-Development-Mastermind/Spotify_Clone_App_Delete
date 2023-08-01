@@ -11,7 +11,7 @@ function Randomizer() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("/artist")
+      .get("/randomArtists")
       .then((response) => {
         const data = response.data.map((item, index) => {
           return {

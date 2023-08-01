@@ -12,7 +12,6 @@ function SearchBarResults({ searchResults, config, select_option }) {
     "aritst_link",
     searchResults?.[select_option?.["linkField"]][select_option?.["linkField"]]
   );
-  //console.log("select_option.linkfield", searchResults?.artist_page);
   const [singers, setSingers] = useState([
     {
       id: 1,
