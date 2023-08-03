@@ -294,10 +294,43 @@ def get_album_page(auth_token, album_id):
         return None
 
 my_favorite_artists = {
-    
+    "Kendrick_Lamar" : "2YZyLoL8N0Wb9xBt1NhZWg",
+    "Felukah" : "0nmukaO2zzwRPEevPJph1F",
+    "El_Rass" : "70JnprmV5bM5nyZ8YeZbDc", 
+    "Jhené_Aiko" : "5ZS223C6JyBfXasXxrRqOk",
+    "Sea_Power" : "5zhn89Em2jWUUWdpcLO3YL"
 }
 
+def get_random_artists_songs(auth_token, fav_artists):
+    headers = {
+        'Authorization': f'Bearer {auth_token}',
+    }
+    
+    for artist_id in fav_artists.items():
+        response = requests.get(f'https://api.spotify.com/v1/artists/{artist_id}/albums', headers=headers)
+        print("Status Code:", response.status_code)
+        random_track = response.json()
 
+    def clean_string(s):
+        try:
+            return s.encode('utf-8').decode('utf-8')
+        except UnicodeEncodeError:
+            return None
+
+    album = track.get('album', {})
+    images = album.get('images', [])
+    if images:
+        image_url = images[0].get('url', '')
+        print("image_url", image_url)
+
+        name = clean_string(track.get('name', None))
+        image_url = clean_string(image_url)
+        if name and image_url:
+            return {name: image_url}
+    return {}
+
+
+def get_random_artists_
 
 @app.route('/artist', methods=['GET'])
 def get_artist_info():
@@ -371,7 +404,7 @@ def get_album_info():
 @app.route('/randomArtists', methods=['GET'])
 def get_random_artists_info():
     auth_token = get_auth_token()
-
+    random_artist_images = get_random_artists_images(auth_token, my_favorite_artists)
 
 
 if __name__ == "__main__":
