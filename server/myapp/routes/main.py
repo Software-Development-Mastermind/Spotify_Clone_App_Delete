@@ -3,6 +3,7 @@ import base64
 import requests
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 import pdb
+import random
 
 app = Flask(__name__)
 
@@ -301,36 +302,37 @@ my_favorite_artists = {
     "Sea_Power" : "5zhn89Em2jWUUWdpcLO3YL"
 }
 
-def get_random_artists_songs(auth_token, fav_artists):
+def get_random_artist_track(auth_token, fav_artists):
     headers = {
         'Authorization': f'Bearer {auth_token}',
     }
     
-    for artist_id in fav_artists.items():
-        response = requests.get(f'https://api.spotify.com/v1/artists/{artist_id}/albums', headers=headers)
-        print("Status Code:", response.status_code)
-        random_track = response.json()
+    artist_id = random.choice(list(fav_artists.items()))
+    print("aritst_id", artist_id)
 
-    def clean_string(s):
-        try:
-            return s.encode('utf-8').decode('utf-8')
-        except UnicodeEncodeError:
-            return None
+    response_albums = requests.get(f'https://api.spotify.com/v1/artists/{artist_id}/albums', headers=headers)
+    albums_data = response_albums.json()
+    print("albums_data", albums_data)
 
-    album = track.get('album', {})
-    images = album.get('images', [])
-    if images:
-        image_url = images[0].get('url', '')
-        print("image_url", image_url)
+    random_album = random.choice(albums_data['items'])
+    print("random_album", random_album)
 
-        name = clean_string(track.get('name', None))
-        image_url = clean_string(image_url)
-        if name and image_url:
-            return {name: image_url}
-    return {}
+    response_tracks = requests.get(f'https://api.spotify.com/v1/albums/{random_album["id"]}/tracks', headers=headers)
+    tracks_data = response_tracks.json()
+    print("tracks_data", tracks_data)
 
+    random_track = random.choice(tracks_data['items'])
+    print("random_track", random_track)
 
-def get_random_artists_
+    response_image = requests.get(f'https://api.spotify.com/v1/albums/{random_album["id"]}/images', headers=headers)
+    images_data = response_image[0].get("url", "")
+
+    response_name = random_track.get("name", "")
+
+    if not random_track:
+        return {"error": f"No song found by name of '{random_track}'."}, 404
+
+    return random_track
 
 @app.route('/artist', methods=['GET'])
 def get_artist_info():
@@ -404,7 +406,7 @@ def get_album_info():
 @app.route('/randomArtists', methods=['GET'])
 def get_random_artists_info():
     auth_token = get_auth_token()
-    random_artist_images = get_random_artists_images(auth_token, my_favorite_artists)
+    random_artist_images = get_random_artist_track(auth_token, my_favorite_artists)
 
 
 if __name__ == "__main__":
