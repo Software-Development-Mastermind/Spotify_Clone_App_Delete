@@ -61,7 +61,7 @@ def get_artist_id(auth_token, artist_name):
         'type': 'artist',
     }
 
-    response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
+    response = requests.get(f'https://api.spotify.com/v1/search', headers=headers, params=params)
     
     
     results = response.json()
@@ -171,7 +171,7 @@ def get_song_id(auth_token, song_name):
         'type': 'track',
     }
 
-    response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
+    response = requests.get(f'https://api.spotify.com/v1/search', headers=headers, params=params)
     print(response)
     results = response.json()
     print("result", results)
@@ -237,7 +237,7 @@ def get_album_id(auth_token, album_name):
         'q': album_name,
         'type': 'album',
     }
-    response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
+    response = requests.get(f'https://api.spotify.com/v1/search', headers=headers, params=params)
     response.raise_for_status()
     results = response.json()
     
@@ -326,13 +326,23 @@ def get_random_artist_track(auth_token, fav_artists):
 
     response_image = requests.get(f'https://api.spotify.com/v1/albums/{random_album["id"]}/images', headers=headers)
     images_data = response_image[0].get("url", "")
+    print("images_data", images_data)
 
     response_name = random_track.get("name", "")
+    print("response_name", response_name)
 
     if not random_track:
         return {"error": f"No song found by name of '{random_track}'."}, 404
+    if not response_image:
+        return {"error": f"No image found by name of '{response_image}'."}, 404
+    if not response_name:
+        return {"error": f"No name found by name of '{response_name}'."}, 404
 
-    return random_track
+    return {
+        random_track,
+        response_image,
+        response_name
+    }
 
 @app.route('/artist', methods=['GET'])
 def get_artist_info():
@@ -406,8 +416,8 @@ def get_album_info():
 @app.route('/randomArtists', methods=['GET'])
 def get_random_artists_info():
     auth_token = get_auth_token()
-    random_artist_images = get_random_artist_track(auth_token, my_favorite_artists)
-
+    random_artist_track = get_random_artist_track(auth_token, my_favorite_artists)
+    track_link = random_artist_track.get(random_track)
 
 if __name__ == "__main__":
     app.run(debug=True)
