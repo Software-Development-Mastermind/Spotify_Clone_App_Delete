@@ -307,11 +307,14 @@ def get_random_artist_track(auth_token, fav_artists):
         'Authorization': f'Bearer {auth_token}',
     }
     
-    artist_id = random.choice(list(fav_artists.items()))
+    artist_id = random.choice(list(fav_artists.values()))
     print("aritst_id", artist_id)
 
     response_albums = requests.get(f'https://api.spotify.com/v1/artists/{artist_id}/albums', headers=headers)
     albums_data = response_albums.json()
+    if not albums_data['items']:
+        return {"error": f"No albums found for artist '{artist_id}'."}, 404
+
     print("albums_data", albums_data)
 
     random_album = random.choice(albums_data['items'])
@@ -319,17 +322,22 @@ def get_random_artist_track(auth_token, fav_artists):
 
     response_tracks = requests.get(f'https://api.spotify.com/v1/albums/{random_album["id"]}/tracks', headers=headers)
     tracks_data = response_tracks.json()
+    if not tracks_data['items']:
+        return {"error": f"No tracks found for album '{random_album['id']}'."}, 404
     print("tracks_data", tracks_data)
 
     random_track = random.choice(tracks_data['items'])
     print("random_track", random_track)
 
     response_image = requests.get(f'https://api.spotify.com/v1/albums/{random_album["id"]}/images', headers=headers)
-    images_data = response_image[0].get("url", "")
+    images_data = random_album['images'][0]['url']
     print("images_data", images_data)
 
     response_name = random_track.get("name", "")
     print("response_name", response_name)
+
+    response_link = random_track.get('external_urls', {}).get('spotify')
+    print("response_link", response_link)
 
     if not random_track:
         return {"error": f"No song found by name of '{random_track}'."}, 404
@@ -337,11 +345,14 @@ def get_random_artist_track(auth_token, fav_artists):
         return {"error": f"No image found by name of '{response_image}'."}, 404
     if not response_name:
         return {"error": f"No name found by name of '{response_name}'."}, 404
+    if not response_link:
+        return {"error": f"No name found by name of '{response_link}'."}, 404
 
     return {
-        random_track,
-        response_image,
-        response_name
+        "random_track": random_track,
+        "response_image": response_image,
+        "response_name": response_name,
+        "response_link": response_link
     }
 
 @app.route('/artist', methods=['GET'])
@@ -416,8 +427,9 @@ def get_album_info():
 @app.route('/randomArtists', methods=['GET'])
 def get_random_artists_info():
     auth_token = get_auth_token()
-    random_artist_track = get_random_artist_track(auth_token, my_favorite_artists)
-    track_link = random_artist_track.get(random_track)
+    random_artist_track_info = get_random_artist_track(auth_token, my_favorite_artists)
+
+    return random_artist_track_info
 
 if __name__ == "__main__":
     app.run(debug=True)
