@@ -16,8 +16,9 @@ function Randomizer() {
         const data = response.data.map((item, index) => {
           return {
             id: item.id || index, // Use ID from data or fallback to index
-            name: item.name,
-            picture: item.picture,
+            name: item.response_name,
+            picture: item.response_image,
+            link: item.response_link,
             hoverImage: item.hoverImage, // assuming you have hoverImage in data
             isHovered: false,
           };
@@ -71,29 +72,33 @@ function Randomizer() {
               )
             }
           >
-            <div className="image-container">
-              <div className={`base-image ${data.isHovered ? "dimmed" : ""}`}>
-                <Card.Img
-                  variant="bottom"
-                  src={data.pictures}
-                  className="card_img_genre"
-                />
-              </div>
-              {data.isHovered && (
-                <div className="overlay-image">
+            <link src={data.link}>
+              <div className="image-container">
+                <div className={`base-image ${data.isHovered ? "dimmed" : ""}`}>
                   <Card.Img
-                    variant="top"
-                    src={data.hoverImage}
-                    className="hover-image"
+                    variant="bottom"
+                    src={data.pictures}
+                    className="card_img_genre"
                   />
                 </div>
-              )}
-            </div>
-            <Card.Body>
-              <Card.Title style={{ justifyContent: "center", color: "white" }}>
-                {data.names}
-              </Card.Title>
-            </Card.Body>
+                {data.isHovered && (
+                  <div className="overlay-image">
+                    <Card.Img
+                      variant="top"
+                      src={data.hoverImage}
+                      className="hover-image"
+                    />
+                  </div>
+                )}
+              </div>
+              <Card.Body>
+                <Card.Title
+                  style={{ justifyContent: "center", color: "white" }}
+                >
+                  {data.names}
+                </Card.Title>
+              </Card.Body>
+            </link>
           </Card>
         ))}
       </div>
