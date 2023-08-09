@@ -4,8 +4,12 @@ import requests
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 import pdb
 import random
+import logging
+import time
 
 app = Flask(__name__)
+
+logging.basicConfig(level=logging.DEBUG)
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -426,6 +430,7 @@ def get_album_info():
 
 @app.route('/randomArtists', methods=['GET'])
 def get_random_artists_info():
+    logging.debug('/randomArtists')
     auth_token = get_auth_token()
     random_artist_track_info = get_random_artist_track(auth_token, my_favorite_artists)
 
