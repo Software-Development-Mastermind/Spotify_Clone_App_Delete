@@ -55,7 +55,7 @@ function Randomizer() {
           <Card
             key={data.id}
             onClick={() => handleCardClick(data.id)} // a function that handles card click
-            style={{ width: "18rem" }}
+            style={{ width: "15rem" }}
             className="card_layout_bgcolor"
             onMouseEnter={() =>
               setCards(
@@ -72,12 +72,12 @@ function Randomizer() {
               )
             }
           >
-            <link src={data.Link}>
+            <a href={data.Link} target="_blank" rel="noopener noreferrer">
               <div className="image-container">
                 <div className={`base-image ${data.isHovered ? "dimmed" : ""}`}>
                   <Card.Img
                     variant="bottom"
-                    src={data.pictures}
+                    src={data.picture}
                     className="card_img_genre"
                   />
                 </div>
@@ -95,10 +95,10 @@ function Randomizer() {
                 <Card.Title
                   style={{ justifyContent: "center", color: "white" }}
                 >
-                  {data.names}
+                  {data.name}
                 </Card.Title>
               </Card.Body>
-            </link>
+            </a>
           </Card>
         ))}
       </div>

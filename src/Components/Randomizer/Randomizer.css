@@ -35,6 +35,8 @@
     flex-wrap: wrap;
     height: 45%;
     cursor: pointer;
+    position: relative;
+    top: 72px;
   }
   
   .Card {
