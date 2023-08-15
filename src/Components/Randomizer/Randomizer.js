@@ -18,7 +18,7 @@ function Randomizer() {
             id: item.id || index, // Use ID from data or fallback to index
             name: item.response_name,
             picture: item.response_image,
-            link: item.response_link,
+            Link: item.response_link,
             hoverImage: item.hoverImage, // assuming you have hoverImage in data
             isHovered: false,
           };
@@ -72,7 +72,7 @@ function Randomizer() {
               )
             }
           >
-            <link src={data.link}>
+            <link src={data.Link}>
               <div className="image-container">
                 <div className={`base-image ${data.isHovered ? "dimmed" : ""}`}>
                   <Card.Img

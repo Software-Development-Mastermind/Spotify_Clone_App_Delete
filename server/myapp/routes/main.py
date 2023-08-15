@@ -333,7 +333,7 @@ def get_random_artist_track(auth_token, fav_artists):
     random_track = random.choice(tracks_data['items'])
     print("random_track", random_track)
 
-    response_image = requests.get(f'https://api.spotify.com/v1/albums/{random_album["id"]}/images', headers=headers)
+    #response_image = requests.get(f'https://api.spotify.com/v1/albums/{random_album["id"]}/images', headers=headers)
     images_data = random_album['images'][0]['url']
     print("images_data", images_data)
 
@@ -344,20 +344,26 @@ def get_random_artist_track(auth_token, fav_artists):
     print("response_link", response_link)
 
     if not random_track:
-        return {"error": f"No song found by name of '{random_track}'."}, 404
-    if not response_image:
-        return {"error": f"No image found by name of '{response_image}'."}, 404
+        raise Exception("No track found by name of '{response_track}")
     if not response_name:
-        return {"error": f"No name found by name of '{response_name}'."}, 404
+        raise Exception("No track found by name of '{response_track}")
     if not response_link:
-        return {"error": f"No name found by name of '{response_link}'."}, 404
+        raise Exception("No track found by name of '{response_track}")
 
     return {
         "random_track": random_track,
-        "response_image": response_image,
+        "response_image": images_data,
         "response_name": response_name,
         "response_link": response_link
     }
+
+def get_five_random_tracks(auth_token, fav_artists):
+    tracks = []
+    for _ in range(5):
+        track_data = get_random_artist_track(auth_token, fav_artists)
+        tracks.append(track_data)
+    return tracks
+
 
 @app.route('/artist', methods=['GET'])
 def get_artist_info():
@@ -432,9 +438,9 @@ def get_album_info():
 def get_random_artists_info():
     logging.debug('/randomArtists')
     auth_token = get_auth_token()
-    random_artist_track_info = get_random_artist_track(auth_token, my_favorite_artists)
+    random_artist_track_info = get_five_random_tracks(auth_token, my_favorite_artists)
+    print("random_artist_track_info", random_artist_track_info)
 
     return random_artist_track_info
-
 if __name__ == "__main__":
     app.run(debug=True)
