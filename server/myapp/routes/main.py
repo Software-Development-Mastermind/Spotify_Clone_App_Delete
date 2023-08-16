@@ -448,6 +448,7 @@ def get_album_info():
 @app.route('/randomArtists', methods=['GET'])
 def get_random_artists_info():
     logging.debug('/randomArtists')
+    logging.debug('Processing /randomArtists request...')
     auth_token = get_auth_token()
     random_artist_track_info = get_five_random_tracks(auth_token, my_favorite_artists)
     print("random_artist_track_info", random_artist_track_info)
