@@ -333,7 +333,6 @@ def get_random_artist_track(auth_token, fav_artists):
     random_track = random.choice(tracks_data['items'])
     print("random_track", random_track)
 
-    #response_image = requests.get(f'https://api.spotify.com/v1/albums/{random_album["id"]}/images', headers=headers)
     images_data = random_album['images'][0]['url']
     print("images_data", images_data)
 
@@ -360,9 +359,21 @@ def get_random_artist_track(auth_token, fav_artists):
 def get_five_random_tracks(auth_token, fav_artists):
     tracks = []
     for _ in range(5):
-        track_data = get_random_artist_track(auth_token, fav_artists)
-        tracks.append(track_data)
+        track_info = get_random_artist_track(auth_token, fav_artists)
+        
+        if 'error' in track_info:
+            continue
+        
+        tracks.append(track_info)
+        artist_id = track_info["random_track"]['artists'][0]['id']
+        if artist_id in fav_artists.values():
+            fav_artists = {k: v for k, v in fav_artists.items() if v != artist_id}
+        
+        if not fav_artists:
+            break
+
     return tracks
+
 
 
 @app.route('/artist', methods=['GET'])
