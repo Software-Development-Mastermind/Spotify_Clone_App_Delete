@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} index />
         <Route path="/searchbar" element={<SearchBar />} />
-        <Route path="/randomizer" element={<RandomizerLayout />} />
+        <Route path="/Randomizer" element={<RandomizerLayout />} />
         <Route path="HipHopLayout" element={<HipHopLayout />} />
         <Route path="JazzLayout" element={<JazzLayout />} />
         <Route path="MetalLayout" element={<MetalLayout />} />
