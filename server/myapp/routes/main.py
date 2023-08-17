@@ -7,9 +7,10 @@ import random
 import logging
 import time
 
+
 app = Flask(__name__)
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -449,6 +450,8 @@ def get_album_info():
 def get_random_artists_info():
     logging.debug('/randomArtists')
     logging.debug('Processing /randomArtists request...')
+    logging.debug('Fetching auth token...')
+
     auth_token = get_auth_token()
     random_artist_track_info = get_five_random_tracks(auth_token, my_favorite_artists)
     print("random_artist_track_info", random_artist_track_info)

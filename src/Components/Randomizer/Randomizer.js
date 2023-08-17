@@ -9,10 +9,12 @@ function Randomizer() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log("Component mounted");
     setLoading(true);
     axios
       .get("/randomArtists")
       .then((response) => {
+        console.log("Component will unmount");
         const data = response.data.map((item, index) => {
           return {
             id: item.id || index, // Use ID from data or fallback to index
