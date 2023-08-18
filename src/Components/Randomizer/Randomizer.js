@@ -52,7 +52,7 @@ function Randomizer() {
 
   return (
     <div className="background_color_gradient">
-      <div className="card_layout">
+      <div className="card_layout_randomizer">
         {cards.map((data) => (
           <Card
             key={data.id}

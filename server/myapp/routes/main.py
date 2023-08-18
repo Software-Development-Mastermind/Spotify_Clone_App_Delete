@@ -372,9 +372,9 @@ def get_five_random_tracks(auth_token, fav_artists):
         
         if not fav_artists:
             break
-
+            
+    print("tracks: ", tracks)
     return tracks
-
 
 
 @app.route('/artist', methods=['GET'])

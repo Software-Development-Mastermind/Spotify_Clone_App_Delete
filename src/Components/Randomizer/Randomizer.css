@@ -29,7 +29,7 @@
     color: white;
   }
   
-  .card_layout {
+  .card_layout_randomizer {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
