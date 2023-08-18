@@ -74,7 +74,12 @@ function Randomizer() {
               )
             }
           >
-            <a href={data.Link} target="_blank" rel="noopener noreferrer">
+            <a
+              href={data.Link}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none" }}
+            >
               <div className="image-container">
                 <div className={`base-image ${data.isHovered ? "dimmed" : ""}`}>
                   <Card.Img

@@ -56,7 +56,8 @@
     position: relative;
     display: flex;
     top: 10rem;
-    text-align: center
+    text-align: center;
+    text-decoration: none
   }
   
   .playbtn {
