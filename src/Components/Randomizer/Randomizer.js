@@ -93,7 +93,7 @@ function Randomizer() {
                   </div>
                 )}
               </div>
-              <Card.Body>
+              <Card.Body className="card-body-layout">
                 <Card.Title
                   style={{ justifyContent: "center", color: "white" }}
                 >

@@ -51,6 +51,13 @@
     margin: 5%;
     width: 90%;
   }
+
+  .card-body-layout {
+    position: relative;
+    display: flex;
+    top: 10rem;
+    text-align: center
+  }
   
   .playbtn {
     width: 22%;
