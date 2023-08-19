@@ -359,22 +359,34 @@ def get_random_artist_track(auth_token, fav_artists):
 
 def get_five_random_tracks(auth_token, fav_artists):
     tracks = []
+
     for _ in range(5):
-        track_info = get_random_artist_track(auth_token, fav_artists)
-        
-        if 'error' in track_info:
-            continue
-    
-        tracks.append(track_info)
-        artist_id = track_info["random_track"]['artists'][0]['id']
-        if artist_id in fav_artists.values():
-            fav_artists = {k: v for k, v in fav_artists.items() if v != artist_id}
-        
+        # Exit early if there are no favorite artists left.
         if not fav_artists:
             break
-            
+
+        # Fetch a random track from the remaining artists.
+        track_info = get_random_artist_track(auth_token, fav_artists)
+        
+        # Continue if there's an error in the fetched track info.
+        if 'error' in track_info:
+            continue
+        
+        artist_id = track_info["random_track"]['artists'][0]['id']
+
+        # Check if the fetched artist is already in our tracks list.
+        existing_artist_ids = [track["random_track"]['artists'][0]['id'] for track in tracks]
+        if artist_id in existing_artist_ids:
+            continue
+
+        # If not, we add the track to our list and filter out the artist from fav_artists.
+        tracks.append(track_info)
+        if artist_id in fav_artists.values():
+            fav_artists = {k: v for k, v in fav_artists.items() if v != artist_id}
+
     print("tracks: ", tracks)
     return tracks
+
 
 
 @app.route('/artist', methods=['GET'])
