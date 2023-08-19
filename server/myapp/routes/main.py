@@ -364,7 +364,7 @@ def get_five_random_tracks(auth_token, fav_artists):
         
         if 'error' in track_info:
             continue
-        
+    
         tracks.append(track_info)
         artist_id = track_info["random_track"]['artists'][0]['id']
         if artist_id in fav_artists.values():
@@ -448,10 +448,6 @@ def get_album_info():
 
 @app.route('/randomArtists', methods=['GET'])
 def get_random_artists_info():
-    logging.debug('/randomArtists')
-    logging.debug('Processing /randomArtists request...')
-    logging.debug('Fetching auth token...')
-
     auth_token = get_auth_token()
     random_artist_track_info = get_five_random_tracks(auth_token, my_favorite_artists)
     print("random_artist_track_info", random_artist_track_info)
