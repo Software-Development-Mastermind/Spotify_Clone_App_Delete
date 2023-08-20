@@ -9,6 +9,13 @@
     font-family: SpotifyFont;
     src: url(../../fonts/Gotham-Spotify-Font/Gotham-Light.otf);
   }
+
+  .loadingCSS {
+    position: relative;
+    display: flex;
+    left: 80vh;
+    top: 50vh;
+  }
   
   .background_color_gradient {
     background: linear-gradient(to bottom, #1f1f1f, #121212);

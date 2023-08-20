@@ -43,7 +43,7 @@ function Randomizer() {
   };
 
   if (isLoading) {
-    return <Spinner animation="border" />;
+    return <Spinner animation="border" className="loadingCSS" />;
   }
 
   if (error) {
