@@ -51,64 +51,60 @@ function Randomizer() {
   }
 
   return (
-    <div className="background_color_gradient">
-      <div className="card_layout_randomizer">
-        {cards.map((data) => (
-          <Card
-            key={data.id}
-            onClick={() => handleCardClick(data.id)} // a function that handles card click
-            style={{ width: "15rem" }}
-            className="card_layout_bgcolor"
-            onMouseEnter={() =>
-              setCards(
-                cards.map((c) =>
-                  c.id === data.id ? { ...c, isHovered: true } : c
-                )
+    <div className="card_layout_randomizer">
+      {cards.map((data) => (
+        <Card
+          key={data.id}
+          onClick={() => handleCardClick(data.id)} // a function that handles card click
+          style={{ width: "15rem" }}
+          className="card_layout_bgcolor"
+          onMouseEnter={() =>
+            setCards(
+              cards.map((c) =>
+                c.id === data.id ? { ...c, isHovered: true } : c
               )
-            }
-            onMouseLeave={() =>
-              setCards(
-                cards.map((c) =>
-                  c.id === data.id ? { ...c, isHovered: false } : c
-                )
+            )
+          }
+          onMouseLeave={() =>
+            setCards(
+              cards.map((c) =>
+                c.id === data.id ? { ...c, isHovered: false } : c
               )
-            }
+            )
+          }
+        >
+          <a
+            href={data.Link}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "none" }}
           >
-            <a
-              href={data.Link}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ textDecoration: "none" }}
-            >
-              <div className="image-container">
-                <div className={`base-image ${data.isHovered ? "dimmed" : ""}`}>
+            <div className="image-container">
+              <div className={`base-image ${data.isHovered ? "dimmed" : ""}`}>
+                <Card.Img
+                  variant="bottom"
+                  src={data.picture}
+                  className="card_img_genre"
+                />
+              </div>
+              {data.isHovered && (
+                <div className="overlay-image">
                   <Card.Img
-                    variant="bottom"
-                    src={data.picture}
-                    className="card_img_genre"
+                    variant="top"
+                    src={data.hoverImage}
+                    className="hover-image"
                   />
                 </div>
-                {data.isHovered && (
-                  <div className="overlay-image">
-                    <Card.Img
-                      variant="top"
-                      src={data.hoverImage}
-                      className="hover-image"
-                    />
-                  </div>
-                )}
-              </div>
-              <Card.Body className="card-body-layout">
-                <Card.Title
-                  style={{ justifyContent: "center", color: "white" }}
-                >
-                  {data.name}
-                </Card.Title>
-              </Card.Body>
-            </a>
-          </Card>
-        ))}
-      </div>
+              )}
+            </div>
+            <Card.Body className="card-body-layout">
+              <Card.Title style={{ justifyContent: "center", color: "white" }}>
+                {data.name}
+              </Card.Title>
+            </Card.Body>
+          </a>
+        </Card>
+      ))}
       {selectedSong && <div>Selected song ID: {selectedSong}</div>}
     </div>
   );

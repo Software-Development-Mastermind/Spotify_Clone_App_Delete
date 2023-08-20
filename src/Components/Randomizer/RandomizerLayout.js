@@ -8,7 +8,9 @@ function RandomizerLayout() {
     <div className="d-flex">
       <LogSignIn />
       <Sidebar />
-      <Randomizer />
+      <div className="background_color_gradient">
+        <Randomizer />
+      </div>
     </div>
   );
 }
