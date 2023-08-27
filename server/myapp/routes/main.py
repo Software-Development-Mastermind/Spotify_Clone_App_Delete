@@ -6,26 +6,60 @@ import pdb
 import random
 import logging
 import time
+import psycopg2
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 app = Flask(__name__)
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-@app.route('/login', methods=['POST'])
-def login():
-    data = request.get_json()
-    print('Received data:', data) # Log the received data
+# Database connection settings (modify to match your setup)
+DATABASE_CONFIG = {
+    'NewDB': 'your_database_name',
+    'user': 'your_username',
+    'password': 'your_password',
+    'host': 'localhost'
+}
 
-    email = data.get('email')
-    userName = data.get('userName')
-    password = data.get('password')
+def get_db_connection():
+    """Create a new database connection and return a connection object."""
+    conn = psycopg2.connect(**DATABASE_CONFIG)
+    return conn
 
-    print(f"Email: {email}, Username: {userName}, Password: {password}")
+@app.route("/register", methods=["POST"])
+def register():
+    data = request.json
+    hashed_password = generate_password_hash(data['password'], method='sha256')
 
-    response = jsonify(message="Data received successfully")
-    print('Sending response:', response) # Log the response
-    return response, 201
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    try:
+        cur.execute("INSERT INTO NewTBL (username, email, password) VALUES (%s, %s, %s)", (data['username'], data['email'], hashed_password))
+        conn.commit()
+        return jsonify({"message": "User registered successfully!"}), 201
+    except psycopg2.IntegrityError:
+        return jsonify({"message": "Username or email already exists!"}), 400
+    finally:
+        cur.close()
+        conn.close()
+
+@app.route("/users", methods=["GET"])
+def get_users():
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("SELECT id, username, email FROM NewTBL")
+    users = cur.fetchall()
+
+    # Note: We're not sending back passwords, hashed or otherwise.
+    users_list = [{"id": user[0], "username": user[1], "email": user[2]} for user in users]
+
+    cur.close()
+    conn.close()
+
+    return jsonify(users_list)
 
 def get_auth_token():
     client_id = 'ede4392a5dfa4b2a96e1a2333ae406ef'
