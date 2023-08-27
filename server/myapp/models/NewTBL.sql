@@ -1,5 +1,3 @@
-CREATE SCHEMA public;
-
 CREATE TABLE NewTBL (
     id SERIAL PRIMARY KEY,
     username VARCHAR(80) UNIQUE NOT NULL,
@@ -7,4 +5,4 @@ CREATE TABLE NewTBL (
     password VARCHAR(120) NOT NULL
 );
 
-GRANT SELECT, INSERT, UPDATE ON TABLE NewTBL TO public;
+INSERT INTO NewTBL (username, email, password) VALUES ('testuser', 'test@email.com', 'password123');
