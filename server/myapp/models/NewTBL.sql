@@ -6,3 +6,5 @@ CREATE TABLE NewTBL (
 );
 
 INSERT INTO NewTBL (username, email, password) VALUES ('testuser', 'test@email.com', 'password123');
+
+SELECT * FROM NewTBL;
