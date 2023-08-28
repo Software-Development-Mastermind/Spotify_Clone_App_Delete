@@ -19,7 +19,8 @@ DATABASE_CONFIG = {
     'NewDB': 'your_database_name',
     'user': 'your_username',
     'password': 'your_password',
-    'host': 'localhost'
+    'host': 'localhost',
+    'port': '5432'
 }
 
 def get_db_connection():
@@ -479,7 +480,7 @@ def register():
         cur.close()
         conn.close()
 
-@app.route("/users", methods=["GET"])
+@app.route("/login", methods=["GET"])
 def get_users():
     conn = get_db_connection()
     cur = conn.cursor()
