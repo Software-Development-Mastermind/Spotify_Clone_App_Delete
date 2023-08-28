@@ -27,40 +27,6 @@ def get_db_connection():
     conn = psycopg2.connect(**DATABASE_CONFIG)
     return conn
 
-@app.route("/register", methods=["POST"])
-def register():
-    data = request.json
-    hashed_password = generate_password_hash(data['password'], method='sha256')
-
-    conn = get_db_connection()
-    cur = conn.cursor()
-
-    try:
-        cur.execute("INSERT INTO NewTBL (username, email, password) VALUES (%s, %s, %s)", (data['username'], data['email'], hashed_password))
-        conn.commit()
-        return jsonify({"message": "User registered successfully!"}), 201
-    except psycopg2.IntegrityError:
-        return jsonify({"message": "Username or email already exists!"}), 400
-    finally:
-        cur.close()
-        conn.close()
-
-@app.route("/users", methods=["GET"])
-def get_users():
-    conn = get_db_connection()
-    cur = conn.cursor()
-
-    cur.execute("SELECT id, username, email FROM NewTBL")
-    users = cur.fetchall()
-
-    # Note: We're not sending back passwords, hashed or otherwise.
-    users_list = [{"id": user[0], "username": user[1], "email": user[2]} for user in users]
-
-    cur.close()
-    conn.close()
-
-    return jsonify(users_list)
-
 def get_auth_token():
     client_id = 'ede4392a5dfa4b2a96e1a2333ae406ef'
     client_secret = '30880e79886848928681f17d1ac21f9e'
@@ -494,5 +460,41 @@ def get_random_artists_info():
     print("random_artist_track_info", random_artist_track_info)
 
     return random_artist_track_info
+
+@app.route("/register", methods=["POST"])
+def register():
+    data = request.json
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    try:
+        cur.execute("INSERT INTO NewTBL (username, email, password) VALUES (%s, %s, %s)", (data['username'], data['email'], hashed_password))
+        conn.commit()
+        return jsonify({"message": "User registered successfully!"}), 201
+    except psycopg2.IntegrityError:
+        return jsonify({"message": "Username or email already exists!"}), 400
+    finally:
+        cur.close()
+        conn.close()
+
+@app.route("/users", methods=["GET"])
+def get_users():
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("SELECT id, username, email FROM NewTBL")
+    users = cur.fetchall()
+
+    # Note: We're not sending back passwords, hashed or otherwise.
+    users_list = [{"id": user[0], "username": user[1], "email": user[2]} for user in users]
+
+    cur.close()
+    conn.close()
+
+    return jsonify(users_list)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
