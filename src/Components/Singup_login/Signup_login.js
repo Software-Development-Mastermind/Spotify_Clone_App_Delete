@@ -8,6 +8,7 @@ import Modal from "react-bootstrap/Modal";
 function LogSignIn() {
   const [showModal, setShowModal] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+  const [creds, setCreds] = useState(true);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -36,12 +37,14 @@ function LogSignIn() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(email, userName, password);
-    return axios
+    axios
       .post("/login", { email, userName, password })
       .then((response) => {
         console.log(response.data.message);
-        return response.data;
+        // Assuming you get the username in the response, set it to state
+        setUserName(response.data.userName);
+        // Set creds to false to hide login and sign up buttons
+        setCreds(false);
       })
       .catch((error) => {
         console.log(error);
@@ -63,22 +66,32 @@ function LogSignIn() {
 
   return (
     <>
-      <header className="login">
-        <div className="loginBtns">
-          <button
-            className="btn btn-black rounded-pill my-button"
-            onClick={() => handleShow(true)}
-          >
-            Log In
-          </button>
-          <button
-            className="btn btn-white rounded-pill my-button"
-            onClick={() => handleShow(false)}
-          >
-            Sign Up
-          </button>
-        </div>
-      </header>
+      {creds ? (
+        <header className="login">
+          <div className="loginBtns">
+            <button
+              className="btn btn-black rounded-pill my-button"
+              onClick={() => handleShow(true)}
+            >
+              Log In
+            </button>
+            <button
+              className="btn btn-white rounded-pill my-button"
+              onClick={() => handleShow(false)}
+            >
+              Sign Up
+            </button>
+          </div>
+        </header>
+      ) : (
+        <header>
+          <div className="loginBtns">
+            <button className="btn btn-black rounded-pill my-button">
+              {userName} {/* Display the logged in username */}
+            </button>
+          </div>
+        </header>
+      )}
 
       {isLogin ? (
         <Modal show={showModal} onHide={handleClose}>
