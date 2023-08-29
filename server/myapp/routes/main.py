@@ -16,9 +16,9 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 
 # Database connection settings (modify to match your setup)
 DATABASE_CONFIG = {
-    'NewDB': 'your_database_name',
-    'user': 'your_username',
-    'password': 'your_password',
+    'dbname': 'NewDB',
+    'user': 'postgres',
+    'password': 'Akna()sol!@',
     'host': 'localhost',
     'port': '5432'
 }
@@ -480,7 +480,7 @@ def register():
         cur.close()
         conn.close()
 
-@app.route("/login", methods=["GET"])
+@app.route("/login", methods=["POST"])
 def get_users():
     conn = get_db_connection()
     cur = conn.cursor()
