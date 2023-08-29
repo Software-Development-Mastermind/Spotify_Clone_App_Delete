@@ -1,10 +1,19 @@
-CREATE TABLE NewTBL (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(80) UNIQUE NOT NULL,
-    email VARCHAR(120) UNIQUE NOT NULL,
-    password VARCHAR(120) NOT NULL
-);
+-- Table: public.newtbl
 
-INSERT INTO NewTBL (username, email, password) VALUES ('testuser', 'test@email.com', 'password123');
+-- DROP TABLE IF EXISTS public.newtbl;
 
-SELECT * FROM NewTBL;
+CREATE TABLE IF NOT EXISTS public.newtbl
+(
+    id integer NOT NULL DEFAULT nextval('newtbl_id_seq'::regclass),
+    userName character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(120) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(120) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT newtbl_pkey PRIMARY KEY (id),
+    CONSTRAINT newtbl_email_key UNIQUE (email),
+    CONSTRAINT newtbl_username_key UNIQUE (username)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.newtbl
+    OWNER to postgres;

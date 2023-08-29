@@ -468,10 +468,12 @@ def register():
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
     conn = get_db_connection()
+    print("conn :", conn)
     cur = conn.cursor()
+    print("cur :", cur)
 
     try:
-        cur.execute("INSERT INTO NewTBL (username, email, password) VALUES (%s, %s, %s)", (data['username'], data['email'], hashed_password))
+        cur.execute("INSERT INTO NewTBL (email, userName, password) VALUES (%s, %s, %s)", (data['userName'], data['email'], hashed_password))
         conn.commit()
         return jsonify({"message": "User registered successfully!"}), 201
     except psycopg2.IntegrityError:
