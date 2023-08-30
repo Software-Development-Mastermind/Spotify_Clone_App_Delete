@@ -487,7 +487,7 @@ def get_users():
     conn = get_db_connection()
     cur = conn.cursor()
 
-    cur.execute("SELECT id, username, email FROM NewTBL")
+    cur.execute("SELECT id, userName, email FROM NewTBL")
     users = cur.fetchall()
 
     # Note: We're not sending back passwords, hashed or otherwise.

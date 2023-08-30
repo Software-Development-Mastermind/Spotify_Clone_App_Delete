@@ -57,7 +57,9 @@ function LogSignIn() {
     axios
       .post("/register", { email, userName, password })
       .then((response) => {
-        console.log(response.data.message); // log the message here
+        console.log(response.data.message);
+        setUserName(response.data.userName);
+        setCreds(false);
       })
       .catch((error) => {
         console.log(error); // also log the error
