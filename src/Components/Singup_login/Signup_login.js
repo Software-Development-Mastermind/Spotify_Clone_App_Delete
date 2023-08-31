@@ -86,7 +86,7 @@ function LogSignIn() {
           </div>
         </header>
       ) : (
-        <header>
+        <header className="login">
           <div className="loginBtns">
             <button className="btn btn-black rounded-pill my-button">
               {userName} {/* Display the logged in username */}
