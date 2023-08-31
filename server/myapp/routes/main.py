@@ -465,15 +465,14 @@ def get_random_artists_info():
 @app.route("/register", methods=["POST"])
 def register():
     data = request.json
+    print("data: ", data)
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
     conn = get_db_connection()
-    print("conn :", conn)
     cur = conn.cursor()
-    print("cur :", cur)
 
     try:
-        cur.execute("INSERT INTO NewTBL (email, userName, password) VALUES (%s, %s, %s)", (data['userName'], data['email'], hashed_password))
+        cur.execute("INSERT INTO NewTBL (email, userName, password) VALUES (%s, %s, %s)", (data['email'], data['userName'], hashed_password))
         conn.commit()
         return jsonify({"message": "User registered successfully!"}), 201
     except psycopg2.IntegrityError:
