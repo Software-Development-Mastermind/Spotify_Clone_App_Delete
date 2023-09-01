@@ -505,7 +505,7 @@ def login():
 
     # Now you'll need to check the password. Here I'm assuming you're using werkzeug for hashing
     if check_password_hash(stored_password, password):
-        return jsonify({"id": user_id, "userName": userName, "email": email}), 200
+        return jsonify({"id": user_id, "userName": userName}), 200
     else:
         return jsonify({"error": "Incorrect password!"}), 401
 
