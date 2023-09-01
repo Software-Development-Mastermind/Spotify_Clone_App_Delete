@@ -465,7 +465,6 @@ def get_random_artists_info():
 @app.route("/register", methods=["POST"])
 def register():
     data = request.json
-    print("data: ", data)
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
     conn = get_db_connection()
@@ -482,20 +481,32 @@ def register():
         conn.close()
 
 @app.route("/login", methods=["POST"])
-def get_users():
+def login():
+    data = request.json
+    user_name_or_email = data.get('userName') or data.get('email')
+    password = data.get('password')
+
     conn = get_db_connection()
     cur = conn.cursor()
 
-    cur.execute("SELECT id, userName, email FROM NewTBL")
-    users = cur.fetchall()
-
-    # Note: We're not sending back passwords, hashed or otherwise.
-    users_list = [{"id": user[0], "username": user[1], "email": user[2]} for user in users]
+    # Fetch the user with the given userName or email
+    cur.execute("SELECT id, userName, email, password FROM NewTBL WHERE userName=%s OR email=%s", (user_name_or_email, user_name_or_email))
+    user = cur.fetchone()
 
     cur.close()
     conn.close()
 
-    return jsonify(users_list)
+    if not user:
+        return jsonify({"error": "User not found!"}), 404
+
+    user_id, user_name, email, stored_password = user
+
+    # Now you'll need to check the password. Here I'm assuming you're using werkzeug for hashing
+    if check_password_hash(stored_password, password):
+        return jsonify({"id": user_id, "userName": user_name, "email": email}), 200
+    else:
+        return jsonify({"error": "Incorrect password!"}), 401
+
 
 
 if __name__ == "__main__":

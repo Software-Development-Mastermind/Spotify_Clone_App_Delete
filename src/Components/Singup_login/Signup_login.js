@@ -41,9 +41,8 @@ function LogSignIn() {
       .post("/login", { email, userName, password })
       .then((response) => {
         console.log(response.data.message);
-        // Assuming you get the username in the response, set it to state
+        console.log(response.data.userName);
         setUserName(response.data.userName);
-        // Set creds to false to hide login and sign up buttons
         setCreds(false);
       })
       .catch((error) => {
