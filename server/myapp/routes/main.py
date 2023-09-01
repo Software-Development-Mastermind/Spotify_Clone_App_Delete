@@ -484,6 +484,7 @@ def register():
 def login():
     data = request.json
     user_name_or_email = data.get('userName') or data.get('email')
+    print("user_name_or_email: ", user_name_or_email)
     password = data.get('password')
 
     conn = get_db_connection()
@@ -500,6 +501,7 @@ def login():
         return jsonify({"error": "User not found!"}), 404
 
     user_id, userName, email, stored_password = user
+    print("user: ", user)
 
     # Now you'll need to check the password. Here I'm assuming you're using werkzeug for hashing
     if check_password_hash(stored_password, password):
