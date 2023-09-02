@@ -35,10 +35,6 @@ function LogSignIn() {
     setPassword(e.target.value);
   };
 
-  const setmodalmessage = (isLogin) => {
-    setMessage();
-  };
-
   function handleSubmit(event) {
     event.preventDefault();
     axios

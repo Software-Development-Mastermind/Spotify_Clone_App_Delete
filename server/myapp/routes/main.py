@@ -500,12 +500,12 @@ def login():
     if not user:
         return jsonify({"error": "User not found!"}), 404
 
-    user_id, userName, email, stored_password = user
+    user_id, email, userName, stored_password = user
     print("user: ", user)
 
     # Now you'll need to check the password. Here I'm assuming you're using werkzeug for hashing
     if check_password_hash(stored_password, password):
-        return jsonify({"id": user_id, "userName": userName, "email": email }), 200
+        return jsonify({"id": user_id, "email": email, "userName": userName }), 200
     else:
         return jsonify({"error": "Incorrect password!"}), 401
 
