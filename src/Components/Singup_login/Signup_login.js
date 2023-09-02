@@ -35,33 +35,41 @@ function LogSignIn() {
     setPassword(e.target.value);
   };
 
+  const setmodalmessage = (isLogin) => {
+    setMessage();
+  };
+
   function handleSubmit(event) {
     event.preventDefault();
     axios
       .post("/login", { email, userName, password })
       .then((response) => {
         console.log(response.data.message);
-        console.log(response.data.userName);
         setUserName(response.data.userName);
         setCreds(false);
+        setMessage("You successfully logged in!"); // Set the successful login message
       })
       .catch((error) => {
         console.log(error);
+        setMessage("Failed to log in. Please check your credentials."); // Set the login failure message
       });
   }
 
   const handleNewUser = (event) => {
     event.preventDefault();
-
     axios
       .post("/register", { email, userName, password })
       .then((response) => {
         console.log(response.data.message);
         setUserName(response.data.userName);
         setCreds(false);
+        setMessage("You successfully registered!"); // Set the successful registration message
       })
       .catch((error) => {
-        console.log(error); // also log the error
+        console.log(error);
+        setMessage(
+          "Failed to register. Please check the information provided."
+        ); // Set the registration failure message
       });
   };
 
