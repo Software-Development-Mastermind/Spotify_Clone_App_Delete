@@ -68,7 +68,7 @@ def get_artist_id(auth_token, artist_name):
     }
 
     response = requests.get(f'https://api.spotify.com/v1/search', headers=headers, params=params)
-    
+    print("response: ", response)
     
     results = response.json()
     import json
