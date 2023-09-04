@@ -193,20 +193,31 @@ def get_song_id(auth_token, song_name):
     params = {
         'q': song_name,
         'type': 'track',
+        'market': 'US',
+        'limit': 5
     }
 
     response = requests.get(f'https://api.spotify.com/v1/search', headers=headers, params=params)
-    print(response)
     results = response.json()
-    print("result", results)
-    
-    if results['tracks'] and results['tracks']['items']:
-        finalResults = results['tracks']['items'][0]['id']
-        print("finalResults", finalResults)
-        return finalResults
-    
-    else:
-        return None
+
+    track_items = results.get('tracks', {}).get('items', [])
+
+    # Sort by popularity in descending order
+    sorted_tracks = sorted(track_items, key=lambda x: x.get('popularity', 0), reverse=True)
+
+    for track in sorted_tracks:
+        cleaned_track_name = unidecode(track.get('name', ''))
+        if cleaned_track_name.lower() == song_name.lower():
+            return track.get('id')
+
+    # If no match found with the above method, try removing non-ASCII characters
+    for track in sorted_tracks:
+        track_name_with_unicode = track.get('name')
+        cleaned_track_name = ''.join(char for char in track_name_with_unicode if ord(char) < 128)
+        if cleaned_track_name.lower() == song_name.lower():
+            return track.get('id')
+
+    return None  # If no match found using both methods
 
 def get_song_image(auth_token, song_id):
     headers = {
@@ -257,21 +268,35 @@ def get_album_id(auth_token, album_name):
     headers = {
         'Authorization': f'Bearer {auth_token}',
     }
+    
     params = {
         'q': album_name,
         'type': 'album',
+        'market': 'US',
+        'limit': 5
     }
+
     response = requests.get(f'https://api.spotify.com/v1/search', headers=headers, params=params)
-    response.raise_for_status()
     results = response.json()
-    
-    if len(results['albums']['items']) > 0:
-        album_id = results['albums']['items'][0]['id']
-        print(album_id)
-        return album_id
-    else:
-        print("No album found for the search term.")
-        return None
+
+    album_items = results.get('albums', {}).get('items', [])
+
+    # Sort by popularity in descending order
+    sorted_albums = sorted(album_items, key=lambda x: x.get('popularity', 0), reverse=True)
+
+    for album in sorted_albums:
+        cleaned_album_name = unidecode(album.get('name', ''))
+        if cleaned_album_name.lower() == album_name.lower():
+            return album.get('id')
+
+    # If no match found with the above method, try removing non-ASCII characters
+    for album in sorted_albums:
+        album_name_with_unicode = album.get('name')
+        cleaned_album_name = ''.join(char for char in album_name_with_unicode if ord(char) < 128)
+        if cleaned_album_name.lower() == album_name.lower():
+            return album.get('id')
+
+    return None  # If no match found using both methods
 
 
 def get_album_image(auth_token, album_id):
