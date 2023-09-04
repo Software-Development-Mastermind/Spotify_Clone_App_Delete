@@ -52,10 +52,11 @@ def get_auth_token():
     return response.json()['access_token']
 
 
+from unidecode import unidecode
+
 def get_spotify_client():
     token = get_auth_token()
     return token
-
 
 def get_artist_id(auth_token, artist_name):
     headers = {
@@ -70,23 +71,31 @@ def get_artist_id(auth_token, artist_name):
     }
 
     response = requests.get(f'https://api.spotify.com/v1/search', headers=headers, params=params)
-    print("response: ", response)
-    
     results = response.json()
+
+    # Debugging output
     import json
     print(json.dumps(results, indent=4))
 
-    if results.get('artists').get('items'):
-        for artist in results.get('artists').get('items'):
-            if artist.get('name').lower() == artist_name.lower():
-             return artist.get('id')
-        artist_name_with_unicode = artist.get('artists').get('items').get('name')
+    artist_items = results.get('artists', {}).get('items', [])
+
+    # Sort by followers in descending order
+    sorted_artists = sorted(artist_items, key=lambda x: x.get('followers', {}).get('total', 0), reverse=True)
+
+    for artist in sorted_artists:
+        cleaned_artist_name = unidecode(artist.get('name', ''))
+        if cleaned_artist_name.lower() == artist_name.lower():
+            return artist.get('id')
+
+    # If no match found with the above method, try removing non-ASCII characters
+    for artist in sorted_artists:
+        artist_name_with_unicode = artist.get('name')
         cleaned_artist_name = ''.join(char for char in artist_name_with_unicode if ord(char) < 128)
-        print(cleaned_artist_name)  
-        finalResults = cleaned_artist_name.get('artists').get('items').get('id')
-        return finalResults
-    else:
-        return None
+        if cleaned_artist_name.lower() == artist_name.lower():
+            return artist.get('id')
+
+    return None  # If no match found using both methods
+
 
 
 

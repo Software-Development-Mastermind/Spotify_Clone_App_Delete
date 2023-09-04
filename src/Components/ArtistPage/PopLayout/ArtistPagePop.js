@@ -35,7 +35,7 @@ function ArtistPagePop() {
       id: 4,
       isHovered: false,
       image: Rhianna,
-      name: "Rhianna",
+      name: "Rihanna",
       hoverImage: playbtn,
     },
   ]);
