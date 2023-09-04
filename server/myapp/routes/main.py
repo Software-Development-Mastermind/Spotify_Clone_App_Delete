@@ -65,6 +65,8 @@ def get_artist_id(auth_token, artist_name):
     params = {
         'q': artist_name,
         'type': 'artist',
+        'market': 'US',
+        'limit': 5
     }
 
     response = requests.get(f'https://api.spotify.com/v1/search', headers=headers, params=params)
@@ -75,10 +77,17 @@ def get_artist_id(auth_token, artist_name):
     print(json.dumps(results, indent=4))
 
     if results.get('artists').get('items'):
-        finalResults = results.get('artists').get('items')[0].get('id')
+        for artist in results.get('artists').get('items'):
+            if artist.get('name').lower() == artist_name.lower():
+             return artist.get('id')
+        artist_name_with_unicode = artist.get('artists').get('items').get('name')
+        cleaned_artist_name = ''.join(char for char in artist_name_with_unicode if ord(char) < 128)
+        print(cleaned_artist_name)  
+        finalResults = cleaned_artist_name.get('artists').get('items').get('id')
         return finalResults
     else:
         return None
+
 
 
 def get_artist_image(auth_token, artist_id):
