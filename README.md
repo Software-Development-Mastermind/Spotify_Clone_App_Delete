@@ -1,5 +1,4 @@
 
-https://github.com/Ahmad-ayoub/client/assets/107888495/7129d0c7-8008-4380-8617-6fd5b9bd5bec
 **Project Overview: Simplified Spotify App**
 
 - **Introduction:**
