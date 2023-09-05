@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { Card, Alert, Spinner } from "react-bootstrap";
+import playbtn from "../../Icons/play-button.png";
 import axios from "axios";
 
 function Randomizer() {
@@ -21,7 +22,7 @@ function Randomizer() {
             name: item.response_name,
             picture: item.response_image,
             Link: item.response_link,
-            hoverImage: item.hoverImage, // assuming you have hoverImage in data
+            hoverImage: playbtn, // assuming you have hoverImage in data
             isHovered: false,
           };
         });

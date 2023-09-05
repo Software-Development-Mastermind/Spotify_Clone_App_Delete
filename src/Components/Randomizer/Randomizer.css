@@ -68,7 +68,7 @@
   }
   
   .playbtn {
-    width: 22%;
+    width: 100%;
     position: relative;
     left: 75%;
     z-index: 0;
