@@ -122,6 +122,7 @@ function ArtistPageMetal() {
                 className="top_track_image_size"
                 style={{ marginRight: "2%", marginLeft: "2%" }}
                 src={artistDetails.top_track?.track_image}
+                alt="top_track_img_Metal"
               />
               <p className="d-flex align-items-center mt-1, text-white">
                 {artistDetails.top_track?.track_name}
