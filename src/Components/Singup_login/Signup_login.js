@@ -14,7 +14,10 @@ function LogSignIn() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState();
 
-  const handleClose = () => setShowModal(false);
+  const handleClose = () => {
+    setShowModal(false);
+    setMessage("");
+  };
   const handleShow = (login) => {
     setIsLogin(login);
     setShowModal(true);
@@ -43,11 +46,11 @@ function LogSignIn() {
         console.log(response.data.message);
         setUserName(response.data.userName);
         setCreds(false);
-        setMessage("You successfully logged in!"); // Set the successful login message
+        setMessage("You successfully logged in!");
       })
       .catch((error) => {
         console.log(error);
-        setMessage("Failed to log in. Please check your credentials."); // Set the login failure message
+        setMessage("Failed to log in. Please check your credentials.");
       });
   }
 
@@ -58,14 +61,14 @@ function LogSignIn() {
       .then((response) => {
         console.log(response.data.message);
         setUserName(response.data.userName);
-        setCreds(false);
-        setMessage("You successfully registered!"); // Set the successful registration message
+        // setCreds(false);
+        setMessage("You successfully registered!");
       })
       .catch((error) => {
         console.log(error);
         setMessage(
           "Failed to register. Please check the information provided."
-        ); // Set the registration failure message
+        ); // Se
       });
   };
 
