@@ -61,14 +61,13 @@ function LogSignIn() {
       .then((response) => {
         console.log(response.data.message);
         setUserName(response.data.userName);
-        // setCreds(false);
         setMessage("You successfully registered!");
       })
       .catch((error) => {
         console.log(error);
         setMessage(
           "Failed to register. Please check the information provided."
-        ); // Se
+        );
       });
   };
 
