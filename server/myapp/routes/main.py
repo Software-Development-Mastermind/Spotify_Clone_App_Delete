@@ -15,7 +15,6 @@ CORS(app, origins=["https://leafy-bunny-e2898f.netlify.app"])
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Database connection settings (modify to match your setup)
 DATABASE_CONFIG = {
     'dbname': 'NewDB',
     'user': 'postgres',
