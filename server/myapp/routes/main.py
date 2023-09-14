@@ -8,10 +8,15 @@ import logging
 import time
 import psycopg2
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_cors import CORS
+from flask_cors import cross_origin
+from flask import send_from_directory
 
-app = Flask(__name__)
-CORS(app, origins=["https://leafy-bunny-e2898f.netlify.app"])
+app = Flask(__name__, static_folder='../client', static_url_path='https://leafy-bunny-e2898f.netlify.app')
+
+@app.route('/')
+@cross_origin()
+def serve():
+    return send_from_directory(app.static_folder, 'index.html')
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
