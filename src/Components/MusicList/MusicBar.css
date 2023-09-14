@@ -1,8 +1,7 @@
-:root {
-  --image-container: position: relative;
+.image-container {
+  position: relative;
   width: 100%;
   height: 100%;
-
 }
 
 @font-face {
@@ -17,7 +16,6 @@
   height: 100vh;
   width: 100%;
   flex-grow: 1;
-  
 }
 
 .word_layout {
@@ -99,7 +97,6 @@
 
 .card_body {
   margin-top: 61%;
-  
 }
 
 .card_layout_bgcolor:hover .overlay-image {
