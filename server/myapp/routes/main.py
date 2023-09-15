@@ -510,7 +510,7 @@ def get_random_artists_info():
 
     return random_artist_track_info
 
-@app.route("/register", methods=["POST"])
+@app.route('/register', methods=["POST"])
 def register():
     data = request.json
     hashed_password = generate_password_hash(data['password'], method='sha256')
@@ -528,7 +528,7 @@ def register():
         cur.close()
         conn.close()
 
-@app.route("/login", methods=["POST"])
+@app.route('/login', methods=["POST"])
 def login():
     data = request.json
     user_name_or_email = data.get('userName') or data.get('email')
