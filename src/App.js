@@ -1,3 +1,4 @@
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Components/Singup_login/Login.css";
 import "./Components/SideBar/SideBar.css";
