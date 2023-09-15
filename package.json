@@ -44,5 +44,10 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://simple-spotify.onrender.com"
+  "proxy": "https://simple-spotify.onrender.com",
+  "devDependencies": {
+    "@babel/cli": "^7.22.15",
+    "@babel/core": "^7.22.19",
+    "@babel/preset-env": "^7.22.15"
+  }
 }
